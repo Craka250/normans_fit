@@ -1,0 +1,464 @@
+/* =========================================================
+   VYRON FITNESS
+   RESPONSIVE SYSTEM
+========================================================= */
+
+
+/* =========================================================
+   LARGE TABLET / SMALL LAPTOP
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    :root {
+        --container-padding: 4vw;
+    }
+
+    .desktop-nav {
+        gap: 17px;
+    }
+
+    .nav-actions {
+        gap: 10px;
+    }
+
+    .login-link {
+        display: none;
+    }
+
+    .hero-container {
+        grid-template-columns: 0.9fr 1.1fr;
+    }
+
+    .hero-title {
+        font-size: clamp(75px, 10vw, 125px);
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .desktop-nav {
+        display: none;
+    }
+
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    .hero-container {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-content {
+        padding-top: 90px;
+        padding-bottom: 0;
+    }
+
+    .hero-visual {
+        min-height: 500px;
+    }
+
+    .hero-image-frame {
+        height: 520px;
+    }
+
+    .hero-bottom {
+        display: none;
+    }
+
+    .section-header {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .intro-grid,
+    .nutrition-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .nutrition-content {
+        max-width: 700px;
+    }
+
+    .footer-main {
+        grid-template-columns: 1.5fr 1fr 1fr;
+    }
+
+    .footer-column:last-child {
+        grid-column: 2;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    :root {
+        --container-padding: 20px;
+        --header-height: 72px;
+    }
+
+    .nav-container {
+        height: var(--header-height);
+    }
+
+    .nav-cta {
+        display: none;
+    }
+
+    .theme-toggle {
+        width: 34px;
+        height: 34px;
+    }
+
+    .brand-name {
+        font-size: 22px;
+    }
+
+    .hero-section {
+        min-height: auto;
+
+        padding-top: var(--header-height);
+    }
+
+    .hero-container {
+        min-height: auto;
+
+        display: flex;
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .hero-content {
+        padding-top: 70px;
+    }
+
+    .eyebrow {
+        font-size: 7px;
+    }
+
+    .hero-title {
+        font-size: clamp(75px, 23vw, 120px);
+        line-height: 0.76;
+    }
+
+    .hero-description {
+        margin-top: 35px;
+
+        font-size: 13px;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+
+    .hero-visual {
+        min-height: 420px;
+        margin-top: -10px;
+    }
+
+    .hero-image-frame {
+        height: 440px;
+    }
+
+    .hero-float-top {
+        top: 12%;
+        right: 0;
+    }
+
+    .hero-float-bottom {
+        left: 0;
+        bottom: 12%;
+    }
+
+    .hero-vertical-label {
+        display: none;
+    }
+
+
+    /* -----------------------------------------------------
+       STATS
+    ----------------------------------------------------- */
+
+    .stats-section {
+        padding-block: 0;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stat-item {
+        padding: 25px 15px;
+
+        border-right: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+    }
+
+    .stat-item:nth-child(2) {
+        border-right: 0;
+    }
+
+    .stat-item:nth-child(3) {
+        padding-left: 15px;
+    }
+
+    .stat-item:nth-child(3),
+    .stat-item:nth-child(4) {
+        border-bottom: 0;
+    }
+
+    .stat-number {
+        font-size: 55px;
+    }
+
+
+    /* -----------------------------------------------------
+       GENERAL
+    ----------------------------------------------------- */
+
+    .section {
+        padding-block: 85px;
+    }
+
+    .section-header {
+        margin-bottom: 45px;
+    }
+
+    .section-title {
+        font-size: clamp(58px, 17vw, 90px);
+    }
+
+
+    /* -----------------------------------------------------
+       INTRO
+    ----------------------------------------------------- */
+
+    .intro-grid {
+        gap: 45px;
+    }
+
+    .intro-values {
+        margin-top: 40px;
+    }
+
+    .intro-values strong {
+        font-size: 7px;
+    }
+
+
+    /* -----------------------------------------------------
+       PROGRAMS
+    ----------------------------------------------------- */
+
+    .program-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .program-card,
+    .program-card-large {
+        min-height: 420px;
+    }
+
+
+    /* -----------------------------------------------------
+       TRAINERS
+    ----------------------------------------------------- */
+
+    .trainer-grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    .trainer-offset {
+        margin-top: 0;
+    }
+
+
+    /* -----------------------------------------------------
+       MEMBERSHIP
+    ----------------------------------------------------- */
+
+    .membership-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .membership-card {
+        min-height: 500px;
+    }
+
+
+    /* -----------------------------------------------------
+       NUTRITION
+    ----------------------------------------------------- */
+
+    .nutrition-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .nutrition-card {
+        min-height: 280px;
+    }
+
+    .nutrition-card > i {
+        margin-top: 35px;
+    }
+
+
+    /* -----------------------------------------------------
+       TESTIMONIAL
+    ----------------------------------------------------- */
+
+    .testimonial-layout blockquote {
+        font-size: clamp(43px, 13vw, 70px);
+    }
+
+
+    /* -----------------------------------------------------
+       GALLERY
+    ----------------------------------------------------- */
+
+    .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+
+        grid-auto-rows: 190px;
+    }
+
+    .gallery-large {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+
+    .gallery-wide {
+        grid-column: span 2;
+    }
+
+
+    /* -----------------------------------------------------
+       CTA
+    ----------------------------------------------------- */
+
+    .final-cta-content h2 {
+        font-size: clamp(70px, 18vw, 120px);
+    }
+
+    .cta-actions {
+        flex-direction: column;
+    }
+
+    .cta-actions .btn {
+        width: 100%;
+    }
+
+
+    /* -----------------------------------------------------
+       FOOTER
+    ----------------------------------------------------- */
+
+    .footer-main {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 45px;
+    }
+
+    .footer-brand {
+        grid-column: span 2;
+    }
+
+    .footer-column:last-child {
+        grid-column: auto;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 430px) {
+
+    .hero-title {
+        font-size: 72px;
+    }
+
+    .hero-visual {
+        min-height: 370px;
+    }
+
+    .hero-image-frame {
+        height: 380px;
+    }
+
+    .hero-float-card {
+        transform: scale(0.85);
+    }
+
+    .hero-float-top {
+        right: -5px;
+    }
+
+    .hero-float-bottom {
+        left: -5px;
+    }
+
+    .membership-card {
+        padding: 25px;
+    }
+
+    .membership-price strong {
+        font-size: 85px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-large,
+    .gallery-wide {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+}

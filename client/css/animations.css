@@ -1,0 +1,104 @@
+/* =========================================================
+   VYRON FITNESS
+   ANIMATIONS
+========================================================= */
+
+.reveal {
+    opacity: 0;
+
+    transform: translateY(35px);
+
+    transition:
+        opacity 800ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-left {
+    opacity: 0;
+
+    transform: translateX(-45px);
+
+    transition:
+        opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-right {
+    opacity: 0;
+
+    transform: translateX(45px);
+
+    transition:
+        opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.visible,
+.reveal-left.visible,
+.reveal-right.visible {
+    opacity: 1;
+
+    transform: translate(0);
+}
+
+
+/* =========================================================
+   FLOATING ELEMENT
+========================================================= */
+
+@keyframes floatCard {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.hero-content {
+    animation:
+        heroContentIn 900ms 250ms both
+        cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-visual {
+    animation:
+        heroVisualIn 1100ms 400ms both
+        cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes heroContentIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+@keyframes heroVisualIn {
+
+    from {
+        opacity: 0;
+        transform: translateX(60px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+
+}

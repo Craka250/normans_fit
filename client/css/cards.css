@@ -1,0 +1,156 @@
+/* =========================================================
+   VYRON FITNESS
+   CARD SYSTEM
+========================================================= */
+
+.program-card,
+.trainer-card,
+.membership-card,
+.nutrition-card {
+    will-change: transform;
+}
+
+
+/* =========================================================
+   PROGRAM CARDS
+========================================================= */
+
+.program-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 14px;
+}
+
+.program-card {
+    position: relative;
+
+    min-height: 390px;
+
+    overflow: hidden;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    transition:
+        border-color var(--transition),
+        transform var(--transition);
+}
+
+.program-card-large {
+    min-height: 520px;
+}
+
+.program-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-5px);
+}
+
+.program-image {
+    position: absolute;
+    inset: 0;
+}
+
+.program-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.program-card:hover .program-image img {
+    transform: scale(1.06);
+}
+
+.program-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.9),
+            rgba(0, 0, 0, 0.05) 75%
+        );
+}
+
+.program-content {
+    position: absolute;
+    inset: auto 0 0;
+
+    z-index: 2;
+
+    display: grid;
+    grid-template-columns: 45px 1fr 50px;
+    gap: 15px;
+
+    align-items: end;
+
+    padding: 25px;
+}
+
+.program-number {
+    align-self: start;
+
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+    font-size: 9px;
+}
+
+.program-category {
+    color: rgba(255, 255, 255, 0.6);
+
+    font-family: var(--font-mono);
+    font-size: 8px;
+
+    letter-spacing: 0.12em;
+}
+
+.program-content h3 {
+    margin-top: 8px;
+
+    color: #fff;
+
+    font-family: var(--font-display);
+    font-size: clamp(38px, 4vw, 60px);
+
+    line-height: 0.82;
+}
+
+.program-content h3 span {
+    color: var(--accent);
+}
+
+.program-content p {
+    max-width: 400px;
+
+    margin-top: 12px;
+
+    color: rgba(255, 255, 255, 0.65);
+
+    font-size: 11px;
+}
+
+.program-link {
+    display: grid;
+    place-items: center;
+
+    width: 45px;
+    height: 45px;
+
+    background: var(--accent);
+    color: #080A0A;
+
+    transition:
+        transform var(--transition);
+}
+
+.program-link:hover {
+    transform: rotate(45deg);
+}

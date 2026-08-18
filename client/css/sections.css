@@ -1,0 +1,871 @@
+/* =========================================================
+   VYRON FITNESS
+   GENERAL SECTIONS
+========================================================= */
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats-section {
+    position: relative;
+
+    padding-block: 35px;
+
+    background: var(--surface);
+
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.stat-item {
+    padding: 25px 35px;
+
+    border-right: 1px solid var(--border);
+}
+
+.stat-item:first-child {
+    padding-left: 0;
+}
+
+.stat-item:last-child {
+    border-right: 0;
+}
+
+.stat-number {
+    display: block;
+
+    font-family: var(--display);
+    font-family: var(--font-display);
+
+    font-size: clamp(55px, 5vw, 78px);
+
+    line-height: 0.8;
+}
+
+.stat-small {
+    font-size: 0.5em;
+}
+
+.stat-label {
+    display: block;
+
+    margin-top: 15px;
+
+    color: var(--text-muted);
+
+    font-family: var(--font-mono);
+    font-size: 8px;
+
+    letter-spacing: 0.12em;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.intro-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(50px, 8vw, 130px);
+
+    align-items: center;
+}
+
+.intro-image-wrapper {
+    position: relative;
+
+    aspect-ratio: 4 / 5;
+
+    overflow: hidden;
+}
+
+.intro-image-wrapper img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.intro-image-wrapper:hover img {
+    transform: scale(1.05);
+}
+
+.image-number {
+    position: absolute;
+
+    top: 20px;
+    left: 20px;
+
+    padding: 8px 12px;
+
+    background: var(--accent);
+    color: #080A0A;
+
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.intro-lead {
+    font-size: clamp(21px, 2vw, 30px);
+    line-height: 1.45;
+
+    color: var(--text-primary);
+}
+
+.intro-content > p:not(.intro-lead) {
+    max-width: 520px;
+
+    margin-top: 25px;
+
+    color: var(--text-secondary);
+
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.intro-values {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    margin-top: 55px;
+
+    border-top: 1px solid var(--border);
+}
+
+.intro-values div {
+    padding: 18px 12px 0 0;
+}
+
+.intro-values span {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+    font-size: 9px;
+}
+
+.intro-values strong {
+    font-family: var(--font-mono);
+    font-size: 9px;
+
+    letter-spacing: 0.06em;
+}
+
+
+/* =========================================================
+   TRAINERS
+========================================================= */
+
+.trainer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.trainer-card {
+    position: relative;
+}
+
+.trainer-offset {
+    margin-top: 70px;
+}
+
+.trainer-image {
+    position: relative;
+
+    aspect-ratio: 4 / 5;
+
+    overflow: hidden;
+
+    background: var(--surface);
+}
+
+.trainer-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    filter: grayscale(0.15);
+
+    transition:
+        transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 500ms ease;
+}
+
+.trainer-card:hover .trainer-image img {
+    transform: scale(1.05);
+    filter: grayscale(0);
+}
+
+.trainer-overlay {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+
+    padding: 18px;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.5),
+            transparent 45%
+        );
+
+    opacity: 0;
+
+    transition:
+        opacity var(--transition);
+}
+
+.trainer-card:hover .trainer-overlay {
+    opacity: 1;
+}
+
+.trainer-overlay a {
+    display: grid;
+    place-items: center;
+
+    width: 48px;
+    height: 48px;
+
+    background: var(--accent);
+
+    color: #080A0A;
+}
+
+.trainer-info {
+    padding-top: 17px;
+}
+
+.trainer-info span {
+    color: var(--text-muted);
+
+    font-family: var(--font-mono);
+    font-size: 8px;
+
+    letter-spacing: 0.1em;
+}
+
+.trainer-info h3 {
+    margin-top: 7px;
+
+    font-family: var(--font-display);
+    font-size: 38px;
+
+    line-height: 0.9;
+}
+
+
+/* =========================================================
+   MEMBERSHIP
+========================================================= */
+
+.membership-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.membership-card {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 35px;
+
+    min-height: 560px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    transition:
+        transform var(--transition),
+        border-color var(--transition);
+}
+
+.membership-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent);
+}
+
+.membership-featured {
+    border-color: var(--accent);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(200, 255, 61, 0.08),
+            transparent 55%
+        ),
+        var(--surface);
+}
+
+.popular-badge {
+    position: absolute;
+
+    top: 0;
+    right: 25px;
+
+    padding: 8px 12px;
+
+    background: var(--accent);
+    color: #080A0A;
+
+    font-family: var(--font-mono);
+    font-size: 7px;
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+}
+
+.membership-top {
+    display: flex;
+    justify-content: space-between;
+
+    padding-bottom: 25px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.membership-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 0.1em;
+}
+
+.membership-number {
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+    font-size: 9px;
+}
+
+.membership-price {
+    display: flex;
+    align-items: baseline;
+
+    margin-top: 40px;
+}
+
+.membership-price strong {
+    font-family: var(--font-display);
+    font-size: 100px;
+    font-weight: 400;
+
+    line-height: 0.8;
+}
+
+.membership-price .currency {
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+    font-size: 18px;
+}
+
+.membership-price > span:last-child {
+    color: var(--text-muted);
+
+    font-family: var(--font-mono);
+    font-size: 9px;
+}
+
+.membership-card > p {
+    margin-top: 25px;
+
+    color: var(--text-secondary);
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.membership-card ul {
+    margin-top: 30px;
+}
+
+.membership-card li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding-block: 8px;
+
+    color: var(--text-secondary);
+
+    font-size: 12px;
+}
+
+.membership-card li i {
+    color: var(--accent);
+    font-size: 10px;
+}
+
+.membership-button {
+    width: 100%;
+
+    margin-top: auto;
+}
+
+
+/* =========================================================
+   NUTRITION
+========================================================= */
+
+.nutrition-layout {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: clamp(50px, 8vw, 130px);
+
+    align-items: center;
+}
+
+.nutrition-content > p {
+    max-width: 500px;
+
+    margin-top: 30px;
+
+    color: var(--text-secondary);
+
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.nutrition-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.nutrition-card {
+    min-height: 340px;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 25px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    transition:
+        transform var(--transition),
+        border-color var(--transition);
+}
+
+.nutrition-card:hover {
+    transform: translateY(-7px);
+    border-color: var(--accent);
+}
+
+.nutrition-card > span {
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+    font-size: 9px;
+}
+
+.nutrition-card > i {
+    margin-top: 55px;
+
+    color: var(--accent);
+
+    font-size: 22px;
+}
+
+.nutrition-card h3 {
+    margin-top: 18px;
+
+    font-family: var(--font-display);
+    font-size: 32px;
+
+    line-height: 0.9;
+}
+
+.nutrition-card p {
+    margin-top: 12px;
+
+    color: var(--text-secondary);
+
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.nutrition-card a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: auto;
+
+    color: var(--text-primary);
+
+    font-family: var(--font-mono);
+    font-size: 8px;
+    text-transform: uppercase;
+}
+
+.nutrition-card a i {
+    color: var(--accent);
+}
+
+
+/* =========================================================
+   TESTIMONIAL
+========================================================= */
+
+.testimonial-section {
+    overflow: hidden;
+}
+
+.testimonial-layout {
+    position: relative;
+
+    max-width: 1050px;
+
+    margin-inline: auto;
+
+    text-align: center;
+}
+
+.quote-mark {
+    display: block;
+
+    height: 70px;
+
+    color: var(--accent);
+
+    font-family: Georgia, serif;
+    font-size: 120px;
+
+    line-height: 0.8;
+}
+
+.testimonial-layout blockquote {
+    font-family: var(--font-display);
+    font-size: clamp(45px, 6vw, 90px);
+
+    line-height: 0.9;
+    text-transform: uppercase;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    margin-top: 40px;
+}
+
+.author-line {
+    width: 35px;
+    height: 1px;
+
+    background: var(--accent);
+}
+
+.testimonial-author strong {
+    display: block;
+
+    font-family: var(--font-mono);
+    font-size: 10px;
+}
+
+.testimonial-author span {
+    display: block;
+
+    margin-top: 4px;
+
+    color: var(--text-muted);
+
+    font-family: var(--font-mono);
+    font-size: 7px;
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.gallery-grid {
+    display: grid;
+
+    grid-template-columns:
+        1.3fr
+        0.7fr
+        0.7fr;
+
+    grid-auto-rows: 270px;
+
+    gap: 12px;
+}
+
+.gallery-item {
+    position: relative;
+
+    overflow: hidden;
+
+    background: var(--surface);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.06);
+}
+
+.gallery-item::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.55),
+            transparent 55%
+        );
+
+    pointer-events: none;
+}
+
+.gallery-item span {
+    position: absolute;
+
+    left: 18px;
+    bottom: 18px;
+
+    z-index: 2;
+
+    color: #fff;
+
+    font-family: var(--font-mono);
+    font-size: 8px;
+
+    letter-spacing: 0.12em;
+}
+
+.gallery-large {
+    grid-row: span 2;
+}
+
+.gallery-wide {
+    grid-column: span 2;
+}
+
+
+/* =========================================================
+   FINAL CTA
+========================================================= */
+
+.final-cta-section {
+    position: relative;
+
+    padding-block: clamp(120px, 15vw, 220px);
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(200, 255, 61, 0.12),
+            transparent 35%
+        ),
+        #080A0A;
+
+    color: #ffffff;
+}
+
+.cta-glow {
+    position: absolute;
+
+    width: 450px;
+    height: 450px;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background: var(--accent);
+
+    opacity: 0.04;
+
+    filter: blur(130px);
+}
+
+.final-cta-content {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 1000px;
+
+    text-align: center;
+
+    margin-inline: auto;
+}
+
+.final-cta-content .section-index {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.final-cta-content h2 {
+    margin-top: 35px;
+
+    font-family: var(--font-display);
+    font-size: clamp(70px, 11vw, 160px);
+
+    line-height: 0.78;
+
+    text-transform: uppercase;
+}
+
+.final-cta-content h2 span {
+    color: var(--accent);
+}
+
+.final-cta-content p {
+    max-width: 550px;
+
+    margin: 35px auto 0;
+
+    color: rgba(255, 255, 255, 0.6);
+
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.cta-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin-top: 35px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.site-footer {
+    padding-top: 80px;
+
+    background: var(--bg-primary);
+
+    border-top: 1px solid var(--border);
+}
+
+.footer-main {
+    display: grid;
+    grid-template-columns: 2fr repeat(3, 1fr);
+    gap: 50px;
+
+    padding-bottom: 80px;
+}
+
+.footer-brand p {
+    margin-top: 25px;
+
+    color: var(--text-muted);
+
+    font-family: var(--font-mono);
+    font-size: 9px;
+
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.footer-column > span {
+    margin-bottom: 8px;
+
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+}
+
+.footer-column a {
+    width: fit-content;
+
+    color: var(--text-secondary);
+
+    font-size: 12px;
+
+    transition:
+        color var(--transition);
+}
+
+.footer-column a:hover {
+    color: var(--accent);
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+
+    padding-block: 22px;
+
+    border-top: 1px solid var(--border);
+
+    color: var(--text-muted);
+
+    font-family: var(--font-mono);
+    font-size: 7px;
+
+    letter-spacing: 0.08em;
+}
+
+.footer-bottom div {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-bottom a:hover {
+    color: var(--accent);
+}

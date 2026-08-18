@@ -1,0 +1,299 @@
+/* =========================================================
+   VYRON FITNESS
+   GLOBAL STYLES
+========================================================= */
+
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+
+    transition:
+        background-color 350ms ease,
+        color 350ms ease;
+}
+
+
+/* =========================================================
+   DARK SECTIONS
+========================================================= */
+
+.section-dark {
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(200, 255, 61, 0.035),
+            transparent 30%
+        ),
+        var(--bg-secondary);
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    min-height: 48px;
+
+    padding: 0 22px;
+
+    border: 1px solid transparent;
+
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    transition:
+        transform var(--transition),
+        background-color var(--transition),
+        color var(--transition),
+        border-color var(--transition);
+
+    overflow: hidden;
+}
+
+.btn i {
+    font-size: 11px;
+
+    transition:
+        transform var(--transition);
+}
+
+.btn:hover i {
+    transform: translateX(4px);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #080A0A;
+}
+
+.btn-primary:hover {
+    background: var(--text-primary);
+    color: var(--bg-primary);
+}
+
+.btn-outline {
+    border-color: var(--border);
+    color: var(--text-primary);
+    background: transparent;
+}
+
+.btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.btn-light-outline {
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #ffffff;
+}
+
+.btn-light-outline:hover {
+    background: #ffffff;
+    color: #080A0A;
+}
+
+.btn-large {
+    min-height: 56px;
+    padding-inline: 28px;
+}
+
+
+/* =========================================================
+   SECTION HEADERS
+========================================================= */
+
+.section-index {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.13em;
+
+    color: var(--text-muted);
+}
+
+.section-index::before {
+    content: "";
+
+    width: 25px;
+    height: 1px;
+
+    background: var(--accent);
+}
+
+.section-header {
+    display: grid;
+    grid-template-columns: 0.7fr 1.3fr;
+    gap: 60px;
+
+    margin-bottom: 70px;
+}
+
+.section-title {
+    max-width: 900px;
+
+    font-family: var(--font-display);
+    font-size: clamp(52px, 7vw, 108px);
+    font-weight: 400;
+
+    line-height: 0.88;
+    letter-spacing: -0.015em;
+
+    text-transform: uppercase;
+}
+
+.section-title span {
+    color: var(--accent);
+}
+
+.section-description {
+    max-width: 540px;
+
+    margin-top: 25px;
+
+    color: var(--text-secondary);
+
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   TEXT LINK
+========================================================= */
+
+.text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-top: 30px;
+
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+
+    color: var(--text-primary);
+
+    transition:
+        color var(--transition);
+}
+
+.text-link i {
+    color: var(--accent);
+
+    transition:
+        transform var(--transition);
+}
+
+.text-link:hover {
+    color: var(--accent);
+}
+
+.text-link:hover i {
+    transform: translateX(5px);
+}
+
+
+/* =========================================================
+   SECTION ACTION
+========================================================= */
+
+.section-action {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 65px;
+}
+
+
+/* =========================================================
+   PAGE LOADER
+========================================================= */
+
+.page-loader {
+    position: fixed;
+    inset: 0;
+
+    z-index: var(--z-loader);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--bg-primary);
+
+    transition:
+        opacity 600ms ease,
+        visibility 600ms ease;
+}
+
+.page-loader.loaded {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-logo {
+    font-family: var(--font-display);
+    font-size: 80px;
+    letter-spacing: 0.05em;
+}
+
+.loader-line {
+    width: 130px;
+    height: 2px;
+
+    margin-top: 15px;
+
+    background: var(--border);
+
+    overflow: hidden;
+}
+
+.loader-line span {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    background: var(--accent);
+
+    transform: translateX(-100%);
+
+    animation: loaderProgress 1.4s ease forwards;
+}
+
+
+@keyframes loaderProgress {
+
+    to {
+        transform: translateX(0);
+    }
+
+}
