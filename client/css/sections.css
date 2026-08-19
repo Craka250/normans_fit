@@ -467,7 +467,6 @@
 ========================================================= */
 
 .trainer-overlay {
-
     position: absolute;
 
     top: 18px;
@@ -476,7 +475,6 @@
     z-index: 6;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
@@ -487,9 +485,6 @@
     opacity: 1;
 
     pointer-events: none;
-
-    transition:
-        transform var(--transition);
 }
 
 
@@ -498,83 +493,47 @@
 ========================================================= */
 
 .trainer-overlay a {
-
     display: grid;
-
     place-items: center;
 
     width: 48px;
     height: 48px;
 
     background: var(--accent);
-
     color: #080A0A;
 
-    border: 1px solid
-        rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.18);
 
     box-shadow:
-        0 10px 25px
-        rgba(0, 0, 0, 0.22);
+        0 10px 25px rgba(0, 0, 0, 0.22);
 
     pointer-events: auto;
 
     transition:
-        transform var(--transition),
-        background var(--transition),
-        color var(--transition),
-        box-shadow var(--transition);
+        transform 0.35s ease,
+        background 0.35s ease,
+        color 0.35s ease,
+        box-shadow 0.35s ease;
 }
 
 
 /* =========================================================
    PROFILE BUTTON HOVER
+   ROTATES 45 DEGREES
 ========================================================= */
 
 .trainer-overlay a:hover {
 
     transform:
         translateY(-3px)
-        rotate(2deg);
+        rotate(45deg);
 
     background: #FFFFFF;
 
     color: #080A0A;
 
     box-shadow:
-        0 14px 32px
-        rgba(0, 0, 0, 0.30);
-}
-
-/* =========================================================
-   PROFILE BUTTON
-========================================================= */
-
-.trainer-overlay a {
-
-    display: grid;
-
-    place-items: center;
-
-    width: 48px;
-    height: 48px;
-
-    background: var(--accent);
-
-    color: #080A0A;
-
-    transition:
-        transform var(--transition),
-        background var(--transition);
-}
-
-
-.trainer-overlay a:hover {
-
-    transform:
-        translateY(-3px);
-
-    background: #FFFFFF;
+        0 14px 32px rgba(0, 0, 0, 0.30);
 }
 
 
