@@ -194,6 +194,86 @@
     color: var(--accent);
 }
 
+/* =========================================================
+   HERO SUPPORTING COPY
+========================================================= */
+
+.hero-support-copy {
+
+    max-width: 520px;
+
+    margin-top: clamp(24px, 3vw, 38px);
+
+    position: relative;
+
+    z-index: 5;
+}
+
+
+/* =========================================================
+   SUPPORTING DESCRIPTION
+========================================================= */
+
+.hero-support-copy p {
+
+    margin: 0;
+
+    color: var(--text-secondary);
+
+    font-family: var(--font-body);
+
+    font-size: clamp(13px, 1.1vw, 15px);
+
+    line-height: 1.75;
+
+    max-width: 500px;
+}
+
+
+/* =========================================================
+   SUPPORTING META
+========================================================= */
+
+.hero-support-meta {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 22px;
+
+    color: var(--text-muted);
+
+    font-family: var(--font-mono);
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.14em;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   META DIVIDERS
+========================================================= */
+
+.meta-divider {
+
+    width: 22px;
+
+    height: 1px;
+
+    background: var(--accent);
+
+    opacity: 0.75;
+}
 
 /* =========================================================
    HERO DESCRIPTION

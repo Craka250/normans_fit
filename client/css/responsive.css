@@ -321,15 +321,6 @@
 
 
     /* -----------------------------------------------------
-       TESTIMONIAL
-    ----------------------------------------------------- */
-
-    .testimonial-layout blockquote {
-        font-size: clamp(43px, 13vw, 70px);
-    }
-
-
-    /* -----------------------------------------------------
        GALLERY
     ----------------------------------------------------- */
 
@@ -442,6 +433,143 @@
 
 }
 
+/* =========================================================
+   FINAL CTA — MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .final-cta-section {
+
+        padding-block:
+            65px
+    }
+
+
+    .cta-background-video {
+
+        opacity: 0.58;
+
+        filter:
+            saturate(0.85)
+            contrast(1.04)
+            brightness(0.88);
+    }
+
+
+    .cta-video-overlay {
+
+        background:
+            linear-gradient(
+                180deg,
+                var(--cta-overlay-strong) 0%,
+                var(--cta-overlay-soft) 50%,
+                var(--cta-overlay-strong) 100%
+            );
+    }
+
+
+    .cta-grid {
+
+        opacity: 0.07;
+
+        background-size: 42px 42px;
+    }
+
+
+    .cta-glow {
+
+        width: 260px;
+
+        height: 260px;
+
+        opacity: 0.018;
+
+        filter: blur(90px);
+    }
+
+
+    .final-cta-content h2 {
+
+        font-size:
+            clamp(58px, 15vw, 100px);
+
+        line-height: 0.82;
+    }
+
+
+    .final-cta-content p {
+
+        max-width: 90%;
+
+        font-size: 13px;
+
+        line-height: 1.7;
+    }
+
+
+    .cta-actions {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        width: min(
+            100%,
+            360px
+        );
+
+        margin-inline: auto;
+    }
+
+
+    .cta-actions .btn {
+
+        width: 100%;
+
+        justify-content: center;
+    }
+}
+
+/* =========================================================
+   FINAL CTA — SMALL PHONES
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .final-cta-section {
+
+        padding-block: 58px;
+    }
+
+
+    .cta-background-video {
+
+        opacity: 0.50;
+    }
+
+
+    .final-cta-content h2 {
+
+        font-size:
+            clamp(52px, 16vw, 78px);
+
+        line-height: 0.84;
+    }
+
+
+    .final-cta-content p {
+
+        font-size: 12px;
+    }
+
+
+    .cta-grid {
+
+        background-size: 34px 34px;
+        opacity: 0.06;
+    }
+}
 
 /* =========================================================
    REDUCED MOTION
@@ -461,4 +589,41 @@
         transition-duration: 0.01ms !important;
     }
 
+}
+
+/* =========================================================
+   ACCESSIBILITY — REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .cta-background-video {
+
+        display: none;
+    }
+
+
+    .cta-video-wrapper {
+
+        background:
+            var(--cta-bg);
+    }
+
+
+    .cta-glow {
+
+        animation: none;
+    }
+
+
+    .final-cta-section .btn {
+
+        transition: none;
+    }
+
+
+    .final-cta-section * {
+
+        scroll-behavior: auto;
+    }
 }

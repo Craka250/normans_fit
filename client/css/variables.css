@@ -27,6 +27,13 @@
     --success: #65D391;
     --danger: #FF5C5C;
 
+    --cta-bg: #080A0A;
+    --cta-grid-color:
+        rgba(255, 255, 255, 0.08);
+
+    --cta-overlay-strong: rgba(8, 10, 10, 0.9);
+    --cta-overlay-soft: rgba(8, 10, 10, 0.6);
+
 
     /* -----------------------------------------------------
        TYPOGRAPHY
@@ -111,6 +118,15 @@
 
     --success: #218A4D;
     --danger: #D64242;
+
+     --cta-bg: #f4f5f1;
+    --cta-grid-color:
+        rgba(0, 0, 0, 0.08);
+
+    --cta-overlay-strong :   
+        rgba(244, 245, 241, 0.90);
+    --cta-overlay-soft :   
+        rgba(244, 245, 241, 0.60); 
 }
 
 
