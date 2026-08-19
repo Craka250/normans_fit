@@ -166,26 +166,41 @@
     letter-spacing: 0.06em;
 }
 
-
 /* =========================================================
    TRAINERS
 ========================================================= */
 
 .trainer-grid {
+
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
     gap: 25px;
 }
 
+
 .trainer-card {
+
     position: relative;
+
+    min-width: 0;
 }
 
+
 .trainer-offset {
+
     margin-top: 70px;
 }
 
+
+/* =========================================================
+   TRAINER IMAGE
+========================================================= */
+
 .trainer-image {
+
     position: relative;
 
     aspect-ratio: 4 / 5;
@@ -193,55 +208,299 @@
     overflow: hidden;
 
     background: var(--surface);
+
+    isolation: isolate;
 }
 
+
 .trainer-image img {
+
     width: 100%;
     height: 100%;
 
     object-fit: cover;
 
-    filter: grayscale(0.15);
+    filter:
+        grayscale(0.15)
+        saturate(0.95);
 
     transition:
-        transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 1s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
         filter 500ms ease;
 }
 
+
 .trainer-card:hover .trainer-image img {
-    transform: scale(1.05);
-    filter: grayscale(0);
+
+    transform: scale(1.045);
+
+    filter:
+        grayscale(0)
+        saturate(1);
 }
 
-.trainer-overlay {
+
+/* =========================================================
+   IMAGE INFORMATION BACKDROP
+========================================================= */
+
+.trainer-image::after {
+
+    content: "";
+
     position: absolute;
-    inset: 0;
 
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
+    inset: 35% 0 0;
 
-    padding: 18px;
+    z-index: 1;
+
+    pointer-events: none;
 
     background:
         linear-gradient(
-            to top,
-            rgba(0, 0, 0, 0.5),
-            transparent 45%
+            to bottom,
+            transparent 0%,
+            rgba(0, 0, 0, 0.10) 20%,
+            rgba(0, 0, 0, 0.72) 72%,
+            rgba(0, 0, 0, 0.92) 100%
+        );
+}
+
+
+/* =========================================================
+   IMAGE INFORMATION
+========================================================= */
+
+.trainer-image-info {
+
+    position: absolute;
+
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+
+    z-index: 3;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 18px;
+}
+
+
+/* =========================================================
+   SPECIALIZATION
+========================================================= */
+
+.trainer-specialization {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.trainer-info-label {
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.55
         );
 
-    opacity: 0;
+    font-family: var(--font-mono);
+
+    font-size: 7px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.14em;
+
+    text-transform: uppercase;
+}
+
+
+.trainer-specialization strong {
+
+    display: block;
+
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    line-height: 1.35;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   EXPERIENCE
+========================================================= */
+
+.trainer-experience {
+
+    flex-shrink: 0;
+
+    min-width: 75px;
+
+    padding-left: 14px;
+
+    border-left:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.25
+        );
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.trainer-experience strong {
+
+    color: #FFFFFF;
+
+    font-family: var(--font-display);
+
+    font-size: 24px;
+
+    font-weight: 400;
+
+    line-height: 0.9;
+
+    letter-spacing: 0.02em;
+}
+
+
+/* =========================================================
+   NAME INSIDE IMAGE
+========================================================= */
+
+.trainer-image-name {
+
+    position: absolute;
+
+    top: 20px;
+
+    left: 20px;
+
+    z-index: 3;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.trainer-image-name span {
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.6
+        );
+
+    font-family: var(--font-mono);
+
+    font-size: 7px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+
+    text-transform: uppercase;
+}
+
+
+.trainer-image-name strong {
+
+    color: #FFFFFF;
+
+    font-family: var(--font-display);
+
+    font-size: 24px;
+
+    font-weight: 400;
+
+    line-height: 0.9;
+
+    letter-spacing: 0.02em;
+
+    text-transform: uppercase;
+}
+
+/* =========================================================
+   TRAINER PROFILE ACTION
+   ALWAYS VISIBLE — TOP RIGHT
+========================================================= */
+
+.trainer-overlay {
+
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    z-index: 6;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    background: transparent;
+
+    opacity: 1;
+
+    pointer-events: none;
 
     transition:
-        opacity var(--transition);
+        transform var(--transition);
 }
 
-.trainer-card:hover .trainer-overlay {
-    opacity: 1;
-}
+
+/* =========================================================
+   PROFILE BUTTON
+========================================================= */
 
 .trainer-overlay a {
+
     display: grid;
+
     place-items: center;
 
     width: 48px;
@@ -250,30 +509,162 @@
     background: var(--accent);
 
     color: #080A0A;
+
+    border: 1px solid
+        rgba(255, 255, 255, 0.18);
+
+    box-shadow:
+        0 10px 25px
+        rgba(0, 0, 0, 0.22);
+
+    pointer-events: auto;
+
+    transition:
+        transform var(--transition),
+        background var(--transition),
+        color var(--transition),
+        box-shadow var(--transition);
 }
 
+
+/* =========================================================
+   PROFILE BUTTON HOVER
+========================================================= */
+
+.trainer-overlay a:hover {
+
+    transform:
+        translateY(-3px)
+        rotate(2deg);
+
+    background: #FFFFFF;
+
+    color: #080A0A;
+
+    box-shadow:
+        0 14px 32px
+        rgba(0, 0, 0, 0.30);
+}
+
+/* =========================================================
+   PROFILE BUTTON
+========================================================= */
+
+.trainer-overlay a {
+
+    display: grid;
+
+    place-items: center;
+
+    width: 48px;
+    height: 48px;
+
+    background: var(--accent);
+
+    color: #080A0A;
+
+    transition:
+        transform var(--transition),
+        background var(--transition);
+}
+
+
+.trainer-overlay a:hover {
+
+    transform:
+        translateY(-3px);
+
+    background: #FFFFFF;
+}
+
+
+/* =========================================================
+   INFORMATION BELOW IMAGE
+========================================================= */
+
 .trainer-info {
+
     padding-top: 17px;
 }
 
-.trainer-info span {
-    color: var(--text-muted);
+
+/* =========================================================
+   ROLE / EXPERIENCE LINE
+========================================================= */
+
+.trainer-role {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: var(--accent);
 
     font-family: var(--font-mono);
+
     font-size: 8px;
 
+    font-weight: 700;
+
+    line-height: 1.4;
+
     letter-spacing: 0.1em;
+
+    text-transform: uppercase;
 }
+
+
+.trainer-role-line {
+
+    width: 24px;
+
+    height: 1px;
+
+    flex-shrink: 0;
+
+    background: var(--border);
+}
+
+
+.trainer-role > span:last-child {
+
+    color: var(--text-muted);
+}
+
+
+/* =========================================================
+   TRAINER NAME
+========================================================= */
 
 .trainer-info h3 {
-    margin-top: 7px;
+
+    margin-top: 8px;
+
+    color: var(--text-primary);
 
     font-family: var(--font-display);
+
     font-size: 38px;
 
+    font-weight: 400;
+
     line-height: 0.9;
+
+    letter-spacing: -0.01em;
+
+    text-transform: uppercase;
+
+    transition:
+        color var(--transition);
 }
 
+
+.trainer-card:hover .trainer-info h3 {
+
+    color: var(--accent);
+}
 
 /* =========================================================
    MEMBERSHIP

@@ -289,7 +289,6 @@
         margin-top: 0;
     }
 
-
     /* -----------------------------------------------------
        MEMBERSHIP
     ----------------------------------------------------- */
@@ -382,6 +381,195 @@
 
 }
 
+@media (max-width: 650px) {
+
+    .program-content {
+
+        grid-template-columns:
+            32px 1fr 42px;
+
+        gap: 10px;
+
+        padding: 20px;
+    }
+
+
+    .program-content h3 {
+
+        font-size:
+            clamp(36px, 11vw, 52px);
+    }
+
+
+    .program-content p {
+
+        max-width: 100%;
+
+        font-size: 10px;
+
+        line-height: 1.6;
+    }
+
+
+    .program-meta {
+
+        gap: 7px;
+
+        margin-top: 13px;
+    }
+
+
+    .program-meta span {
+
+        padding: 6px 7px;
+
+        font-size: 6px;
+    }
+
+
+    .program-link {
+
+        width: 40px;
+
+        height: 40px;
+    }
+
+}
+
+/* =========================================================
+    TRAINERS — TABLET
+    ========================================================= */
+
+    @media (max-width: 1000px) {
+
+        .trainer-grid {
+
+            grid-template-columns:
+                repeat(2, 1fr);
+        }
+
+
+        .trainer-offset {
+
+            margin-top: 0;
+        }
+
+
+        .trainer-image-info {
+
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            z-index: 3;
+        }
+
+
+        .trainer-image-name {
+
+            top: 20px;
+            left: 20px;
+        }
+    }
+
+
+    /* =========================================================
+    TRAINERS — MOBILE
+    ========================================================= */
+
+    @media (max-width: 650px) {
+
+        .trainer-grid {
+
+            grid-template-columns: 1fr;
+
+            gap: 45px;
+        }
+
+
+        .trainer-offset {
+
+            margin-top: 0;
+        }
+
+
+        .trainer-image {
+
+            aspect-ratio: 4 / 5;
+        }
+
+
+        .trainer-image-info {
+
+            left: 18px;
+            right: 18px;
+            bottom: 18px;
+
+            gap: 12px;
+        }
+
+
+        .trainer-specialization strong {
+
+            font-size: 8px;
+        }
+
+
+        .trainer-experience {
+
+            min-width: 68px;
+
+            padding-left: 11px;
+        }
+
+
+        .trainer-experience strong {
+
+            font-size: 22px;
+        }
+
+
+        .trainer-image-name {
+
+            top: 18px;
+            left: 18px;
+        }
+
+
+        .trainer-image-name strong {
+
+            font-size: 22px;
+        }
+
+
+        .trainer-info h3 {
+
+            font-size: 34px;
+        }
+    }
+
+    @media (max-width: 650px) {
+
+        .trainer-overlay {
+
+            opacity: 1;
+
+            background: transparent;
+
+            pointer-events: none;
+            top: 14px;
+            right: 14px;
+        }
+
+
+        .trainer-overlay a {
+
+            pointer-events: auto;
+
+            width: 42px;
+            height: 42px;
+            font-size: 13px;
+        }
+    }
 
 /* =========================================================
    SMALL MOBILE

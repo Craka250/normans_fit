@@ -128,13 +128,110 @@
 }
 
 .program-content p {
-    max-width: 400px;
+
+    max-width: 450px;
 
     margin-top: 12px;
 
-    color: rgba(255, 255, 255, 0.65);
+    color:
+        rgba(255, 255, 255, 0.68);
+
+    font-family: var(--font-body);
 
     font-size: 11px;
+
+    line-height: 1.65;
+}
+
+/* =========================================================
+   PROGRAM DETAILS
+========================================================= */
+
+.program-details {
+
+    min-width: 0;
+}
+
+
+/* =========================================================
+   PROGRAM META
+========================================================= */
+
+.program-meta {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 16px;
+}
+
+
+/* =========================================================
+   META ITEM
+========================================================= */
+
+.program-meta span {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 7px 9px;
+
+    border: 1px solid
+        rgba(255, 255, 255, 0.18);
+
+    background:
+        rgba(0, 0, 0, 0.25);
+
+    color:
+        rgba(255, 255, 255, 0.72);
+
+    font-family: var(--font-mono);
+
+    font-size: 7px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.09em;
+
+    line-height: 1;
+
+    text-transform: uppercase;
+
+    backdrop-filter: blur(5px);
+}
+
+
+/* =========================================================
+   META ICON
+========================================================= */
+
+.program-meta i {
+
+    color: var(--accent);
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   META HOVER
+========================================================= */
+
+.program-card:hover .program-meta span {
+
+    border-color:
+        rgba(200, 255, 61, 0.35);
+
+    color: #FFFFFF;
 }
 
 .program-link {
