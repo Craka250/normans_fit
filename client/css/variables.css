@@ -34,6 +34,23 @@
     --cta-overlay-strong: rgba(8, 10, 10, 0.9);
     --cta-overlay-soft: rgba(8, 10, 10, 0.6);
 
+    --text-on-accent: #080A0A;
+
+    --overlay-dark: rgba(8, 10, 10, 0.90);
+    --overlay-soft: rgba(8, 10, 10, 0.60);
+
+    --grid-line: rgba(255, 255, 255, 0.035);
+
+    --card-bg: rgba(255, 255, 255, 0.025);
+    --input-bg: rgba(0, 0, 0, 0.25);
+
+    --text-on-dark: #F4F5F2;
+    --text-on-dark-soft: rgba(255, 255, 255, 0.68);
+    --text-on-dark-muted: rgba(255, 255, 255, 0.42);
+
+    --theme-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.18);
+
 
     /* -----------------------------------------------------
        TYPOGRAPHY
@@ -127,6 +144,23 @@
         rgba(244, 245, 241, 0.90);
     --cta-overlay-soft :   
         rgba(244, 245, 241, 0.60); 
+
+    --text-on-accent: #101311;
+
+    --overlay-dark: rgba(244, 245, 241, 0.90);
+    --overlay-soft: rgba(244, 245, 241, 0.60);
+
+    --grid-line: rgba(0, 0, 0, 0.055);
+
+    --card-bg: rgba(0, 0, 0, 0.025);
+    --input-bg: rgba(255, 255, 255, 0.70);
+
+    --text-on-dark: #101311;
+    --text-on-dark-soft: rgba(16, 19, 17, 0.68);
+    --text-on-dark-muted: rgba(16, 19, 17, 0.48);
+
+    --theme-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.10);    
 }
 
 

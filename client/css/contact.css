@@ -11,9 +11,13 @@
 
     overflow: hidden;
 
-    background: var(--dark, #080A0A);
-}
+    background: var(--bg-primary);
+    color: var(--text-primary);
 
+    transition:
+        background var(--transition),
+        color var(--transition);
+}
 
 .contact-hero-grid {
     position: absolute;
@@ -21,12 +25,12 @@
 
     background-image:
         linear-gradient(
-            rgba(255,255,255,0.035) 1px,
+            var(--grid-line) 1px,
             transparent 1px
         ),
         linear-gradient(
             90deg,
-            rgba(255,255,255,0.035) 1px,
+            var(--grid-line) 1px,
             transparent 1px
         );
 
@@ -37,6 +41,8 @@
         black,
         transparent
     );
+
+    pointer-events: none;
 }
 
 
@@ -61,7 +67,9 @@
 
     font-weight: 900;
 
-    color: #fff;
+    color: var(--text-primary);
+
+    transition: color var(--transition);
 }
 
 
@@ -77,7 +85,9 @@
 
     line-height: 1.8;
 
-    color: rgba(255,255,255,0.68);
+    color: var(--text-secondary);
+
+    transition: color var(--transition);
 }
 
 
@@ -85,11 +95,15 @@
 /* =========================================================
    CONTACT SECTION
 ========================================================= */
-
 .contact-section {
     padding: 100px 0;
 
-    background: var(--background, #0d0f0f);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+
+    transition:
+        background var(--transition),
+        color var(--transition);
 }
 
 
@@ -110,21 +124,20 @@
 /* =========================================================
    FORM CARD
 ========================================================= */
-
 .contact-form-card,
 .contact-info-card,
 .contact-map-card {
-    border: 1px solid
-        rgba(255,255,255,0.09);
+    border: 1px solid var(--border);
 
-    background:
-        rgba(255,255,255,0.025);
+    background: var(--card-bg);
 
-    box-shadow:
-        0 25px 70px
-        rgba(0,0,0,0.18);
+    box-shadow: var(--theme-shadow);
+
+    transition:
+        background var(--transition),
+        border-color var(--transition),
+        box-shadow var(--transition);
 }
-
 
 .contact-form-card {
     padding: clamp(25px, 4vw, 50px);
@@ -158,7 +171,7 @@
 
     line-height: 1;
 
-    color: #fff;
+    color: var(--text-primary);
 }
 
 
@@ -175,7 +188,7 @@
 
     line-height: 1.7;
 
-    color: rgba(255,255,255,0.6);
+    color: var(--text-secondary);
 }
 
 
@@ -209,7 +222,7 @@
 
     text-transform: uppercase;
 
-    color: rgba(255,255,255,0.82);
+    color: var(--text-primary);
 }
 
 
@@ -241,20 +254,17 @@
     pointer-events: none;
 }
 
-
 .input-wrapper input,
 .input-wrapper textarea {
     width: 100%;
 
-    border: 1px solid
-        rgba(255,255,255,0.11);
+    border: 1px solid var(--border);
 
     outline: none;
 
-    background:
-        rgba(0,0,0,0.25);
+    background: var(--input-bg);
 
-    color: #fff;
+    color: var(--text-primary);
 
     font-family: inherit;
 
@@ -263,9 +273,9 @@
     transition:
         border-color 0.25s ease,
         background 0.25s ease,
+        color 0.25s ease,
         box-shadow 0.25s ease;
 }
-
 
 .input-wrapper input {
     height: 58px;
@@ -287,7 +297,7 @@
 
 .input-wrapper input::placeholder,
 .input-wrapper textarea::placeholder {
-    color: rgba(255,255,255,0.32);
+    color: var(--text-muted);
 }
 
 
@@ -295,12 +305,11 @@
 .input-wrapper textarea:focus {
     border-color: var(--accent);
 
-    background:
-        rgba(255,255,255,0.045);
+    background: var(--surface-elevated);
 
     box-shadow:
         0 0 0 3px
-        rgba(241,196,15,0.08);
+        color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 
@@ -462,7 +471,7 @@
 
     line-height: 1.05;
 
-    color: #fff;
+    color: var(--text-primary);
 }
 
 
@@ -475,8 +484,7 @@
 
     padding: 19px 0;
 
-    border-top: 1px solid
-        rgba(255,255,255,0.08);
+    border-top: 1px solid var(--border);
 }
 
 
@@ -512,7 +520,7 @@
 
     letter-spacing: 0.14em;
 
-    color: rgba(255,255,255,0.42);
+    color: var(--text-muted);
 }
 
 
@@ -521,9 +529,8 @@
 
     line-height: 1.5;
 
-    color: #fff;
+    color: var(--text-primary);
 }
-
 
 
 /* =========================================================
@@ -543,8 +550,7 @@
 
     padding: 16px 20px;
 
-    border-bottom: 1px solid
-        rgba(255,255,255,0.08);
+    border-bottom: 1px solid var(--border);
 }
 
 
@@ -570,7 +576,7 @@
 
     letter-spacing: 0.1em;
 
-    color: rgba(255,255,255,0.4);
+    color: var(--text-muted);
 }
 
 
@@ -590,21 +596,21 @@
     display: block;
 
     border: 0;
-
-    filter: grayscale(100%)
-            contrast(1.05);
 }
 
-
-
 /* =========================================================
-   FAQ
+   FAQ SECTION
 ========================================================= */
 
 .faq-section {
     padding: 100px 0;
 
-    background: var(--dark, #080A0A);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+
+    transition:
+        background var(--transition),
+        color var(--transition);
 }
 
 
@@ -619,33 +625,65 @@
 }
 
 
-.faq-card {
-    border: 1px solid
-        rgba(255,255,255,0.09);
+/* =========================================================
+   FAQ CARD
+========================================================= */
 
-    background:
-        rgba(255,255,255,0.025);
+.faq-card {
+    border: 1px solid var(--border);
+
+    background: var(--surface);
+
+    color: var(--text-primary);
 
     transition:
-        border-color 0.3s ease,
-        background 0.3s ease;
+        border-color var(--transition-fast),
+        background var(--transition-fast),
+        box-shadow var(--transition-fast);
 }
 
+
+/* DARK MODE */
+
+.faq-card {
+    border-color: #303633;
+}
+
+
+/* LIGHT MODE */
+
+[data-theme="light"] .faq-card {
+    border-color: #C9CEC7;
+}
+
+
+/* HOVER */
 
 .faq-card:hover {
-    border-color:
-        rgba(241,196,15,0.35);
+    border-color: var(--accent);
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
+
+/* OPEN FAQ */
 
 .faq-card[open] {
-    border-color:
-        rgba(241,196,15,0.4);
+    border-color: var(--accent);
 
     background:
-        rgba(241,196,15,0.025);
+        color-mix(
+            in srgb,
+            var(--surface) 96%,
+            var(--accent)
+        );
 }
 
+
+/* =========================================================
+   FAQ SUMMARY
+========================================================= */
 
 .faq-card summary {
     display: grid;
@@ -667,7 +705,7 @@
 
     list-style: none;
 
-    color: #fff;
+    color: var(--text-primary);
 }
 
 
@@ -675,6 +713,8 @@
     display: none;
 }
 
+
+/* NUMBER */
 
 .faq-card summary > span {
     font-size: 0.68rem;
@@ -687,14 +727,22 @@
 }
 
 
+/* QUESTION */
+
 .faq-card summary strong {
     font-size: 0.9rem;
 
     line-height: 1.5;
 
     font-weight: 700;
+
+    color: var(--text-primary);
 }
 
+
+/* =========================================================
+   FAQ ARROW
+========================================================= */
 
 .faq-card summary i {
     width: 34px;
@@ -704,8 +752,7 @@
 
     place-items: center;
 
-    border: 1px solid
-        rgba(255,255,255,0.1);
+    border: 1px solid var(--border);
 
     color: var(--accent);
 
@@ -713,7 +760,14 @@
 
     transition:
         transform 0.3s ease,
-        background 0.3s ease;
+        background 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease;
+}
+
+
+.faq-card:hover summary i {
+    border-color: var(--accent);
 }
 
 
@@ -723,8 +777,14 @@
     background: var(--accent);
 
     color: #080A0A;
+
+    border-color: var(--accent);
 }
 
+
+/* =========================================================
+   FAQ ANSWER
+========================================================= */
 
 .faq-answer {
     padding:
@@ -739,10 +799,89 @@
 
     line-height: 1.8;
 
-    color: rgba(255,255,255,0.58);
+    color: var(--text-secondary);
 }
 
 
+/* =========================================================
+   LIGHT MODE FAQ
+========================================================= */
+
+[data-theme="light"] .faq-card {
+    background: var(--surface);
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.035);
+}
+
+
+[data-theme="light"] .faq-card:hover {
+    border-color: var(--accent);
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.07);
+}
+
+
+[data-theme="light"] .faq-card[open] {
+    background:
+        color-mix(
+            in srgb,
+            var(--surface) 96%,
+            var(--accent)
+        );
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .faq-section {
+        padding: 70px 0;
+    }
+
+    .faq-list {
+        margin-top: 35px;
+    }
+
+    .faq-card summary {
+        grid-template-columns:
+            32px
+            1fr
+            34px;
+
+        gap: 10px;
+
+        padding: 0 15px;
+    }
+
+    .faq-card summary strong {
+        font-size: 0.82rem;
+    }
+
+    .faq-answer {
+        padding:
+            0 50px 22px 57px;
+    }
+
+}
+
+
+@media (max-width: 420px) {
+
+    .faq-card summary {
+        min-height: 66px;
+    }
+
+    .faq-answer {
+        padding:
+            0 18px 20px 57px;
+    }
+
+}
 
 /* =========================================================
    RESPONSIVE
@@ -834,70 +973,6 @@
     .faq-answer {
         padding:
             0 18px 20px 57px;
-    }
-
-}
-
-
-/* =========================================================
-   CONTACT NAV RESPONSIVE
-========================================================= */
-
-@media (max-width: 1100px) {
-
-    .nav-links {
-        gap: 18px;
-    }
-
-    .nav-actions {
-        gap: 12px;
-    }
-
-    .nav-login {
-        display: none;
-    }
-
-    .nav-cta {
-        padding: 0 15px;
-    }
-
-}
-
-
-@media (max-width: 900px) {
-
-    .nav-actions {
-        display: none;
-    }
-
-    .nav-links {
-        display: none;
-    }
-
-    .mobile-menu-toggle {
-        display: grid;
-        place-items: center;
-
-        width: 42px;
-        height: 42px;
-
-        border: 1px solid
-            rgba(255,255,255,0.12);
-
-        background: transparent;
-
-        color: #fff;
-
-        cursor: pointer;
-    }
-
-}
-
-
-@media (min-width: 901px) {
-
-    .mobile-menu-toggle {
-        display: none;
     }
 
 }

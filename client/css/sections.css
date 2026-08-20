@@ -1479,8 +1479,6 @@
             minmax(220px, 280px)
             1fr;
 
-        padding: 30px;
-
         min-height: 350px;
     }
 
@@ -1524,8 +1522,6 @@
         gap: 35px;
 
         padding: 24px;
-
-        border-radius: 22px;
     }
 
     .testimonial-visual {
