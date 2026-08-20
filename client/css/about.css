@@ -246,50 +246,127 @@
 }
 
 
+/* =========================================================
+   PRIMARY BUTTON
+========================================================= */
+
 .about-primary-btn {
+
     background: var(--accent);
 
     border: 1px solid var(--accent);
 
-    color: #080A0A;
+    /*
+     * Use the theme's primary background as the text color.
+     * This keeps the text readable in both themes.
+     */
+    color: var(--bg-primary);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease;
 }
 
 
+/* =========================================================
+   PRIMARY BUTTON HOVER
+========================================================= */
+
 .about-primary-btn:hover {
+
     transform: translateY(-3px);
 
     background: var(--text-primary);
 
     border-color: var(--text-primary);
+
+    /*
+     * IMPORTANT:
+     * Explicitly change the foreground color when
+     * the background changes.
+     */
+    color: var(--bg-primary);
 }
 
+/* =========================================================
+   PRIMARY BUTTON CONTENT
+========================================================= */
+
+.about-primary-btn span,
+.about-primary-btn i {
+
+    color: inherit;
+
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+/* =========================================================
+   PRIMARY BUTTON ICON
+========================================================= */
 
 .about-primary-btn i {
+
+    color: inherit;
+
     transition:
-        transform 0.3s ease;
+        transform 0.3s ease,
+        color 0.3s ease;
 }
 
 
 .about-primary-btn:hover i {
-    transform: translateX(5px);
+
+    transform:
+        translateX(5px);
+
+    color: inherit;
 }
 
 
+/* =========================================================
+   SECONDARY BUTTON
+========================================================= */
+
 .about-secondary-btn {
+
     border: 1px solid var(--border);
 
     background: transparent;
 
     color: var(--text-primary);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease;
 }
 
 
 .about-secondary-btn:hover {
-    transform: translateY(-3px);
 
-    border-color: var(--accent);
+    transform:
+        translateY(-3px);
 
-    color: var(--accent);
+    border-color:
+        var(--accent);
+
+    color:
+        var(--accent);
+}
+
+
+.about-secondary-btn i {
+
+    color: inherit;
+
+    transition:
+        transform 0.3s ease,
+        color 0.3s ease;
 }
 
 /* =========================================================
@@ -798,43 +875,138 @@
    CTA
 ========================================================= */
 
+/* =========================================================
+   ABOUT CTA BACKGROUND VIDEO
+========================================================= */
+
+.about-cta-video {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+}
+
+
+.about-cta-video-element {
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 100%;
+    height: 100%;
+
+    min-width: 100%;
+    min-height: 100%;
+
+    transform:
+        translate(-50%, -50%);
+
+    object-fit: cover;
+
+    object-position: center center;
+
+    display: block;
+
+    filter:
+        saturate(0.85)
+        contrast(1.05);
+
+}
+
+
+/* =========================================================
+   CTA VIDEO OVERLAY
+========================================================= */
+
+.about-cta-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 1;
+
+    pointer-events: none;
+
+    background:
+        var(--cta-overlay-strong);
+
+    transition:
+        background var(--transition);
+}
+
+/* =========================================================
+   CTA
+========================================================= */
+
 .about-cta {
+
     position: relative;
 
     overflow: hidden;
 
     padding:
-        110px 0;
+        clamp(90px, 9vw, 130px) 0;
 
-    background: var(--cta-bg);
+    background:
+        var(--cta-bg);
 
-    color: var(--text-primary);
+    color:
+        var(--text-primary);
+
+    isolation: isolate;
 
     transition:
         background var(--transition),
         color var(--transition);
 }
 
+/* =========================================================
+   CTA GRID
+========================================================= */
 
 .about-cta-grid {
+
     position: absolute;
 
     inset: 0;
 
+    z-index: 2;
+
     background-image:
+
         linear-gradient(
             var(--cta-grid-color) 1px,
             transparent 1px
         ),
+
         linear-gradient(
             90deg,
             var(--cta-grid-color) 1px,
             transparent 1px
         );
 
-    background-size: 55px 55px;
+    background-size:
+        55px 55px;
 
     mask-image:
+        linear-gradient(
+            to bottom,
+            transparent,
+            black 20%,
+            black 80%,
+            transparent
+        );
+
+    -webkit-mask-image:
         linear-gradient(
             to bottom,
             transparent,
@@ -850,7 +1022,7 @@
 .about-cta-content {
     position: relative;
 
-    z-index: 2;
+    z-index: 3;
 
     max-width: 900px;
 
@@ -882,6 +1054,9 @@
     letter-spacing: -0.02em;
 
     color: var(--text-primary);
+    text-shadow:
+        0 4px 25px
+        rgba(0, 0, 0, 0.22);
 }
 
 
@@ -902,6 +1077,9 @@
     line-height: 1.8;
 
     color: var(--text-secondary);
+    text-shadow:
+        0 2px 12px
+        rgba(0, 0, 0, 0.18);
 }
 
 
@@ -1114,16 +1292,77 @@
     }
 
 
-    .about-cta {
-        padding:
-            80px 0;
-    }
-
-
     .about-cta h2 {
         font-size:
             clamp(3.2rem, 14vw, 5rem);
     }
+
+
+    .about-cta {
+
+        padding:
+            75px 0;
+    }
+
+
+    .about-cta-video-element {
+
+        object-position:
+            55% center;
+
+        filter:
+            saturate(0.75)
+            contrast(1.02);
+    }
+
+
+    .about-cta-overlay {
+
+        background:
+            var(--cta-overlay-strong);
+    }
+
+
+    .about-cta h2 {
+
+        font-size:
+            clamp(3.2rem, 14vw, 5rem);
+
+        line-height:
+            0.88;
+    }
+
+
+    .about-cta p {
+
+        max-width:
+            500px;
+
+        font-size:
+            0.9rem;
+
+        line-height:
+            1.7;
+    }
+
+
+    .about-cta-actions {
+
+        width: 100%;
+
+        margin-top:
+            28px;
+
+        gap: 10px;
+    }
+
+
+    .about-primary-btn,
+    .about-secondary-btn {
+
+        width: 100%;
+    }
+
 
 }
 
@@ -1206,6 +1445,75 @@
 
     .about-hero-content {
         max-width: 100%;
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    .about-cta {
+
+        padding:
+            75px 0;
+    }
+
+
+    .about-cta-video-element {
+
+        object-position:
+            55% center;
+
+        filter:
+            saturate(0.75)
+            contrast(1.02);
+    }
+
+
+    .about-cta-overlay {
+
+        background:
+            var(--cta-overlay-strong);
+    }
+
+
+    .about-cta h2 {
+
+        font-size:
+            clamp(3.2rem, 14vw, 5rem);
+
+        line-height:
+            0.88;
+    }
+
+
+    .about-cta p {
+
+        max-width:
+            500px;
+
+        font-size:
+            0.9rem;
+
+        line-height:
+            1.7;
+    }
+
+
+    .about-cta-actions {
+
+        width: 100%;
+
+        margin-top:
+            28px;
+
+        gap: 10px;
+    }
+
+
+    .about-primary-btn,
+    .about-secondary-btn {
+
+        width: 100%;
     }
 
 }
