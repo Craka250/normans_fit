@@ -791,6 +791,7 @@
     align-items: center;
 }
 
+
 .nutrition-content > p {
     max-width: 500px;
 
@@ -2529,4 +2530,67 @@
 
 .footer-bottom a:hover {
     color: var(--accent);
+}
+
+/* =========================================================
+   GALLERY CTA — TALK TO US BUTTON
+   LIGHT / DARK MODE SAFE
+========================================================= */
+
+.gallery-page-cta .btn-light-outline {
+
+    color: var(--text-primary);
+
+    background: transparent;
+
+    border: 1px solid
+        color-mix(
+            in srgb,
+            var(--text-primary) 40%,
+            transparent
+        );
+
+    transition:
+        color var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.gallery-page-cta .btn-light-outline:hover {
+
+    color: var(--cta-bg);
+
+    background: var(--text-primary);
+
+    border-color: var(--text-primary);
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.gallery-page-cta .btn-light-outline i {
+
+    color: inherit;
+
+    transition:
+        color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+
+.gallery-page-cta .btn-light-outline:hover i {
+
+    color: inherit;
+
+    transform: translateX(3px);
 }

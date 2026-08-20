@@ -1,0 +1,2864 @@
+/* =========================================================
+   VYRON FITNESS
+   DEDICATED GALLERY PAGE
+========================================================= */
+
+/* =========================================================
+   GALLERY HERO
+========================================================= */
+
+.gallery-hero {
+    position: relative;
+    min-height: 620px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+
+/* ---------------------------------------------------------
+   HERO GRID
+--------------------------------------------------------- */
+
+.gallery-hero-grid {
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            var(--grid-line) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            var(--grid-line) 1px,
+            transparent 1px
+        );
+
+    background-size: 60px 60px;
+
+    pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   HERO GLOW
+--------------------------------------------------------- */
+
+.gallery-hero-glow {
+    position: absolute;
+
+    width: 520px;
+    height: 520px;
+
+    right: 16%;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(200, 255, 61, 0.12) 0%,
+            rgba(200, 255, 61, 0.04) 35%,
+            transparent 70%
+        );
+
+    filter: blur(10px);
+
+    pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   HERO CONTENT
+--------------------------------------------------------- */
+
+.gallery-hero .container {
+    position: relative;
+    z-index: 5;
+}
+
+.gallery-hero-content {
+    position: relative;
+    z-index: 5;
+
+    max-width: 760px;
+
+    padding-block: 120px 110px;
+}
+
+
+/* ---------------------------------------------------------
+   HERO META
+--------------------------------------------------------- */
+
+.gallery-hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 28px;
+
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.gallery-hero-meta .heading-line {
+    display: block;
+
+    width: 38px;
+    height: 1px;
+
+    flex: 0 0 auto;
+
+    background: var(--accent);
+}
+
+
+/* ---------------------------------------------------------
+   HERO HEADING
+--------------------------------------------------------- */
+.gallery-hero h1 {
+    margin: 0;
+    max-width: 760px;
+    font-family: var(--font-display);
+    font-size: clamp(5.8rem, 10vw, 10.5rem);
+
+    /* Keeps the lines tight vertically */
+    line-height: 0.84;
+
+    /* Strong but clean heading */
+    font-weight: 700;
+
+    /* IMPORTANT:
+       Positive spacing prevents the letters from touching */
+    letter-spacing: 0.015em;
+
+    /* Adds a little separation between words */
+    word-spacing: 0.02em;
+
+    color: var(--text-primary);
+    text-transform: uppercase;
+}
+
+.gallery-hero h1 span {
+    display: block;
+
+    color: var(--accent);
+}
+
+
+/* ---------------------------------------------------------
+   HERO DESCRIPTION
+--------------------------------------------------------- */
+
+.gallery-hero-content > p {
+    max-width: 620px;
+
+    margin: 48px 0 0;
+
+    color: var(--text-secondary);
+
+    font-family: var(--font-body);
+
+    font-size: 0.95rem;
+
+    line-height: 1.8;
+}
+
+
+/* ---------------------------------------------------------
+   HERO SCROLL
+--------------------------------------------------------- */
+
+.gallery-hero-scroll {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 55px;
+
+    color: var(--text-muted);
+
+    font-family: var(--font-mono);
+
+    font-size: 8px;
+
+    letter-spacing: 0.14em;
+
+    text-transform: uppercase;
+}
+
+.gallery-hero-scroll i {
+    color: var(--accent);
+
+    font-size: 10px;
+
+    animation:
+        galleryScrollArrow 1.8s ease-in-out infinite;
+}
+
+@keyframes galleryScrollArrow {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(5px);
+    }
+}
+
+
+/* =========================================================
+   TRANSPARENT HERO ATHLETE
+========================================================= */
+
+.gallery-hero-athlete {
+    position: absolute;
+
+    z-index: 3;
+
+    right: 7%;
+
+    bottom: -30px;
+
+    width: clamp(320px, 34vw, 560px);
+
+    pointer-events: none;
+}
+
+.gallery-hero-athlete img {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(
+            0 25px 45px rgba(0, 0, 0, 0.25)
+        );
+}
+
+
+/* ---------------------------------------------------------
+   ATHLETE AMBIENT GLOW
+--------------------------------------------------------- */
+
+.gallery-hero-athlete-glow {
+    position: absolute;
+
+    width: 80%;
+    aspect-ratio: 1;
+
+    left: 50%;
+    bottom: 5%;
+
+    transform: translateX(-50%);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(200, 255, 61, 0.18),
+            transparent 68%
+        );
+
+    filter: blur(35px);
+
+    z-index: -1;
+}
+
+
+/* ---------------------------------------------------------
+   ATHLETE LABEL
+--------------------------------------------------------- */
+
+.gallery-hero-athlete-label {
+    position: absolute;
+
+    right: 5%;
+    bottom: 16%;
+
+    padding: 9px 12px;
+
+    border: 1px solid
+        rgba(200, 255, 61, 0.35);
+
+    background:
+        rgba(8, 10, 10, 0.72);
+
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+
+    font-size: 7px;
+
+    letter-spacing: 0.13em;
+
+    white-space: nowrap;
+
+    backdrop-filter: blur(8px);
+}
+
+/* =========================================================
+   GALLERY SECTION HEADING
+========================================================= */
+
+/* =========================================================
+   INSIDE VYRON HEADING LAYOUT
+========================================================= */
+
+.gallery-section-heading {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(360px, 0.72fr);
+
+    align-items: center;
+
+    gap: clamp(50px, 7vw, 110px);
+
+    width: 100%;
+
+    margin-bottom: 60px;
+}
+
+
+.gallery-section-heading .section-index {
+    display: inline-flex;
+}
+
+
+.gallery-section-heading .section-title {
+    margin: 0;
+}
+
+
+.gallery-section-heading .section-description {
+    max-width: 560px;
+
+    margin-top: 20px;
+}
+
+
+/* =========================================================
+   GALLERY FILTERS
+========================================================= */
+
+.gallery-filters {
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-bottom: 25px;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.gallery-filter {
+    appearance: none;
+
+    border: 1px solid var(--border);
+
+    background: var(--surface);
+
+    color: var(--text-secondary);
+
+    padding: 10px 16px;
+
+    font-family: var(--font-mono);
+
+    font-size: 8px;
+
+    letter-spacing: 0.12em;
+
+    cursor: pointer;
+
+    transition:
+        color var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+
+.gallery-filter:hover {
+    border-color: var(--accent);
+
+    color: var(--text-primary);
+
+    transform: translateY(-2px);
+}
+
+
+.gallery-filter.active {
+    background: var(--accent);
+
+    border-color: var(--accent);
+
+    color: var(--text-on-accent);
+}
+
+
+/* =========================================================
+   GALLERY GRID
+========================================================= */
+
+.gallery-page-grid {
+    display: grid;
+
+    grid-template-columns:
+        1.35fr
+        0.65fr
+        1fr;
+
+    grid-auto-rows: 300px;
+
+    gap: 12px;
+}
+
+
+.gallery-page-item {
+    position: relative;
+
+    overflow: hidden;
+
+    min-width: 0;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    transition:
+        border-color var(--transition),
+        transform var(--transition),
+        box-shadow var(--transition);
+}
+
+
+.gallery-page-item:hover {
+    border-color: var(--accent);
+
+    transform: translateY(-4px);
+
+    box-shadow: var(--theme-shadow);
+}
+
+
+.gallery-page-image {
+    position: absolute;
+
+    inset: 0;
+}
+
+
+.gallery-page-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition:
+        transform 1s cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+}
+
+
+.gallery-page-item:hover
+.gallery-page-image img {
+    transform: scale(1.07);
+}
+
+
+.gallery-page-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.88),
+            rgba(0, 0, 0, 0.08) 70%
+        );
+
+    pointer-events: none;
+}
+
+
+.gallery-page-info {
+    position: absolute;
+
+    left: 22px;
+    right: 22px;
+    bottom: 20px;
+
+    z-index: 2;
+
+    display: grid;
+
+    grid-template-columns:
+        32px
+        1fr
+        42px;
+
+    align-items: end;
+
+    gap: 12px;
+}
+
+
+.gallery-page-info > span {
+    align-self: start;
+
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+
+    font-size: 8px;
+}
+
+
+.gallery-page-info small {
+    display: block;
+
+    color: rgba(255, 255, 255, 0.62);
+
+    font-family: var(--font-mono);
+
+    font-size: 7px;
+
+    letter-spacing: 0.12em;
+}
+
+
+.gallery-page-info h3 {
+    margin-top: 5px;
+
+    color: #fff;
+
+    font-family: var(--font-display);
+
+    font-size: clamp(
+        28px,
+        3vw,
+        48px
+    );
+
+    font-weight: 400;
+
+    line-height: 0.9;
+}
+
+
+.gallery-page-info > i {
+    display: grid;
+
+    place-items: center;
+
+    width: 42px;
+    height: 42px;
+
+    background: var(--accent);
+
+    color: var(--text-on-accent);
+
+    transition:
+        transform var(--transition);
+}
+
+
+.gallery-page-item:hover
+.gallery-page-info > i {
+    transform: rotate(45deg);
+}
+
+
+.gallery-featured {
+    grid-row: span 2;
+}
+
+
+.gallery-tall {
+    grid-row: span 2;
+}
+
+
+.gallery-wide {
+    grid-column: span 2;
+}
+
+
+/* =========================================================
+   FILTER ANIMATION STATE
+========================================================= */
+
+.gallery-page-item.gallery-hidden {
+    display: none;
+}
+
+
+/* =========================================================
+   GALLERY STATS
+========================================================= */
+
+.gallery-stats {
+    background: var(--bg-secondary);
+}
+
+
+.gallery-stats-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    border-top: 1px solid var(--border);
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.gallery-stat {
+    position: relative;
+
+    min-height: 220px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding: 30px;
+
+    border-right: 1px solid var(--border);
+}
+
+
+.gallery-stat:last-child {
+    border-right: 0;
+}
+
+
+.gallery-stat > span {
+    position: absolute;
+
+    top: 22px;
+    left: 30px;
+
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+
+    font-size: 8px;
+}
+
+
+.gallery-stat strong {
+    color: var(--text-primary);
+
+    font-family: var(--font-display);
+
+    font-size: clamp(
+        60px,
+        7vw,
+        100px
+    );
+
+    font-weight: 400;
+
+    line-height: 0.8;
+}
+
+
+.gallery-stat p {
+    margin-top: 12px;
+
+    color: var(--text-secondary);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   GALLERY CTA
+========================================================= */
+
+.gallery-page-cta {
+    position: relative;
+
+    overflow: hidden;
+
+    padding-block:
+        clamp(90px, 11vw, 150px);
+
+    background: var(--cta-bg);
+
+    color: var(--text-primary);
+
+    border-top: 1px solid var(--border);
+}
+
+
+.gallery-page-cta-grid {
+    position: absolute;
+
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            var(--cta-grid-color) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            var(--cta-grid-color) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            transparent,
+            black 20%,
+            black 80%,
+            transparent
+        );
+
+    pointer-events: none;
+}
+
+
+.gallery-page-cta-content {
+    position: relative;
+
+    z-index: var(--z-content);
+
+    max-width: 900px;
+
+    margin-inline: auto;
+
+    text-align: center;
+}
+
+
+.gallery-page-cta-content h2 {
+    margin-top: 30px;
+
+    font-family: var(--font-display);
+
+    font-size: clamp(
+        4rem,
+        9vw,
+        9rem
+    );
+
+    font-weight: 400;
+
+    line-height: 0.8;
+
+    text-transform: uppercase;
+}
+
+
+.gallery-page-cta-content h2 span {
+    display: block;
+
+    color: var(--accent);
+}
+
+
+.gallery-page-cta-content p {
+    max-width: 580px;
+
+    margin: 30px auto 0;
+
+    color: var(--text-secondary);
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+
+.gallery-page-cta-actions {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 35px;
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .gallery-hero-scroll i {
+        animation: none;
+    }
+
+    .gallery-page-item,
+    .gallery-page-image img,
+    .gallery-page-info > i,
+    .gallery-filter {
+        transition: none;
+    }
+
+}
+
+
+/* =========================================================
+   DEDICATED GALLERY PAGE — TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .gallery-hero {
+        min-height: 65vh;
+    }
+
+    .gallery-hero-content {
+        padding-block: 120px 80px;
+    }
+
+
+    .gallery-section-heading {
+        grid-template-columns: 1fr;
+
+        gap: 25px;
+
+        margin-bottom: 40px;
+    }
+
+
+    .gallery-page-grid {
+        grid-template-columns:
+            1fr 1fr;
+
+        grid-auto-rows: 280px;
+    }
+
+
+    .gallery-featured {
+        grid-column: span 2;
+
+        grid-row: span 2;
+    }
+
+
+    .gallery-tall {
+        grid-row: span 1;
+    }
+
+
+    .gallery-wide {
+        grid-column: span 2;
+    }
+
+
+    .gallery-stats-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .gallery-stat:nth-child(2) {
+        border-right: 0;
+    }
+
+
+    .gallery-stat:nth-child(3),
+    .gallery-stat:nth-child(4) {
+        border-top: 1px solid var(--border);
+    }
+
+}
+
+
+/* =========================================================
+   DEDICATED GALLERY PAGE — MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .gallery-hero {
+        min-height: 68vh;
+    }
+
+
+    .gallery-hero-content {
+        padding-block: 100px 70px;
+    }
+
+
+    .gallery-hero h1 {
+        font-size:
+            clamp(
+                4.5rem,
+                18vw,
+                7rem
+            );
+    }
+
+
+    .gallery-hero p {
+        margin-top: 30px;
+
+        font-size: 13px;
+    }
+
+
+    .gallery-hero-scroll {
+        margin-top: 40px;
+    }
+
+
+    .gallery-filters {
+        gap: 6px;
+
+        overflow-x: auto;
+
+        flex-wrap: nowrap;
+
+        padding-bottom: 15px;
+
+        scrollbar-width: none;
+    }
+
+
+    .gallery-filters::-webkit-scrollbar {
+        display: none;
+    }
+
+
+    .gallery-filter {
+        flex: 0 0 auto;
+
+        padding:
+            9px 13px;
+
+        font-size: 7px;
+    }
+
+
+    .gallery-page-grid {
+        grid-template-columns: 1fr;
+
+        grid-auto-rows: 320px;
+
+        gap: 10px;
+    }
+
+
+    .gallery-featured,
+    .gallery-tall,
+    .gallery-wide {
+        grid-column: auto;
+
+        grid-row: span 1;
+    }
+
+
+    .gallery-page-info {
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
+
+        grid-template-columns:
+            28px
+            1fr
+            40px;
+
+        gap: 9px;
+    }
+
+
+    .gallery-page-info h3 {
+        font-size:
+            clamp(
+                28px,
+                9vw,
+                40px
+            );
+    }
+
+
+    .gallery-page-info > i {
+        width: 40px;
+        height: 40px;
+    }
+
+
+    .gallery-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .gallery-stat {
+        min-height: 150px;
+
+        border-right: 0;
+
+        border-bottom: 1px solid var(--border);
+    }
+
+
+    .gallery-stat:last-child {
+        border-bottom: 0;
+    }
+
+
+    .gallery-stat:nth-child(3),
+    .gallery-stat:nth-child(4) {
+        border-top: 0;
+    }
+
+
+    .gallery-page-cta {
+        padding-block: 85px;
+    }
+
+
+    .gallery-page-cta-content h2 {
+        font-size:
+            clamp(
+                3.5rem,
+                15vw,
+                6rem
+            );
+    }
+
+
+    .gallery-page-cta-actions {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+
+    .gallery-page-cta-actions
+    .about-primary-btn,
+
+    .gallery-page-cta-actions
+    .about-secondary-btn {
+        width: 100%;
+    }
+
+}
+
+/* =========================================================
+   GALLERY GRID
+========================================================= */
+
+.gallery-page-grid {
+    display: grid;
+
+    grid-template-columns:
+        1.25fr
+        0.75fr
+        0.75fr;
+
+    grid-auto-rows: 260px;
+
+    gap: 12px;
+}
+
+
+/* =========================================================
+   GALLERY ITEMS
+========================================================= */
+
+.gallery-page-item {
+    position: relative;
+
+    min-height: 260px;
+
+    overflow: hidden;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    transition:
+        transform var(--transition),
+        border-color var(--transition);
+}
+
+.gallery-page-item:hover {
+    border-color: var(--accent);
+
+    transform: translateY(-4px);
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.gallery-page-image {
+    position: absolute;
+
+    inset: 0;
+
+    overflow: hidden;
+}
+
+.gallery-page-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition:
+        transform 900ms
+        cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.gallery-page-item:hover
+.gallery-page-image img {
+    transform: scale(1.06);
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.gallery-page-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.9),
+            rgba(0, 0, 0, 0.05) 72%
+        );
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   INFORMATION
+========================================================= */
+
+.gallery-page-info {
+    position: absolute;
+
+    inset: auto 0 0;
+
+    z-index: 3;
+
+    display: grid;
+
+    grid-template-columns:
+        34px
+        1fr
+        44px;
+
+    align-items: end;
+
+    gap: 12px;
+
+    padding: 22px;
+}
+
+.gallery-page-info > span {
+    align-self: start;
+
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+
+    font-size: 8px;
+
+    letter-spacing: 0.1em;
+}
+
+.gallery-page-info small {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color:
+        rgba(255, 255, 255, 0.55);
+
+    font-family: var(--font-mono);
+
+    font-size: 7px;
+
+    letter-spacing: 0.12em;
+}
+
+.gallery-page-info h3 {
+    margin: 0;
+
+    color: #fff;
+
+    font-family: var(--font-display);
+
+    font-size:
+        clamp(30px, 3vw, 46px);
+
+    line-height: 0.88;
+}
+
+.gallery-page-info > i {
+    display: grid;
+
+    place-items: center;
+
+    width: 44px;
+    height: 44px;
+
+    background: var(--accent);
+
+    color: var(--text-on-accent);
+
+    transition:
+        transform var(--transition);
+}
+
+.gallery-page-item:hover
+.gallery-page-info > i {
+    transform: rotate(45deg);
+}
+
+/* =========================================================
+   FEATURED / LARGE
+========================================================= */
+
+.gallery-featured {
+    grid-row: span 2;
+    min-height: 532px;
+}
+
+
+/* =========================================================
+   TALL
+========================================================= */
+
+.gallery-tall {
+    grid-row: span 2;
+    min-height: 532px;
+}
+
+
+/* =========================================================
+   WIDE
+========================================================= */
+
+.gallery-wide {
+    grid-column: span 2;
+}
+
+/* =========================================================
+   GALLERY — TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .gallery-section-heading {
+        grid-template-columns: 1fr 0.65fr;
+
+        min-height: 270px;
+
+        margin-bottom: 45px;
+    }
+
+    .gallery-heading-athlete {
+        min-height: 280px;
+    }
+
+    .gallery-heading-athlete img {
+        width: 100%;
+
+        height: 310px;
+    }
+
+    .gallery-heading-label {
+        display: none;
+    }
+
+    .gallery-page-grid {
+        grid-template-columns:
+            1fr 1fr;
+
+        grid-auto-rows: 260px;
+    }
+
+    .gallery-featured,
+    .gallery-tall {
+        grid-row: span 2;
+    }
+
+    .gallery-wide {
+        grid-column: span 2;
+    }
+}
+
+/* =========================================================
+   GALLERY — MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .gallery-section-heading {
+        grid-template-columns: 1fr;
+
+        min-height: auto;
+
+        margin-bottom: 40px;
+    }
+
+    .gallery-heading-copy {
+        max-width: 100%;
+    }
+
+    .gallery-heading-meta {
+        margin-top: 22px;
+    }
+
+    .gallery-heading-athlete {
+        min-height: 260px;
+
+        margin-top: 15px;
+
+        justify-content: center;
+    }
+
+    .gallery-heading-athlete img {
+        width: min(100%, 340px);
+
+        height: 280px;
+    }
+
+    .gallery-heading-athlete-glow {
+        right: 50%;
+
+        transform: translateX(50%);
+    }
+
+    .gallery-page-grid {
+        grid-template-columns: 1fr;
+
+        grid-auto-rows: 300px;
+
+        gap: 10px;
+    }
+
+    .gallery-page-item,
+    .gallery-featured,
+    .gallery-tall {
+        grid-column: auto;
+        grid-row: auto;
+
+        min-height: 300px;
+    }
+
+    .gallery-wide {
+        grid-column: auto;
+    }
+
+    .gallery-page-info {
+        grid-template-columns:
+            28px
+            1fr
+            40px;
+
+        padding: 18px;
+
+        gap: 9px;
+    }
+
+    .gallery-page-info h3 {
+        font-size:
+            clamp(30px, 10vw, 43px);
+    }
+
+    .gallery-page-info > i {
+        width: 40px;
+        height: 40px;
+
+        font-size: 12px;
+    }
+
+    .gallery-heading-meta span {
+        font-size: 7px;
+    }
+}
+
+@media (max-width: 430px) {
+
+    .gallery-page-grid {
+        grid-auto-rows: 270px;
+    }
+
+    .gallery-page-item,
+    .gallery-featured,
+    .gallery-tall {
+        min-height: 270px;
+    }
+
+    .gallery-heading-athlete {
+        min-height: 220px;
+    }
+
+    .gallery-heading-athlete img {
+        height: 240px;
+    }
+
+    .gallery-heading-meta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .gallery-heading-meta span {
+        width: fit-content;
+    }
+}
+
+/* =========================================================
+   GALLERY HERO — TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .gallery-hero {
+        min-height: auto;
+    }
+
+    .gallery-hero-layout {
+        min-height: 680px;
+
+        grid-template-columns:
+            minmax(0, 0.9fr)
+            minmax(340px, 1.1fr);
+
+        gap: 10px;
+    }
+
+    .gallery-hero-content {
+        padding:
+            100px 0
+            80px;
+    }
+
+    .gallery-hero h1 {
+        font-size:
+            clamp(4.5rem, 9vw, 7rem);
+    }
+
+    .gallery-hero-athlete {
+        min-height: 680px;
+    }
+
+    .gallery-hero-athlete img {
+        width: min(100%, 560px);
+        max-height: 640px;
+    }
+
+    .gallery-hero-athlete-label {
+        right: 0;
+        bottom: 13%;
+    }
+
+}
+
+
+/* =========================================================
+   GALLERY HERO — MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .gallery-hero {
+        min-height: auto;
+    }
+
+    .gallery-hero-layout {
+
+        min-height: auto;
+
+        grid-template-columns: 1fr;
+
+        gap: 0;
+    }
+
+    .gallery-hero-content {
+
+        padding:
+            100px 0
+            35px;
+
+        max-width: 100%;
+    }
+
+    .gallery-hero h1 {
+
+        font-size:
+            clamp(4.3rem, 18vw, 7rem);
+
+        line-height: 0.84;
+    }
+
+    .gallery-hero-content > p {
+
+        margin-top: 32px;
+
+        max-width: 100%;
+
+        font-size: 0.88rem;
+
+        line-height: 1.75;
+    }
+
+    .gallery-hero-scroll {
+
+        margin-top: 35px;
+    }
+
+
+    /* ATHLETE MOVES BELOW THE TEXT */
+
+    .gallery-hero-athlete {
+
+        min-height: 430px;
+
+        margin-top: -10px;
+
+        align-items: flex-end;
+    }
+
+    .gallery-hero-athlete img {
+
+        width: min(100%, 480px);
+
+        max-height: 470px;
+
+        transform: translateY(0);
+    }
+
+    .gallery-hero-athlete-glow {
+
+        width: 380px;
+        height: 380px;
+
+        bottom: 0;
+    }
+
+    .gallery-hero-athlete-label {
+
+        right: 8px;
+
+        bottom: 12%;
+
+        padding: 10px 12px;
+    }
+
+    .gallery-hero-athlete-label span {
+        font-size: 20px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 430px) {
+
+    .gallery-hero-content {
+
+        padding-top: 85px;
+    }
+
+    .gallery-hero-meta {
+
+        font-size: 8px;
+
+        gap: 10px;
+    }
+
+    .gallery-hero-meta .heading-line {
+        width: 28px;
+    }
+
+    .gallery-hero h1 {
+
+        font-size:
+            clamp(3.8rem, 18vw, 5.5rem);
+    }
+
+    .gallery-hero-athlete {
+
+        min-height: 360px;
+    }
+
+    .gallery-hero-athlete img {
+
+        width: 115%;
+
+        max-width: 115%;
+
+        margin-left: -7.5%;
+    }
+
+    .gallery-hero-athlete-label {
+
+        right: 4px;
+
+        bottom: 10%;
+    }
+
+}
+
+/* =========================================================
+   INSIDE VYRON / GALLERY EXPLORER
+========================================================= */
+
+.gallery-explorer {
+    position: relative;
+    /*
+     * Creates clear visual separation from
+     * "THE WORK DOESN'T LIE." above it.
+     */
+    padding-top: clamp(150px, 14vw, 220px);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+
+/* ---------------------------------------------------------
+   SECTION HEADING
+--------------------------------------------------------- */
+
+.gallery-section-heading {
+    width: 100%;
+
+    display: block;
+
+    margin-bottom: 55px;
+}
+
+
+/* ---------------------------------------------------------
+   HEADING COPY
+--------------------------------------------------------- */
+
+.gallery-heading-copy {
+    width: 100%;
+    max-width: 900px;
+}
+
+
+/* ---------------------------------------------------------
+   SECTION INDEX
+--------------------------------------------------------- */
+
+.gallery-heading-copy .section-index {
+    display: inline-flex;
+
+    align-items: center;
+
+    margin-bottom: 22px;
+}
+
+
+/* ---------------------------------------------------------
+   INSIDE VYRON HEADING
+--------------------------------------------------------- */
+
+.gallery-heading-copy .section-title {
+    margin: 0;
+
+    max-width: 800px;
+
+    font-family: var(--font-display);
+
+    font-size: clamp(
+        5rem,
+        9vw,
+        9rem
+    );
+
+    line-height: 0.82;
+
+    font-weight: 700;
+
+    letter-spacing: -0.035em;
+
+    color: var(--text-primary);
+}
+
+.gallery-heading-copy .section-title span {
+    display: block;
+
+    color: var(--accent);
+}
+
+
+/* ---------------------------------------------------------
+   DESCRIPTION
+--------------------------------------------------------- */
+
+.gallery-heading-copy .section-description {
+    max-width: 680px;
+
+    margin: 35px 0 0;
+
+    color: var(--text-secondary);
+
+    font-family: var(--font-body);
+
+    font-size: 0.95rem;
+
+    line-height: 1.85;
+}
+
+
+/* =========================================================
+   TRAIN HARD / PERFORM BETTER
+========================================================= */
+
+.gallery-heading-meta {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 30px;
+}
+
+.gallery-heading-meta span {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    min-height: 40px;
+
+    padding: 0 15px;
+
+    border: 1px solid var(--border);
+
+    background: var(--card-bg);
+
+    color: var(--text-primary);
+
+    font-family: var(--font-mono);
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.1em;
+
+    text-transform: uppercase;
+
+    transition:
+        background var(--transition-fast),
+        color var(--transition-fast),
+        border-color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+.gallery-heading-meta span i {
+    color: var(--accent);
+
+    font-size: 11px;
+}
+
+.gallery-heading-meta span:hover {
+    transform: translateY(-2px);
+
+    border-color: var(--accent);
+
+    background: var(--accent);
+
+    color: var(--text-on-accent);
+}
+
+.gallery-heading-meta span:hover i {
+    color: var(--text-on-accent);
+}
+
+/* =========================================================
+   INSIDE VYRON IMAGE
+========================================================= */
+
+.gallery-heading-image {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 480px;
+
+    overflow: hidden;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+}
+
+
+.gallery-heading-image img {
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    min-height: 480px;
+
+    object-fit: cover;
+
+    transition:
+        transform 900ms
+        cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+.gallery-heading-image:hover img {
+
+    transform: scale(1.045);
+}
+
+/* =========================================================
+   IMAGE OVERLAY
+========================================================= */
+
+.gallery-heading-image-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(8, 10, 10, 0.88) 0%,
+            rgba(8, 10, 10, 0.28) 48%,
+            rgba(8, 10, 10, 0.05) 100%
+        );
+
+    pointer-events: none;
+}
+
+/* =========================================================
+   IMAGE LABEL
+========================================================= */
+
+.gallery-heading-image-label {
+
+    position: absolute;
+
+    left: 24px;
+    right: 24px;
+    bottom: 24px;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 18px;
+
+    color: #ffffff;
+}
+
+
+.gallery-heading-image-label > span {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    flex: 0 0 34px;
+
+    border: 1px solid
+        rgba(200, 255, 61, 0.5);
+
+    background: rgba(8, 10, 10, 0.55);
+
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+
+    font-size: 8px;
+}
+
+
+.gallery-heading-image-label div {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.gallery-heading-image-label small {
+
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+
+    font-size: 7px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.13em;
+
+    text-transform: uppercase;
+}
+
+
+.gallery-heading-image-label strong {
+
+    font-family: var(--font-display);
+
+    font-size: clamp(
+        1.7rem,
+        2.5vw,
+        2.8rem
+    );
+
+    font-weight: 400;
+
+    line-height: 0.9;
+
+    letter-spacing: -0.01em;
+
+    text-transform: uppercase;
+}
+
+
+
+/* =========================================================
+   GALLERY RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .gallery-hero {
+        min-height: 600px;
+    }
+
+    .gallery-hero-content {
+        max-width: 680px;
+    }
+
+    .gallery-hero h1 {
+        font-size: clamp(
+            5rem,
+            10vw,
+            8rem
+        );
+    }
+
+    .gallery-hero-athlete {
+        right: 1%;
+        width: clamp(280px, 34vw, 440px);
+        opacity: 0.72;
+    }
+
+    .gallery-heading-copy {
+        max-width: 760px;
+    }
+
+    .gallery-heading-copy .section-title {
+        font-size: clamp(
+            4.5rem,
+            9vw,
+            7rem
+        );
+    }
+}
+
+
+@media (max-width: 800px) {
+
+    .gallery-hero {
+        min-height: 650px;
+    }
+
+    .gallery-hero-content {
+        padding-block: 100px 80px;
+    }
+
+    .gallery-hero h1 {
+        font-size: clamp(
+            4.8rem,
+            14vw,
+            7rem
+        );
+    }
+
+    .gallery-hero-athlete {
+        right: -35px;
+        bottom: -10px;
+
+        width: 350px;
+
+        opacity: 0.38;
+    }
+
+    .gallery-hero-athlete-label {
+        display: none;
+    }
+
+    .gallery-heading-copy .section-title {
+        font-size: clamp(
+            4.5rem,
+            14vw,
+            7rem
+        );
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .gallery-hero {
+        min-height: 620px;
+    }
+
+    .gallery-hero-content {
+        padding-block: 90px 70px;
+    }
+
+    .gallery-hero-meta {
+        font-size: 8px;
+    }
+
+    .gallery-hero h1 {
+        font-size: clamp(
+            4.3rem,
+            17vw,
+            6.5rem
+        );
+
+        line-height: 0.86;
+    }
+
+    .gallery-hero-content > p {
+        max-width: 90%;
+
+        margin-top: 32px;
+
+        font-size: 0.88rem;
+        line-height: 1.75;
+    }
+
+    .gallery-hero-scroll {
+        margin-top: 40px;
+    }
+
+    .gallery-hero-athlete {
+        right: -80px;
+        bottom: -15px;
+
+        width: 330px;
+
+        opacity: 0.25;
+    }
+
+
+    /* INSIDE VYRON */
+
+    .gallery-section-heading {
+        margin-bottom: 40px;
+    }
+
+    .gallery-heading-copy .section-title {
+        font-size: clamp(
+            4.2rem,
+            17vw,
+            6rem
+        );
+
+        line-height: 0.86;
+    }
+
+    .gallery-heading-copy .section-description {
+        max-width: 100%;
+
+        margin-top: 28px;
+
+        font-size: 0.88rem;
+
+        line-height: 1.75;
+    }
+
+    .gallery-heading-meta {
+        gap: 8px;
+
+        margin-top: 25px;
+    }
+
+    .gallery-heading-meta span {
+        min-height: 38px;
+
+        padding: 0 12px;
+
+        font-size: 7px;
+    }
+}
+
+
+@media (max-width: 430px) {
+
+    .gallery-hero {
+        min-height: 590px;
+    }
+
+    .gallery-hero h1 {
+        font-size: 4.1rem;
+    }
+
+    .gallery-hero-athlete {
+        right: -105px;
+        width: 310px;
+        opacity: 0.20;
+    }
+
+    .gallery-heading-copy .section-title {
+        font-size: 4rem;
+    }
+
+    .gallery-heading-meta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .gallery-heading-meta span {
+        width: fit-content;
+    }
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .gallery-explorer {
+        padding-top: 140px;
+    }
+
+    .gallery-section-heading {
+
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(300px, 0.7fr);
+
+        gap: 45px;
+    }
+
+    .gallery-heading-copy .section-title {
+
+        font-size:
+            clamp(
+                4.5rem,
+                9vw,
+                7rem
+            );
+    }
+
+    .gallery-heading-image,
+    .gallery-heading-image img {
+
+        min-height: 400px;
+    }
+
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .gallery-explorer {
+
+        padding-top: 110px;
+    }
+
+
+    .gallery-section-heading {
+
+        grid-template-columns: 1fr;
+
+        gap: 45px;
+
+        margin-bottom: 45px;
+    }
+
+
+    .gallery-heading-copy {
+
+        max-width: 100%;
+    }
+
+
+    .gallery-heading-copy .section-title {
+
+        font-size:
+            clamp(
+                4.3rem,
+                16vw,
+                6rem
+            );
+
+        line-height: 0.86;
+    }
+
+
+    .gallery-heading-copy .section-description {
+
+        max-width: 100%;
+
+        margin-top: 28px;
+
+        font-size: 0.88rem;
+
+        line-height: 1.75;
+    }
+
+
+    .gallery-heading-meta {
+
+        margin-top: 25px;
+    }
+
+
+    .gallery-heading-image {
+
+        min-height: 360px;
+    }
+
+
+    .gallery-heading-image img {
+
+        min-height: 360px;
+    }
+
+
+    .gallery-heading-image-label {
+
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
+
+        gap: 12px;
+    }
+
+
+    .gallery-heading-image-label strong {
+
+        font-size: 1.8rem;
+    }
+
+}
+
+@media (max-width: 430px) {
+
+    .gallery-explorer {
+        padding-top: 90px;
+    }
+
+
+    .gallery-section-heading {
+        gap: 35px;
+    }
+
+
+    .gallery-heading-copy .section-title {
+        font-size: 4rem;
+    }
+
+
+    .gallery-heading-meta {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .gallery-heading-meta span {
+
+        width: fit-content;
+    }
+
+
+    .gallery-heading-image,
+    .gallery-heading-image img {
+
+        min-height: 320px;
+    }
+
+
+    .gallery-heading-image-label strong {
+
+        font-size: 1.55rem;
+    }
+
+}
+
+/* =========================================================
+   FINAL GALLERY HEADING LAYOUT FIX
+   INSIDE VYRON = TEXT LEFT + IMAGE RIGHT
+========================================================= */
+
+.gallery-section-heading {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(420px, 0.82fr);
+
+    align-items: center;
+
+    column-gap: clamp(55px, 7vw, 110px);
+
+    margin-bottom: 60px;
+}
+
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.gallery-heading-copy {
+    width: 100%;
+    max-width: 760px;
+}
+
+
+/* SECTION INDEX */
+
+.gallery-heading-copy .section-index {
+    display: inline-flex;
+    align-items: center;
+
+    margin-bottom: 24px;
+}
+
+
+/* =========================================================
+   INSIDE VYRON TITLE
+========================================================= */
+
+.gallery-heading-copy .section-title {
+    margin: 0;
+
+    max-width: 800px;
+
+    font-family: var(--font-display);
+
+    font-size: clamp(
+        5rem,
+        8vw,
+        8.5rem
+    );
+
+    line-height: 0.84;
+
+    font-weight: 700;
+
+    letter-spacing: 0.01em;
+
+    color: var(--text-primary);
+
+    text-transform: uppercase;
+}
+
+
+.gallery-heading-copy .section-title span {
+    display: block;
+
+    margin-top: 4px;
+
+    color: var(--accent);
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.gallery-heading-copy .section-description {
+    max-width: 620px;
+
+    margin: 32px 0 0;
+
+    color: var(--text-secondary);
+
+    font-family: var(--font-body);
+
+    font-size: 0.95rem;
+
+    line-height: 1.85;
+}
+
+
+/* =========================================================
+   TRAIN HARD / PERFORM BETTER
+========================================================= */
+
+.gallery-heading-meta {
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 30px;
+}
+
+
+.gallery-heading-meta span {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    min-height: 42px;
+
+    padding: 0 15px;
+
+    border: 1px solid var(--border);
+
+    background: var(--card-bg);
+
+    color: var(--text-primary);
+
+    font-family: var(--font-mono);
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.1em;
+
+    text-transform: uppercase;
+
+    transition:
+        background var(--transition-fast),
+        color var(--transition-fast),
+        border-color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+
+.gallery-heading-meta span i {
+    color: var(--accent);
+
+    font-size: 11px;
+}
+
+
+.gallery-heading-meta span:hover {
+    transform: translateY(-2px);
+
+    border-color: var(--accent);
+
+    background: var(--accent);
+
+    color: var(--text-on-accent);
+}
+
+
+.gallery-heading-meta span:hover i {
+    color: var(--text-on-accent);
+}
+
+
+/* =========================================================
+   RIGHT-SIDE INSIDE VYRON IMAGE
+========================================================= */
+
+.gallery-heading-image {
+    position: relative;
+
+    width: 100%;
+
+    height: clamp(
+        430px,
+        42vw,
+        560px
+    );
+
+    min-height: 430px;
+
+    overflow: hidden;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    isolation: isolate;
+}
+
+
+/* IMAGE */
+
+.gallery-heading-image img {
+    display: block;
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    transition:
+        transform 900ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+}
+
+
+/* IMAGE HOVER */
+
+.gallery-heading-image:hover img {
+    transform: scale(1.045);
+}
+
+
+/* =========================================================
+   IMAGE OVERLAY
+========================================================= */
+
+.gallery-heading-image-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 1;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(8, 10, 10, 0.9) 0%,
+            rgba(8, 10, 10, 0.35) 48%,
+            rgba(8, 10, 10, 0.04) 100%
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   IMAGE LABEL
+========================================================= */
+
+.gallery-heading-image-label {
+    position: absolute;
+
+    left: 22px;
+
+    right: 22px;
+
+    bottom: 22px;
+
+    z-index: 3;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 14px;
+
+    color: #ffffff;
+}
+
+
+.gallery-heading-image-label > span {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 34px;
+
+    height: 34px;
+
+    flex: 0 0 34px;
+
+    border: 1px solid
+        rgba(200, 255, 61, 0.55);
+
+    background:
+        rgba(8, 10, 10, 0.62);
+
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+
+    font-size: 8px;
+}
+
+
+.gallery-heading-image-label div {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.gallery-heading-image-label small {
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+
+    font-size: 7px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.13em;
+
+    text-transform: uppercase;
+}
+
+
+.gallery-heading-image-label strong {
+    color: #ffffff;
+
+    font-family: var(--font-display);
+
+    font-size: clamp(
+        1.6rem,
+        2.4vw,
+        2.6rem
+    );
+
+    font-weight: 400;
+
+    line-height: 0.92;
+
+    letter-spacing: 0.01em;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .gallery-section-heading {
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(300px, 0.75fr);
+
+        column-gap: 40px;
+
+        margin-bottom: 50px;
+    }
+
+
+    .gallery-heading-copy .section-title {
+        font-size: clamp(
+            4.5rem,
+            8vw,
+            7rem
+        );
+    }
+
+
+    .gallery-heading-image {
+        height: 400px;
+
+        min-height: 400px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .gallery-section-heading {
+        display: grid;
+
+        grid-template-columns: 1fr;
+
+        row-gap: 40px;
+
+        margin-bottom: 45px;
+    }
+
+
+    .gallery-heading-copy {
+        max-width: 100%;
+    }
+
+
+    .gallery-heading-copy .section-title {
+        font-size: clamp(
+            4.3rem,
+            16vw,
+            6rem
+        );
+
+        line-height: 0.86;
+    }
+
+
+    .gallery-heading-copy .section-description {
+        max-width: 100%;
+
+        margin-top: 28px;
+
+        font-size: 0.88rem;
+
+        line-height: 1.75;
+    }
+
+
+    .gallery-heading-meta {
+        margin-top: 25px;
+    }
+
+
+    .gallery-heading-image {
+        width: 100%;
+
+        height: 360px;
+
+        min-height: 360px;
+    }
+
+
+    .gallery-heading-image-label {
+        left: 18px;
+
+        right: 18px;
+
+        bottom: 18px;
+    }
+
+
+    .gallery-heading-image-label strong {
+        font-size: 1.7rem;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 430px) {
+
+    .gallery-section-heading {
+        row-gap: 35px;
+    }
+
+
+    .gallery-heading-copy .section-title {
+        font-size: 4rem;
+    }
+
+
+    .gallery-heading-meta {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .gallery-heading-meta span {
+        width: fit-content;
+    }
+
+
+    .gallery-heading-image {
+        height: 320px;
+
+        min-height: 320px;
+    }
+
+
+    .gallery-heading-image-label strong {
+        font-size: 1.5rem;
+    }
+
+}

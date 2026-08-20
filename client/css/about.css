@@ -328,45 +328,75 @@
 
 
 /* =========================================================
-   SECONDARY BUTTON
+   ABOUT CTA — SECONDARY BUTTON
 ========================================================= */
 
 .about-secondary-btn {
+    min-height: 56px;
 
-    border: 1px solid var(--border);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
 
+    padding: 0 24px;
+
+    border: 1px solid var(--text-primary);
     background: transparent;
 
     color: var(--text-primary);
 
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    text-decoration: none;
+
     transition:
-        transform 0.3s ease,
-        background 0.3s ease,
-        color 0.3s ease,
-        border-color 0.3s ease;
+        transform var(--transition-fast),
+        background var(--transition-fast),
+        color var(--transition-fast),
+        border-color var(--transition-fast);
 }
-
-
-.about-secondary-btn:hover {
-
-    transform:
-        translateY(-3px);
-
-    border-color:
-        var(--accent);
-
-    color:
-        var(--accent);
-}
-
 
 .about-secondary-btn i {
+    transition: transform var(--transition-fast);
+}
 
-    color: inherit;
+/* DARK MODE */
+.about-secondary-btn:hover {
+    transform: translateY(-3px);
 
-    transition:
-        transform 0.3s ease,
-        color 0.3s ease;
+    background: var(--accent);
+    border-color: var(--accent);
+
+    color: var(--text-on-accent);
+}
+
+.about-secondary-btn:hover i {
+    transform: translateX(4px);
+}
+
+
+/* =========================================================
+   LIGHT MODE
+========================================================= */
+
+[data-theme="light"] .about-secondary-btn {
+    color: #101311;
+    border-color: #101311;
+    background: transparent;
+}
+
+[data-theme="light"] .about-secondary-btn:hover {
+    color: #101311;
+    border-color: var(--accent);
+    background: var(--accent);
+}
+
+[data-theme="light"] .about-secondary-btn:hover i {
+    transform: translateX(4px);
 }
 
 /* =========================================================
