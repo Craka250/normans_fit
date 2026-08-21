@@ -97,7 +97,7 @@
         <!-- DESKTOP NAVIGATION -->
         <nav class="desktop-nav" aria-label="Main navigation">
 
-            <a href="#home" class="nav-link active">
+            <a href="index.html" class="nav-link active">
                 Home
             </a>
 
@@ -2640,21 +2640,27 @@
 </section>
 
 <!-- =========================================================
-     FOOTER
+     VYRON FITNESS — FOOTER
 ========================================================== -->
-<footer class="site-footer">
+<footer class="site-footer" id="site-footer">
 
     <div class="container">
 
+        <!-- =================================================
+             FOOTER MAIN GRID
+        ================================================== -->
         <div class="footer-main">
 
+            <!-- =================================================
+                 BRAND / INTRO
+            ================================================== -->
             <div class="footer-brand">
 
-                <a href="#home" class="brand">
+                <a href="index.html"
+                   class="brand"
+                   aria-label="VYRON Fitness Home">
 
-                    <span class="brand-mark">
-                        V
-                    </span>
+                    <span class="brand-mark">V</span>
 
                     <span class="brand-name">
                         VYRON
@@ -2663,57 +2669,199 @@
 
                 </a>
 
-
-                <p>
-                    Built different.
+                <p class="footer-brand-tagline">
+                    Built different.<br>
                     Built strong.
                 </p>
 
+                <p class="footer-brand-description">
+                    A performance-driven fitness environment built
+                    for people who are serious about strength,
+                    discipline and results.
+                </p>
+
+                <!-- SOCIAL MEDIA -->
+                <div class="footer-socials"
+                     aria-label="VYRON Fitness social media">
+
+                    <!-- Instagram -->
+                    <a
+                        href="https://www.instagram.com/YOUR_VYRON_ACCOUNT/"
+                        class="footer-social"
+                        aria-label="Follow VYRON Fitness on Instagram"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+
+                    <!-- Facebook -->
+                    <a
+                        href="https://www.facebook.com/YOUR_VYRON_PAGE/"
+                        class="footer-social"
+                        aria-label="Follow VYRON Fitness on Facebook"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+
+                    <!-- WhatsApp -->
+                    <a
+                        href="https://wa.me/254700000000"
+                        class="footer-social"
+                        aria-label="Chat with VYRON Fitness on WhatsApp"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+
+                    <!-- TikTok -->
+                    <a
+                        href="https://www.tiktok.com/@YOUR_VYRON_ACCOUNT"
+                        class="footer-social"
+                        aria-label="Follow VYRON Fitness on TikTok"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+
+                </div>
             </div>
 
 
+            <!-- =================================================
+                 EXPLORE
+            ================================================== -->
             <div class="footer-column">
 
-                <span>EXPLORE</span>
+                <span class="footer-column-title">
+                    EXPLORE
+                </span>
 
-                <a href="programs.html">Programs</a>
-                <a href="trainers.html">Trainers</a>
-                <a href="membership.html">Membership</a>
-                <a href="nutrition.html">Nutrition</a>
+                <a href="programs.html">
+                    <span>Programs</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <a href="trainers.html">
+                    <span>Trainers</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <a href="membership.html">
+                    <span>Membership</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <a href="nutrition.html">
+                    <span>Nutrition</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <a href="gallery.html">
+                    <span>Gallery</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
 
             </div>
 
 
+            <!-- =================================================
+                 COMPANY
+            ================================================== -->
             <div class="footer-column">
 
-                <span>COMPANY</span>
+                <span class="footer-column-title">
+                    COMPANY
+                </span>
 
-                <a href="about.html">About</a>
-                <a href="gallery.html">Gallery</a>
-                <a href="contact.html">Contact</a>
-                <a href="#">Careers</a>
+                <a href="about.html">
+                    <span>About VYRON</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <a href="contact.html">
+                    <span>Contact</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <!-- FAQ LINK — CONTACT PAGE -->
+                <a href="contact.html#faq">
+                    <span>FAQs</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <a href="#">
+                    <span>Careers</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <a href="#">
+                    <span>Privacy</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
 
             </div>
 
 
-            <div class="footer-column">
+            <!-- =================================================
+                 CONTACT
+            ================================================== -->
+            <div class="footer-column footer-contact">
 
-                <span>CONNECT</span>
+                <span class="footer-column-title">
+                    GET IN TOUCH
+                </span>
 
-                <a href="#">
-                    Instagram
+                <!-- PHONE -->
+                <a
+                    href="tel:+254700000000"
+                    class="footer-contact-item"
+                >
+                    <span class="footer-contact-icon">
+                        <i class="fa-solid fa-phone"></i>
+                    </span>
+
+                    <span>
+                        <small>CALL US</small>
+                        +254 700 000 000
+                    </span>
                 </a>
 
-                <a href="#">
-                    Facebook
+
+                <!-- EMAIL -->
+                <a
+                    href="mailto:hello@vyronfitness.com"
+                    class="footer-contact-item"
+                >
+                    <span class="footer-contact-icon">
+                        <i class="fa-solid fa-envelope"></i>
+                    </span>
+
+                    <span>
+                        <small>EMAIL</small>
+                        hello@vyronfitness.com
+                    </span>
                 </a>
 
-                <a href="#">
-                    TikTok
-                </a>
 
-                <a href="#">
-                    YouTube
+                <!-- LOCATION -->
+                <a
+                    href="#"
+                    class="footer-contact-item"
+                >
+                    <span class="footer-contact-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </span>
+
+                    <span>
+                        <small>LOCATION</small>
+                        Ugunja,<br>
+                        Kenya
+                    </span>
                 </a>
 
             </div>
@@ -2721,6 +2869,35 @@
         </div>
 
 
+        <!-- =====================================================
+             FOOTER CTA STRIP
+        ====================================================== -->
+        <div class="footer-cta-strip">
+
+            <div>
+                <span>
+                    READY TO TRAIN DIFFERENT?
+                </span>
+
+                <strong>
+                    START YOUR VYRON JOURNEY.
+                </strong>
+            </div>
+
+            <a
+                href="membership.html"
+                class="footer-cta-button"
+            >
+                GET STARTED
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+
+        </div>
+
+
+        <!-- =====================================================
+             FOOTER BOTTOM
+        ====================================================== -->
         <div class="footer-bottom">
 
             <span>
@@ -2728,7 +2905,7 @@
                 SOME RIGHTS RESERVED.
             </span>
 
-            <div>
+            <div class="footer-bottom-links">
 
                 <a href="#">
                     Privacy
@@ -2738,12 +2915,20 @@
                     Terms
                 </a>
 
+                <!-- FAQ → CONTACT PAGE -->
+                <a href="contact.html#faq">
+                    FAQs
+                </a>
+
             </div>
+
+            <span class="footer-built">
+                BUILT FOR PERFORMANCE.
+            </span>
 
         </div>
 
     </div>
-
 </footer>
 
 

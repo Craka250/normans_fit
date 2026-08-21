@@ -452,57 +452,186 @@
             class="trainers-hero"
             aria-labelledby="trainersHeroTitle"
         >
-
             <div class="trainers-hero-grid"></div>
-
             <div class="trainers-hero-glow"></div>
 
             <div class="container">
 
-                <div class="trainers-hero-content reveal">
+                <div class="trainers-hero-layout">
 
-                    <span class="section-index">
-                        03 / EXPERT COACHING
-                    </span>
+                    <!-- ==========================================
+                        LEFT — HERO CONTENT
+                    =========================================== -->
+                    <div class="trainers-hero-content reveal">
 
-                    <h1 id="trainersHeroTitle">
-                        TRAIN WITH
-                        <span>THE BEST.</span>
-                    </h1>
-
-                    <p>
-                        Meet the coaches behind the VYRON training experience.
-                        Every session is built around purpose, progression
-                        and the individual athlete.
-                    </p>
-
-                    <div class="trainers-hero-meta">
-
-                        <span>
-                            <strong id="trainerCount">
-                                03
-                            </strong>
-                            COACHES
+                        <span class="section-index">
+                            03 / EXPERT COACHING
                         </span>
 
-                        <span class="meta-divider"></span>
+                        <h1 id="trainersHeroTitle">
+                            TRAIN WITH
+                            <span>THE BEST.</span>
+                        </h1>
 
-                        <span>
-                            PERFORMANCE
-                        </span>
+                        <p>
+                            Meet the coaches behind the VYRON training experience.
+                            Every session is built around purpose, progression
+                            and the individual athlete.
+                        </p>
 
-                        <span class="meta-divider"></span>
+                        <div class="trainers-hero-meta">
 
-                        <span>
-                            RESULTS
-                        </span>
+                            <span>
+                                <strong id="trainerCount">
+                                    03
+                                </strong>
+                                COACHES
+                            </span>
+
+                            <span class="meta-divider"></span>
+
+                            <span>
+                                PERFORMANCE
+                            </span>
+
+                            <span class="meta-divider"></span>
+
+                            <span>
+                                RESULTS
+                            </span>
+
+                        </div>
 
                     </div>
+
+
+                    <!-- ==========================================
+                        RIGHT — COACHING SYSTEM CARD
+                    =========================================== -->
+                    <aside class="hero-coaching-card reveal">
+
+                        <div class="hero-card-top">
+
+                            <span class="hero-card-index">
+                                03.01
+                            </span>
+
+                            <span class="hero-card-status">
+                                <span class="status-dot"></span>
+                                COACHING SYSTEM
+                            </span>
+
+                        </div>
+
+
+                        <div class="hero-card-heading">
+
+                            <span class="hero-card-label">
+                                THE VYRON METHOD
+                            </span>
+
+                            <h2>
+                                COACHING BUILT
+                                <span>AROUND YOU.</span>
+                            </h2>
+
+                            <p>
+                                Our coaches combine structured programming,
+                                movement quality and measurable progression
+                                to create training that adapts to the athlete.
+                            </p>
+
+                        </div>
+
+
+                        <!-- COACHING STEPS -->
+                        <div class="hero-coaching-steps">
+
+                            <div class="hero-coaching-step">
+
+                                <span class="step-number">
+                                    01
+                                </span>
+
+                                <div>
+                                    <strong>
+                                        ASSESS
+                                    </strong>
+
+                                    <small>
+                                        Understand your starting point
+                                    </small>
+                                </div>
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </div>
+
+
+                            <div class="hero-coaching-step">
+
+                                <span class="step-number">
+                                    02
+                                </span>
+
+                                <div>
+                                    <strong>
+                                        BUILD
+                                    </strong>
+
+                                    <small>
+                                        Train with a clear purpose
+                                    </small>
+                                </div>
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </div>
+
+
+                            <div class="hero-coaching-step">
+
+                                <span class="step-number">
+                                    03
+                                </span>
+
+                                <div>
+                                    <strong>
+                                        PROGRESS
+                                    </strong>
+
+                                    <small>
+                                        Measure and adapt results
+                                    </small>
+                                </div>
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- CARD FOOTER -->
+                        <div class="hero-card-footer">
+
+                            <span>
+                                <i class="fa-solid fa-crosshairs"></i>
+                                INDIVIDUAL FOCUS
+                            </span>
+
+                            <span>
+                                <i class="fa-solid fa-chart-line"></i>
+                                PERFORMANCE DRIVEN
+                            </span>
+
+                        </div>
+
+                    </aside>
 
                 </div>
 
             </div>
-
         </section>
 
 
@@ -948,21 +1077,27 @@
     </div>
 
 <!-- =========================================================
-     FOOTER
+     VYRON FITNESS — FOOTER
 ========================================================== -->
-<footer class="site-footer">
+<footer class="site-footer" id="site-footer">
 
     <div class="container">
 
+        <!-- =================================================
+             FOOTER MAIN GRID
+        ================================================== -->
         <div class="footer-main">
 
+            <!-- =================================================
+                 BRAND / INTRO
+            ================================================== -->
             <div class="footer-brand">
 
-                <a href="index.html" class="brand">
+                <a href="index.html"
+                   class="brand"
+                   aria-label="VYRON Fitness Home">
 
-                    <span class="brand-mark">
-                        V
-                    </span>
+                    <span class="brand-mark">V</span>
 
                     <span class="brand-name">
                         VYRON
@@ -971,57 +1106,199 @@
 
                 </a>
 
-
-                <p>
-                    Built different.
+                <p class="footer-brand-tagline">
+                    Built different.<br>
                     Built strong.
                 </p>
 
+                <p class="footer-brand-description">
+                    A performance-driven fitness environment built
+                    for people who are serious about strength,
+                    discipline and results.
+                </p>
+
+                <!-- SOCIAL MEDIA -->
+                <div class="footer-socials"
+                     aria-label="VYRON Fitness social media">
+
+                    <!-- Instagram -->
+                    <a
+                        href="https://www.instagram.com/YOUR_VYRON_ACCOUNT/"
+                        class="footer-social"
+                        aria-label="Follow VYRON Fitness on Instagram"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+
+                    <!-- Facebook -->
+                    <a
+                        href="https://www.facebook.com/YOUR_VYRON_PAGE/"
+                        class="footer-social"
+                        aria-label="Follow VYRON Fitness on Facebook"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+
+                    <!-- WhatsApp -->
+                    <a
+                        href="https://wa.me/254700000000"
+                        class="footer-social"
+                        aria-label="Chat with VYRON Fitness on WhatsApp"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+
+                    <!-- TikTok -->
+                    <a
+                        href="https://www.tiktok.com/@YOUR_VYRON_ACCOUNT"
+                        class="footer-social"
+                        aria-label="Follow VYRON Fitness on TikTok"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+
+                </div>
             </div>
 
 
+            <!-- =================================================
+                 EXPLORE
+            ================================================== -->
             <div class="footer-column">
 
-                <span>EXPLORE</span>
+                <span class="footer-column-title">
+                    EXPLORE
+                </span>
 
-                <a href="programs.html">Programs</a>
-                <a href="trainers.html">Trainers</a>
-                <a href="membership.html">Membership</a>
-                <a href="nutrition.html">Nutrition</a>
+                <a href="programs.html">
+                    <span>Programs</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <a href="trainers.html">
+                    <span>Trainers</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <a href="membership.html">
+                    <span>Membership</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <a href="nutrition.html">
+                    <span>Nutrition</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <a href="gallery.html">
+                    <span>Gallery</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
 
             </div>
 
 
+            <!-- =================================================
+                 COMPANY
+            ================================================== -->
             <div class="footer-column">
 
-                <span>COMPANY</span>
+                <span class="footer-column-title">
+                    COMPANY
+                </span>
 
-                <a href="about.html">About</a>
-                <a href="gallery.html">Gallery</a>
-                <a href="contact.html">Contact</a>
-                <a href="#">Careers</a>
+                <a href="about.html">
+                    <span>About VYRON</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <a href="contact.html">
+                    <span>Contact</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <!-- FAQ LINK — CONTACT PAGE -->
+                <a href="contact.html#faq">
+                    <span>FAQs</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <a href="#">
+                    <span>Careers</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <a href="#">
+                    <span>Privacy</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
 
             </div>
 
 
-            <div class="footer-column">
+            <!-- =================================================
+                 CONTACT
+            ================================================== -->
+            <div class="footer-column footer-contact">
 
-                <span>CONNECT</span>
+                <span class="footer-column-title">
+                    GET IN TOUCH
+                </span>
 
-                <a href="#">
-                    Instagram
+                <!-- PHONE -->
+                <a
+                    href="tel:+254700000000"
+                    class="footer-contact-item"
+                >
+                    <span class="footer-contact-icon">
+                        <i class="fa-solid fa-phone"></i>
+                    </span>
+
+                    <span>
+                        <small>CALL US</small>
+                        +254 700 000 000
+                    </span>
                 </a>
 
-                <a href="#">
-                    Facebook
+
+                <!-- EMAIL -->
+                <a
+                    href="mailto:hello@vyronfitness.com"
+                    class="footer-contact-item"
+                >
+                    <span class="footer-contact-icon">
+                        <i class="fa-solid fa-envelope"></i>
+                    </span>
+
+                    <span>
+                        <small>EMAIL</small>
+                        hello@vyronfitness.com
+                    </span>
                 </a>
 
-                <a href="#">
-                    TikTok
-                </a>
 
-                <a href="#">
-                    YouTube
+                <!-- LOCATION -->
+                <a
+                    href="#"
+                    class="footer-contact-item"
+                >
+                    <span class="footer-contact-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </span>
+
+                    <span>
+                        <small>LOCATION</small>
+                        Ugunja,<br>
+                        Kenya
+                    </span>
                 </a>
 
             </div>
@@ -1029,6 +1306,35 @@
         </div>
 
 
+        <!-- =====================================================
+             FOOTER CTA STRIP
+        ====================================================== -->
+        <div class="footer-cta-strip">
+
+            <div>
+                <span>
+                    READY TO TRAIN DIFFERENT?
+                </span>
+
+                <strong>
+                    START YOUR VYRON JOURNEY.
+                </strong>
+            </div>
+
+            <a
+                href="membership.html"
+                class="footer-cta-button"
+            >
+                GET STARTED
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+
+        </div>
+
+
+        <!-- =====================================================
+             FOOTER BOTTOM
+        ====================================================== -->
         <div class="footer-bottom">
 
             <span>
@@ -1036,7 +1342,7 @@
                 SOME RIGHTS RESERVED.
             </span>
 
-            <div>
+            <div class="footer-bottom-links">
 
                 <a href="#">
                     Privacy
@@ -1046,14 +1352,21 @@
                     Terms
                 </a>
 
+                <!-- FAQ → CONTACT PAGE -->
+                <a href="contact.html#faq">
+                    FAQs
+                </a>
+
             </div>
+
+            <span class="footer-built">
+                BUILT FOR PERFORMANCE.
+            </span>
 
         </div>
 
     </div>
-
 </footer>
-
 
     <!-- =====================================================
          TRAINERS JAVASCRIPT

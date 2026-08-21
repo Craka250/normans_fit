@@ -1,5 +1,6 @@
 /* =========================================================
    VYRON — TRAINERS PAGE
+   CLEAN CONSOLIDATED STYLESHEET
    ========================================================= */
 
 
@@ -33,6 +34,7 @@
 /* =========================================================
    HERO
    ========================================================= */
+
 .trainers-hero {
     position: relative;
     min-height: 72vh;
@@ -43,22 +45,24 @@
     background: var(--bg-primary);
 }
 
-
 .trainers-hero-grid {
     position: absolute;
     inset: 0;
     z-index: -3;
     opacity: 0.22;
+    pointer-events: none;
+
     background-image:
         linear-gradient(
-            rgba(255,255,255,0.035) 1px,
+            rgba(255, 255, 255, 0.035) 1px,
             transparent 1px
         ),
         linear-gradient(
             90deg,
-            rgba(255,255,255,0.035) 1px,
+            rgba(255, 255, 255, 0.035) 1px,
             transparent 1px
         );
+
     background-size: 70px 70px;
 }
 
@@ -77,6 +81,24 @@
         );
 }
 
+.trainers-hero::after {
+    content: "";
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    right: -180px;
+    top: 50%;
+    z-index: -2;
+
+    transform: translateY(-50%);
+    border-radius: 50%;
+
+    background: var(--accent);
+    opacity: 0.045;
+    filter: blur(100px);
+
+    pointer-events: none;
+}
 
 .trainers-hero-glow {
     position: absolute;
@@ -84,31 +106,34 @@
     height: 600px;
     top: 50%;
     right: -180px;
-    transform: translateY(-50%);
     z-index: -1;
+
+    transform: translateY(-50%);
     border-radius: 50%;
+
     background: var(--accent);
-    opacity: 0.08;
+    opacity: 0.07;
     filter: blur(120px);
+
     pointer-events: none;
 }
 
-
 .trainers-hero-content {
+    position: relative;
+    z-index: 2;
     max-width: 1000px;
     padding: 150px 0 100px;
 }
-
 
 .trainers-hero-content .section-index {
     display: inline-block;
     margin-bottom: 25px;
 }
 
-
 .trainers-hero-content h1 {
     max-width: 950px;
     margin: 0;
+
     color: var(--text-primary);
     font-family: var(--font-display);
     font-size: clamp(80px, 12vw, 190px);
@@ -118,28 +143,27 @@
     text-transform: uppercase;
 }
 
-
 .trainers-hero-content h1 span {
     display: block;
     color: var(--accent);
 }
 
-
 .trainers-hero-content > p {
     max-width: 650px;
     margin: 42px 0 0;
+
     color: var(--text-secondary);
     font-family: var(--font-body);
     font-size: 15px;
     line-height: 1.8;
 }
 
-
 .trainers-hero-meta {
     display: flex;
     align-items: center;
     gap: 18px;
     margin-top: 38px;
+
     color: var(--text-muted);
     font-family: var(--font-mono);
     font-size: 8px;
@@ -148,16 +172,15 @@
     text-transform: uppercase;
 }
 
-
 .trainers-hero-meta strong {
     margin-right: 6px;
+
     color: var(--accent);
     font-family: var(--font-display);
     font-size: 22px;
     font-weight: 400;
     letter-spacing: 0;
 }
-
 
 .meta-divider {
     width: 30px;
@@ -167,24 +190,81 @@
 
 
 /* =========================================================
-   DIRECTORY
+   TRAINER DIRECTORY
    ========================================================= */
 
 .trainer-directory {
     position: relative;
+    display: block;
+    width: 100%;
+    min-height: 500px;
+    padding-block: 110px;
+
+    overflow: hidden;
+
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Subtle background grid to intentionally use surrounding space */
+
+.trainer-directory::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 80px 80px;
+    opacity: 0.45;
+    pointer-events: none;
+}
+
+.trainer-directory::after {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    right: -250px;
+    top: 35%;
+
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.025;
+    filter: blur(120px);
+
+    pointer-events: none;
+}
+
+.trainer-directory .container {
+    position: relative;
+    z-index: 2;
 }
 
 
+/* =========================================================
+   SEARCH + FILTER CONTROLS
+   ========================================================= */
+
 .trainer-controls {
     position: relative;
-    z-index: 10;
+    z-index: 5;
 
     display: grid;
     grid-template-columns: minmax(0, 1fr) 260px;
     gap: 14px;
 
     width: 100%;
-    margin-bottom: 55px;
+    margin-bottom: 65px;
 }
 
 .trainer-search,
@@ -193,22 +273,24 @@
     width: 100%;
 }
 
-
 .trainer-search i {
     position: absolute;
     top: 50%;
     left: 18px;
+    z-index: 2;
+
     transform: translateY(-50%);
+
     color: var(--text-muted);
     font-size: 12px;
-    pointer-events: none;
-    z-index: 2;
-}
 
+    pointer-events: none;
+}
 
 .trainer-search input,
 .trainer-filter select {
     box-sizing: border-box;
+
     width: 100%;
     height: 58px;
 
@@ -219,7 +301,7 @@
 
     outline: none;
 
-    background: var(--surface);
+    background: var(--input-bg, var(--surface));
     color: var(--text-primary);
 
     font-family: var(--font-mono);
@@ -227,32 +309,29 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
 
-    appearance: auto;
-
     transition:
         border-color var(--transition),
         background-color var(--transition),
-        color var(--transition);
+        color var(--transition),
+        box-shadow var(--transition);
 }
-
 
 .trainer-search input {
     padding-left: 48px;
 }
-
 
 .trainer-search input::placeholder {
     color: var(--text-muted);
     opacity: 0.75;
 }
 
-
 .trainer-search input:focus,
 .trainer-filter select:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 0 1px var(--accent);
-}
 
+    box-shadow:
+        0 0 0 1px var(--accent);
+}
 
 .trainer-filter select {
     cursor: pointer;
@@ -263,10 +342,49 @@
    TRAINER GRID
    ========================================================= */
 
+#trainerGrid,
 .full-trainer-grid {
+    position: relative;
+    z-index: 2;
+
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 70px 25px;
+
+    width: 100%;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 65px 25px;
+
+    align-items: start;
+}
+
+
+/* =========================================================
+   TWO TRAINERS
+   ========================================================= */
+
+#trainerGrid:has(> .full-trainer-card:nth-child(2):last-child),
+.full-trainer-grid:has(> .full-trainer-card:nth-child(2):last-child) {
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    max-width: 1050px;
+    margin-inline: auto;
+}
+
+
+/* =========================================================
+   ONE TRAINER
+   ========================================================= */
+
+#trainerGrid:has(> .full-trainer-card:only-child),
+.full-trainer-grid:has(> .full-trainer-card:only-child) {
+    grid-template-columns:
+        minmax(0, 1fr);
+
+    max-width: 510px;
+    margin-inline: auto;
 }
 
 
@@ -275,44 +393,140 @@
    ========================================================= */
 
 .full-trainer-card {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
     min-width: 0;
+
+    overflow: hidden;
+
+    background: var(--surface);
+    color: var(--text-primary);
+
+    border: 1px solid var(--border);
+    border-radius: 0;
+
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform var(--transition),
+        opacity var(--transition),
+        background-color 350ms ease,
+        border-color 350ms ease,
+        color 350ms ease,
+        box-shadow 350ms ease;
 }
 
+.full-trainer-card:hover {
+    transform: translateY(-6px);
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--accent) 35%,
+            var(--border)
+        );
+
+    box-shadow:
+        0 25px 65px rgba(0, 0, 0, 0.16);
+}
+
+
+/* =========================================================
+   NO ROUNDED CORNERS
+   ========================================================= */
+
+.full-trainer-card,
+.full-trainer-image,
+.full-trainer-body,
+.trainer-tag,
+.view-profile-btn,
+.full-trainer-action button {
+    border-radius: 0;
+}
+
+
+/* =========================================================
+   REVEAL ANIMATION
+   ========================================================= */
+
+/*
+   The JavaScript can still use .reveal and .active.
+
+   However, cards are NOT permanently hidden if the reveal
+   script fails to initialise.
+*/
+
+.full-trainer-card.reveal {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.full-trainer-card.reveal.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   TRAINER IMAGE
+   ========================================================= */
 
 .full-trainer-image {
     position: relative;
-    aspect-ratio: 4 / 5;
+
+    width: 100%;
+    height: 480px;
+    min-height: 480px;
+
     overflow: hidden;
-    background: var(--surface);
+
+    background: var(--surface-elevated, var(--surface));
+
     isolation: isolate;
 }
 
-
 .full-trainer-image::after {
     content: "";
+
     position: absolute;
-    inset: 30% 0 0;
+    inset: 25% 0 0;
     z-index: 1;
+
     pointer-events: none;
+
     background:
         linear-gradient(
             to bottom,
             transparent 0%,
-            rgba(0,0,0,0.08) 20%,
-            rgba(0,0,0,0.68) 70%,
-            rgba(0,0,0,0.94) 100%
+            rgba(0, 0, 0, 0.08) 20%,
+            rgba(0, 0, 0, 0.68) 70%,
+            rgba(0, 0, 0, 0.95) 100%
         );
 }
 
-
 .full-trainer-image img {
+    display: block;
+
     width: 100%;
     height: 100%;
-    display: block;
+    min-height: 0;
+
     object-fit: cover;
+
     filter:
         grayscale(0.12)
         saturate(0.95);
+
     transition:
         transform 900ms cubic-bezier(
             0.22,
@@ -323,13 +537,35 @@
         filter 500ms ease;
 }
 
-
 .full-trainer-card:hover
 .full-trainer-image img {
     transform: scale(1.045);
+
     filter:
         grayscale(0)
         saturate(1.05);
+}
+
+
+/* =========================================================
+   TWO-TRAINER IMAGE
+   ========================================================= */
+
+#trainerGrid:has(> .full-trainer-card:nth-child(2):last-child)
+.full-trainer-image {
+    height: 440px;
+    min-height: 440px;
+}
+
+
+/* =========================================================
+   ONE-TRAINER IMAGE
+   ========================================================= */
+
+#trainerGrid:has(> .full-trainer-card:only-child)
+.full-trainer-image {
+    height: 440px;
+    min-height: 440px;
 }
 
 
@@ -341,23 +577,24 @@
     position: absolute;
     top: 20px;
     left: 20px;
-    z-index: 4;
+    z-index: 5;
+
     display: flex;
     flex-direction: column;
 }
 
-
 .full-trainer-number span {
-    color: rgba(255,255,255,0.55);
+    color: rgba(255, 255, 255, 0.55);
+
     font-family: var(--font-mono);
     font-size: 7px;
     font-weight: 700;
     letter-spacing: 0.16em;
 }
 
-
 .full-trainer-number strong {
     color: #FFFFFF;
+
     font-family: var(--font-display);
     font-size: 30px;
     font-weight: 400;
@@ -366,29 +603,33 @@
 
 
 /* =========================================================
-   PROFILE BUTTON
+   PROFILE ACTION
    ========================================================= */
 
 .full-trainer-action {
     position: absolute;
     top: 18px;
     right: 18px;
-    z-index: 5;
+    z-index: 6;
 }
-
 
 .full-trainer-action button {
     width: 48px;
     height: 48px;
+
     display: grid;
     place-items: center;
-    border: 1px solid rgba(255,255,255,0.18);
-    border-radius: 0;
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
     background: var(--accent);
-    color: #080A0A;
+    color: var(--text-on-accent, #080A0A);
+
     cursor: pointer;
+
     box-shadow:
-        0 10px 25px rgba(0,0,0,0.25);
+        0 10px 25px rgba(0, 0, 0, 0.25);
+
     transition:
         transform 350ms ease,
         background 350ms ease,
@@ -396,17 +637,17 @@
         box-shadow 350ms ease;
 }
 
-
 .full-trainer-action button:hover {
     transform:
         translateY(-3px)
         rotate(45deg);
+
     background: #FFFFFF;
     color: #080A0A;
-    box-shadow:
-        0 15px 35px rgba(0,0,0,0.3);
-}
 
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.3);
+}
 
 .full-trainer-action button:focus-visible {
     outline: 2px solid var(--accent);
@@ -420,35 +661,55 @@
 
 .full-trainer-image-content {
     position: absolute;
+
     left: 20px;
     right: 20px;
     bottom: 20px;
-    z-index: 3;
+
+    z-index: 4;
 }
 
-
 .full-trainer-specialization {
+    position: relative;
+    z-index: 4;
+
     display: block;
+
     margin-bottom: 7px;
+
     color: var(--accent);
+
     font-family: var(--font-mono);
     font-size: 8px;
     font-weight: 700;
     line-height: 1.4;
     letter-spacing: 0.12em;
+
     text-transform: uppercase;
+
+    text-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.75);
 }
 
-
 .full-trainer-image-content h3 {
+    position: relative;
+    z-index: 4;
+
     margin: 0;
-    color: #FFFFFF;
+
+    color: #FFFFFF !important;
+
     font-family: var(--font-display);
     font-size: clamp(30px, 3vw, 48px);
     font-weight: 400;
     line-height: 0.9;
     letter-spacing: -0.01em;
+
     text-transform: uppercase;
+
+    text-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.75),
+        0 4px 14px rgba(0, 0, 0, 0.65);
 }
 
 
@@ -457,39 +718,67 @@
    ========================================================= */
 
 .full-trainer-body {
-    padding-top: 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    width: 100%;
+    min-width: 0;
+
+    padding: 26px;
+
+    background: var(--surface);
+    color: var(--text-primary);
 }
 
+
+/* =========================================================
+   META
+   ========================================================= */
 
 .full-trainer-meta {
     display: flex;
     align-items: center;
-    gap: 10px;
-    color: var(--accent);
+
+    width: 100%;
+
+    gap: 12px;
+
+    color: var(--text-secondary);
+
     font-family: var(--font-mono);
     font-size: 8px;
     font-weight: 700;
     letter-spacing: 0.1em;
+
     text-transform: uppercase;
 }
 
-
 .full-trainer-meta .line {
-    width: 25px;
+    flex: 1;
+
+    width: auto;
     height: 1px;
+
     background: var(--border);
 }
 
-
 .full-trainer-meta .experience {
-    color: var(--text-muted);
+    color: var(--accent);
 }
 
 
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
 .full-trainer-description {
-    max-width: 520px;
+    max-width: none;
+
     margin: 16px 0 0;
+
     color: var(--text-secondary);
+
     font-family: var(--font-body);
     font-size: 12px;
     line-height: 1.75;
@@ -503,63 +792,110 @@
 .trainer-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 7px;
-    margin-top: 18px;
-}
 
+    gap: 8px;
+
+    margin-top: 20px;
+}
 
 .trainer-tag {
     display: inline-flex;
     align-items: center;
+
     min-height: 27px;
-    padding: 6px 9px;
+
+    padding: 7px 10px;
+
+    background: var(--card-bg, var(--surface));
+
     border: 1px solid var(--border);
-    color: var(--text-muted);
+
+    color: var(--text-secondary);
+
     font-family: var(--font-mono);
-    font-size: 7px;
+    font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.08em;
+
     text-transform: uppercase;
 }
 
 
 /* =========================================================
-   VIEW PROFILE
+   VIEW PROFILE BUTTON
    ========================================================= */
 
 .view-profile-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+
     gap: 10px;
-    margin-top: 20px;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    color: var(--text-primary);
+
+    margin-top: 24px;
+    padding: 13px 18px;
+
+    background: var(--accent);
+
+    border: 1px solid var(--accent);
+
+    color: var(--text-on-accent, #080A0A);
+
     font-family: var(--font-mono);
     font-size: 8px;
     font-weight: 700;
     letter-spacing: 0.12em;
+
     text-transform: uppercase;
+
     cursor: pointer;
+
+    transition:
+        background-color var(--transition-fast),
+        color var(--transition-fast),
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast);
 }
 
+.view-profile-btn:hover {
+    background: var(--accent-dark, var(--accent));
+    color: var(--text-on-accent, #080A0A);
+
+    transform: translateX(3px);
+
+    box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.18);
+}
+
+.view-profile-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+}
 
 .view-profile-btn i {
-    color: var(--accent);
+    display: inline-block;
+
+    width: auto;
+    height: auto;
+
+    flex: 0 0 auto;
+
+    color: var(--text-on-accent, #080A0A) !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+
+    font-size: 11px;
+    line-height: 1;
+
     transition:
         transform 300ms ease;
 }
 
-
 .view-profile-btn:hover i {
+    color: var(--text-on-accent, #080A0A) !important;
     transform: translateX(5px);
-}
-
-
-.view-profile-btn:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 5px;
 }
 
 
@@ -568,187 +904,329 @@
    ========================================================= */
 
 .trainer-empty {
+    width: 100%;
+
     padding: 90px 20px;
+
     text-align: center;
+
     border: 1px solid var(--border);
+
     background: var(--surface);
+    color: var(--text-secondary);
 }
 
-
-.trainer-empty[hidden] {
-    display: none;
+.trainer-empty[hidden],
+#trainerEmpty[hidden] {
+    display: none !important;
 }
-
 
 .trainer-empty i {
+    display: block;
+
     margin-bottom: 18px;
+
     color: var(--accent);
     font-size: 25px;
 }
 
-
 .trainer-empty h3 {
     margin: 0;
+
     color: var(--text-primary);
+
     font-family: var(--font-display);
     font-size: 42px;
     font-weight: 400;
+
     text-transform: uppercase;
 }
 
-
 .trainer-empty p {
     margin: 12px 0 25px;
+
     color: var(--text-muted);
     font-size: 12px;
 }
 
 
 /* =========================================================
-   PHILOSOPHY
+   TRAINER PHILOSOPHY
    ========================================================= */
 
 .trainer-philosophy {
+    position: relative;
     overflow: hidden;
-}
 
+    background: var(--bg-primary);
+}
 
 .philosophy-layout {
     display: grid;
-    grid-template-columns: 0.85fr 1.15fr;
+
+    grid-template-columns:
+        0.85fr 1.15fr;
+
     gap: 100px;
+
     align-items: start;
 }
 
-
 .philosophy-heading h2 {
     margin: 28px 0 0;
+
     color: var(--text-primary);
+
     font-family: var(--font-display);
     font-size: clamp(60px, 8vw, 120px);
     font-weight: 400;
     line-height: 0.82;
     letter-spacing: -0.035em;
+
     text-transform: uppercase;
 }
-
 
 .philosophy-heading h2 span {
     display: block;
     color: var(--accent);
 }
 
-
 .philosophy-content {
     padding-top: 10px;
 }
 
-
 .philosophy-lead {
     max-width: 650px;
+
     margin: 0;
+
     color: var(--text-secondary);
+
     font-size: clamp(17px, 2vw, 23px);
     line-height: 1.65;
 }
-
 
 .philosophy-points {
     margin-top: 55px;
 }
 
-
 .philosophy-point {
     display: grid;
+
     grid-template-columns: 55px 1fr;
+
     gap: 20px;
+
     padding: 25px 0;
+
     border-top: 1px solid var(--border);
 }
-
 
 .philosophy-point:last-child {
     border-bottom: 1px solid var(--border);
 }
 
-
 .point-number {
     color: var(--accent);
+
     font-family: var(--font-mono);
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 0.1em;
 }
 
-
 .philosophy-point h3 {
     margin: 0 0 8px;
+
     color: var(--text-primary);
+
     font-family: var(--font-display);
     font-size: 32px;
     font-weight: 400;
     line-height: 1;
+
     text-transform: uppercase;
 }
 
-
 .philosophy-point p {
     max-width: 520px;
+
     margin: 0;
+
     color: var(--text-muted);
+
     font-size: 11px;
     line-height: 1.7;
 }
 
 
 /* =========================================================
-   CTA
+   CTA SECTION
+   CENTERED CONTENT + UTILIZED EMPTY SPACE
    ========================================================= */
 
 .trainers-cta {
     position: relative;
+
+    min-height: 620px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     overflow: hidden;
     isolation: isolate;
-    padding: 130px 0;
+
+    padding: 120px 0;
+
     background: var(--surface);
+
+    text-align: center;
 }
 
+
+/* =========================================================
+   CTA GRID BACKGROUND
+   ========================================================= */
 
 .trainers-cta-grid {
     position: absolute;
     inset: 0;
-    z-index: -1;
-    opacity: 0.18;
+    z-index: -3;
+
+    opacity: 0.22;
+
     background-image:
         linear-gradient(
-            rgba(255,255,255,0.04) 1px,
+            rgba(255, 255, 255, 0.04) 1px,
             transparent 1px
         ),
         linear-gradient(
             90deg,
-            rgba(255,255,255,0.04) 1px,
+            rgba(255, 255, 255, 0.04) 1px,
             transparent 1px
         );
+
     background-size: 65px 65px;
+
+    pointer-events: none;
 }
 
+
+/* =========================================================
+   CTA LARGE RADIAL LIGHT
+   ========================================================= */
+
+.trainers-cta::before {
+    content: "";
+
+    position: absolute;
+
+    width: 700px;
+    height: 700px;
+
+    left: 50%;
+    top: 50%;
+
+    z-index: -2;
+
+    transform:
+        translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            color-mix(
+                in srgb,
+                var(--accent) 13%,
+                transparent
+            ) 0%,
+            transparent 68%
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   CTA SECONDARY GLOW
+   ========================================================= */
+
+.trainers-cta::after {
+    content: "";
+
+    position: absolute;
+
+    width: 320px;
+    height: 320px;
+
+    right: -80px;
+    bottom: -100px;
+
+    z-index: -1;
+
+    border-radius: 50%;
+
+    background: var(--accent);
+
+    opacity: 0.045;
+
+    filter: blur(90px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   CTA CONTENT
+   ========================================================= */
 
 .trainers-cta-content {
-    max-width: 1050px;
+    position: relative;
+    z-index: 2;
+
+    width: min(100%, 1050px);
+
+    margin-inline: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
 }
 
 
+/* =========================================================
+   CTA INDEX
+   ========================================================= */
+
+.trainers-cta-content .section-index {
+    display: inline-block;
+}
+
+
+/* =========================================================
+   CTA HEADING
+   ========================================================= */
+
 .trainers-cta-content h2 {
-    margin: 30px 0 0;
+    max-width: 1000px;
+
+    margin: 30px auto 0;
+
     color: var(--text-primary);
+
     font-family: var(--font-display);
     font-size: clamp(70px, 11vw, 170px);
     font-weight: 400;
     line-height: 0.78;
     letter-spacing: -0.045em;
+
     text-transform: uppercase;
 }
-
 
 .trainers-cta-content h2 span {
     display: block;
@@ -756,20 +1234,85 @@
 }
 
 
+/* =========================================================
+   CTA DESCRIPTION
+   ========================================================= */
+
 .trainers-cta-content > p {
     max-width: 580px;
-    margin: 35px 0 0;
+
+    margin: 35px auto 0;
+
     color: var(--text-secondary);
+
     font-size: 13px;
     line-height: 1.8;
 }
 
 
+/* =========================================================
+   CTA ACTIONS
+   ========================================================= */
+
 .cta-actions {
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
+
     gap: 12px;
+
     margin-top: 35px;
+}
+
+
+/* =========================================================
+   CTA DECORATIVE CORNER LABELS
+   Utilizes surrounding empty space without clutter.
+   ========================================================= */
+
+.trainers-cta-content::before {
+    content: "VYRON / TRAIN WITH PURPOSE";
+
+    position: absolute;
+
+    left: -220px;
+    top: 50%;
+
+    transform:
+        translateY(-50%)
+        rotate(-90deg);
+
+    color: var(--text-muted);
+
+    font-family: var(--font-mono);
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+
+    opacity: 0.55;
+
+    white-space: nowrap;
+}
+
+.trainers-cta-content::after {
+    content: "01 — 04";
+
+    position: absolute;
+
+    right: -120px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+
+    opacity: 0.7;
 }
 
 
@@ -780,67 +1323,89 @@
 .trainer-modal {
     position: fixed;
     inset: 0;
+
     z-index: 9999;
+
     display: grid;
     place-items: center;
+
     padding: 25px;
 }
-
 
 .trainer-modal[hidden] {
     display: none;
 }
 
-
 .trainer-modal-backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.82);
+
+    background: rgba(0, 0, 0, 0.82);
+
     backdrop-filter: blur(10px);
 }
-
 
 .trainer-modal-panel {
     position: relative;
     z-index: 2;
+
     width: min(1100px, 100%);
     max-height: calc(100vh - 50px);
+
     display: grid;
-    grid-template-columns: 0.8fr 1.2fr;
+
+    grid-template-columns:
+        0.8fr 1.2fr;
+
     overflow: auto;
+
     background: var(--bg-primary);
+
     border: 1px solid var(--border);
+
     box-shadow:
-        0 30px 100px rgba(0,0,0,0.5);
+        0 30px 100px rgba(0, 0, 0, 0.5);
 }
 
 
+/* =========================================================
+   MODAL CLOSE
+   ========================================================= */
+
 .trainer-modal-close {
     position: absolute;
+
     top: 15px;
     right: 15px;
+
     z-index: 10;
+
     width: 44px;
     height: 44px;
+
     display: grid;
     place-items: center;
-    border: 1px solid rgba(255,255,255,0.2);
-    background: rgba(0,0,0,0.5);
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    background: rgba(0, 0, 0, 0.5);
+
     color: #FFFFFF;
+
     cursor: pointer;
+
     transition:
         background 250ms ease,
         color 250ms ease,
         transform 250ms ease;
 }
 
-
 .trainer-modal-close:hover {
     background: var(--accent);
     color: #080A0A;
+
     transform: rotate(90deg);
 }
-
 
 .trainer-modal-close:focus-visible {
     outline: 2px solid var(--accent);
@@ -848,54 +1413,64 @@
 }
 
 
+/* =========================================================
+   MODAL IMAGE
+   ========================================================= */
+
 .trainer-modal-image {
     position: relative;
+
     min-height: 650px;
+
     background: var(--surface);
 }
-
 
 .trainer-modal-image img {
     width: 100%;
     height: 100%;
+
     display: block;
+
     object-fit: cover;
 }
 
-
 .trainer-modal-image-overlay {
     position: absolute;
+
     inset: 40% 0 0;
+
     background:
         linear-gradient(
             to bottom,
             transparent,
-            rgba(0,0,0,0.75)
+            rgba(0, 0, 0, 0.75)
         );
 }
 
-
 .trainer-modal-number {
     position: absolute;
+
     left: 25px;
     bottom: 25px;
+
     z-index: 2;
+
     display: flex;
     flex-direction: column;
 }
 
-
 .trainer-modal-number span {
-    color: rgba(255,255,255,0.6);
+    color: rgba(255, 255, 255, 0.6);
+
     font-family: var(--font-mono);
     font-size: 8px;
     font-weight: 700;
     letter-spacing: 0.15em;
 }
 
-
 .trainer-modal-number strong {
     color: #FFFFFF;
+
     font-family: var(--font-display);
     font-size: 60px;
     font-weight: 400;
@@ -903,112 +1478,142 @@
 }
 
 
+/* =========================================================
+   MODAL CONTENT
+   ========================================================= */
+
 .trainer-modal-content {
     padding: 65px 55px;
 }
 
-
 .trainer-modal-topline {
     display: flex;
     align-items: center;
+
     gap: 12px;
+
     color: var(--accent);
+
     font-family: var(--font-mono);
     font-size: 8px;
     font-weight: 700;
     letter-spacing: 0.1em;
     line-height: 1.4;
+
     text-transform: uppercase;
 }
-
 
 .modal-line {
     width: 30px;
     height: 1px;
+
     background: var(--border);
 }
 
-
 .trainer-modal-content h2 {
-    margin: 25px 0 25px;
+    margin: 25px 0;
+
     color: var(--text-primary);
+
     font-family: var(--font-display);
     font-size: clamp(55px, 7vw, 100px);
     font-weight: 400;
     line-height: 0.82;
     letter-spacing: -0.03em;
+
     text-transform: uppercase;
 }
 
-
 .trainer-modal-description {
     max-width: 600px;
+
     margin: 0;
+
     color: var(--text-secondary);
+
     font-size: 13px;
     line-height: 1.85;
 }
 
 
+/* =========================================================
+   MODAL SECTIONS
+   ========================================================= */
+
 .trainer-modal-sections {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+
+    grid-template-columns:
+        1fr 1fr;
+
     gap: 35px;
+
     margin-top: 45px;
     padding-top: 25px;
+
     border-top: 1px solid var(--border);
 }
 
-
 .modal-label {
     display: block;
+
     margin-bottom: 15px;
+
     color: var(--text-muted);
+
     font-family: var(--font-mono);
     font-size: 7px;
     font-weight: 700;
     letter-spacing: 0.14em;
+
     text-transform: uppercase;
 }
-
 
 .trainer-modal-sections ul {
     display: flex;
     flex-direction: column;
+
     gap: 10px;
+
     margin: 0;
     padding: 0;
+
     list-style: none;
 }
 
-
 .trainer-modal-sections li {
     position: relative;
+
     padding-left: 15px;
+
     color: var(--text-secondary);
+
     font-size: 11px;
     line-height: 1.6;
 }
 
-
 .trainer-modal-sections li::before {
     content: "";
+
     position: absolute;
+
     top: 8px;
     left: 0;
+
     width: 5px;
     height: 5px;
+
     background: var(--accent);
 }
 
-
 #modalTrainerIdeal {
     margin: 0;
+
     color: var(--text-secondary);
+
     font-size: 11px;
     line-height: 1.75;
 }
-
 
 .modal-contact-btn {
     margin-top: 40px;
@@ -1030,33 +1635,40 @@ body.trainer-modal-open {
 
 .site-footer {
     padding: 25px 0;
+
     border-top: 1px solid var(--border);
+
     background: var(--bg-primary);
 }
-
 
 .footer-bottom {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     gap: 20px;
+
     color: var(--text-muted);
+
     font-family: var(--font-mono);
     font-size: 7px;
     font-weight: 700;
     letter-spacing: 0.1em;
+
     text-transform: uppercase;
 }
-
 
 .footer-bottom a {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
-    color: var(--text-muted);
-    transition: color var(--transition);
-}
 
+    gap: 7px;
+
+    color: var(--text-muted);
+
+    transition:
+        color var(--transition);
+}
 
 .footer-bottom a:hover {
     color: var(--accent);
@@ -1064,10 +1676,10 @@ body.trainer-modal-open {
 
 
 /* =========================================================
-   RESPONSIVE — TABLET
+   TABLET
    ========================================================= */
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
 
     .trainers-hero {
         min-height: 65vh;
@@ -1077,9 +1689,40 @@ body.trainer-modal-open {
         padding: 130px 0 80px;
     }
 
+    #trainerGrid,
     .full-trainer-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
         gap: 55px 20px;
+    }
+
+    #trainerGrid:has(> .full-trainer-card:nth-child(2):last-child),
+    .full-trainer-grid:has(> .full-trainer-card:nth-child(2):last-child) {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        max-width: 900px;
+    }
+
+    #trainerGrid:has(> .full-trainer-card:only-child),
+    .full-trainer-grid:has(> .full-trainer-card:only-child) {
+        grid-template-columns:
+            minmax(0, 1fr);
+
+        max-width: 430px;
+    }
+
+    #trainerGrid:has(> .full-trainer-card:nth-child(2):last-child)
+    .full-trainer-image {
+        height: 420px;
+        min-height: 420px;
+    }
+
+    #trainerGrid:has(> .full-trainer-card:only-child)
+    .full-trainer-image {
+        height: 410px;
+        min-height: 410px;
     }
 
     .philosophy-layout {
@@ -1092,7 +1735,8 @@ body.trainer-modal-open {
     }
 
     .trainer-modal-panel {
-        grid-template-columns: 0.7fr 1.3fr;
+        grid-template-columns:
+            0.7fr 1.3fr;
     }
 
     .trainer-modal-image {
@@ -1103,14 +1747,25 @@ body.trainer-modal-open {
         padding: 50px 35px;
     }
 
+    /*
+       Bring the CTA side labels inward on tablet.
+    */
+
+    .trainers-cta-content::before {
+        left: -120px;
+    }
+
+    .trainers-cta-content::after {
+        right: -70px;
+    }
 }
 
 
 /* =========================================================
-   RESPONSIVE — MOBILE
+   MOBILE
    ========================================================= */
 
-@media (max-width: 650px) {
+@media (max-width: 700px) {
 
     .trainers-hero {
         min-height: auto;
@@ -1121,7 +1776,8 @@ body.trainer-modal-open {
     }
 
     .trainers-hero-content h1 {
-        font-size: clamp(62px, 18vw, 105px);
+        font-size:
+            clamp(62px, 18vw, 105px);
     }
 
     .trainers-hero-content > p {
@@ -1139,14 +1795,62 @@ body.trainer-modal-open {
         display: none;
     }
 
-    .trainer-controls {
-        grid-template-columns: 1fr;
-        margin-bottom: 35px;
+
+    /* DIRECTORY */
+
+    .trainer-directory {
+        padding-block: 75px;
     }
 
-    .full-trainer-grid {
+    .trainer-controls {
         grid-template-columns: 1fr;
+        margin-bottom: 40px;
+    }
+
+
+    /* GRID */
+
+    #trainerGrid,
+    .full-trainer-grid,
+    #trainerGrid:has(> .full-trainer-card:nth-child(2):last-child),
+    .full-trainer-grid:has(> .full-trainer-card:nth-child(2):last-child),
+    #trainerGrid:has(> .full-trainer-card:only-child),
+    .full-trainer-grid:has(> .full-trainer-card:only-child) {
+
+        grid-template-columns: 1fr;
+
+        width: 100%;
+        max-width: none;
+
         gap: 50px;
+
+        margin-inline: 0;
+    }
+
+
+    /* IMAGE */
+
+    .full-trainer-image,
+    #trainerGrid:has(> .full-trainer-card:nth-child(2):last-child)
+    .full-trainer-image,
+    #trainerGrid:has(> .full-trainer-card:only-child)
+    .full-trainer-image {
+
+        width: 100%;
+
+        height: 400px;
+        min-height: 400px;
+    }
+
+    .full-trainer-image img {
+        min-height: 0;
+    }
+
+
+    /* CARD */
+
+    .full-trainer-body {
+        padding: 22px;
     }
 
     .full-trainer-image-content {
@@ -1168,6 +1872,7 @@ body.trainer-modal-open {
     .full-trainer-action button {
         width: 42px;
         height: 42px;
+
         font-size: 12px;
     }
 
@@ -1179,29 +1884,67 @@ body.trainer-modal-open {
         font-size: 11px;
     }
 
+
+    /* PHILOSOPHY */
+
     .philosophy-heading h2 {
-        font-size: clamp(55px, 16vw, 90px);
+        font-size:
+            clamp(55px, 16vw, 90px);
     }
 
     .philosophy-lead {
         font-size: 16px;
     }
 
+
+    /* CTA */
+
     .trainers-cta {
+        min-height: 560px;
+
         padding: 90px 0;
     }
 
+    .trainers-cta-content {
+        width: 100%;
+    }
+
     .trainers-cta-content h2 {
-        font-size: clamp(60px, 17vw, 105px);
+        font-size:
+            clamp(60px, 17vw, 105px);
+    }
+
+    .trainers-cta-content > p {
+        max-width: 460px;
+        margin-top: 28px;
+        padding-inline: 10px;
     }
 
     .cta-actions {
+        width: 100%;
+
         flex-direction: column;
+
+        align-items: stretch;
+
+        margin-top: 30px;
+
+        padding-inline: 10px;
     }
 
     .cta-actions .btn {
         width: 100%;
     }
+
+    /* Remove decorative side labels on narrow screens */
+
+    .trainers-cta-content::before,
+    .trainers-cta-content::after {
+        display: none;
+    }
+
+
+    /* MODAL */
 
     .trainer-modal {
         padding: 10px;
@@ -1209,7 +1952,9 @@ body.trainer-modal-open {
 
     .trainer-modal-panel {
         display: block;
-        max-height: calc(100vh - 20px);
+
+        max-height:
+            calc(100vh - 20px);
     }
 
     .trainer-modal-image {
@@ -1232,817 +1977,146 @@ body.trainer-modal-open {
 
     .trainer-modal-sections {
         grid-template-columns: 1fr;
+
         gap: 25px;
+
         margin-top: 30px;
     }
 
     .modal-contact-btn {
         width: 100%;
+
         justify-content: center;
+
         margin-top: 30px;
     }
+
+
+    /* FOOTER */
 
     .footer-bottom {
         flex-direction: column;
         align-items: flex-start;
     }
-
 }
 
 
 /* =========================================================
-   REDUCED MOTION
+   SMALL MOBILE
    ========================================================= */
 
-@media (prefers-reduced-motion: reduce) {
+@media (max-width: 480px) {
 
-    .full-trainer-image img,
-    .full-trainer-action button,
-    .trainer-modal-close,
-    .view-profile-btn i {
-        transition: none;
+    .trainers-hero-content {
+        padding-top: 105px;
     }
 
-}
-
-/* =========================================================
-   DIRECTORY VISIBILITY SAFEGUARD
-   ========================================================= */
-
-.trainer-directory {
-    position: relative;
-    display: block;
-    width: 100%;
-    min-height: 400px;
-    padding-block: 100px;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-}
-
-.trainer-directory .container {
-    position: relative;
-    z-index: 2;
-}
-
-.trainer-controls {
-    position: relative;
-    z-index: 5;
-    display: grid;
-}
-
-.full-trainer-grid {
-    position: relative;
-    z-index: 2;
-    display: grid;
-    width: 100%;
-}
-
-.full-trainer-card {
-    position: relative;
-    display: block;
-    width: 100%;
-    visibility: visible;
-}
-
-.full-trainer-image {
-    visibility: visible;
-}
-
-.full-trainer-body {
-    visibility: visible;
-}
-
-/* =========================================================
-   VYRON TRAINERS — VISIBILITY + THEME FIX
-   ========================================================= */
-
-
-/* =========================================================
-   TRAINER GRID
-   ========================================================= */
-
-#trainerGrid {
-    display: grid;
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
-    gap: 28px;
-
-    width: 100%;
-}
-
-
-/* =========================================================
-   TRAINER CARDS
-   ========================================================= */
-
-.full-trainer-card {
-    position: relative;
-
-    display: flex;
-    flex-direction: column;
-
-    min-width: 0;
-
-    overflow: hidden;
-
-    background: var(--surface);
-
-    border: 1px solid var(--border);
-
-    color: var(--text-primary);
-
-    opacity: 1;
-
-    visibility: visible;
-
-    transform: translateY(0);
-
-    transition:
-        transform var(--transition),
-        opacity var(--transition),
-        background-color 350ms ease,
-        border-color 350ms ease,
-        color 350ms ease,
-        box-shadow var(--transition);
-}
-
-
-/* =========================================================
-   REVEAL ANIMATION
-   IMPORTANT:
-   DO NOT KEEP CARDS HIDDEN.
-   ========================================================= */
-
-.full-trainer-card.reveal {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(28px);
-}
-
-.full-trainer-card.reveal.reveal-ready.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.full-trainer-card.reveal {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(28px);
-}
-
-.full-trainer-card.reveal.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-
-/* Safety fallback */
-
-#trainerGrid .full-trainer-card {
-    animation: trainerCardFallback 0.01s linear;
-}
-
-@keyframes trainerCardFallback {
-    from {
-        opacity: 1;
+    .trainer-directory {
+        padding-block: 60px;
     }
 
-    to {
-        opacity: 1;
+    .full-trainer-image,
+    #trainerGrid:has(> .full-trainer-card:nth-child(2):last-child)
+    .full-trainer-image,
+    #trainerGrid:has(> .full-trainer-card:only-child)
+    .full-trainer-image {
+
+        height: 370px;
+        min-height: 370px;
+    }
+
+    .full-trainer-body {
+        padding: 20px;
+    }
+
+    .trainers-cta {
+        min-height: 520px;
+        padding: 75px 0;
+    }
+
+    .trainers-cta-content h2 {
+        font-size:
+            clamp(55px, 18vw, 90px);
+    }
+
+    .trainer-modal-content h2 {
+        font-size: 48px;
     }
 }
 
 
 /* =========================================================
-   IMAGE
+   LIGHT THEME READABILITY
    ========================================================= */
 
-.full-trainer-image {
-    position: relative;
+html[data-theme="light"] .full-trainer-image::after,
+body.light-mode .full-trainer-image::after {
 
-    min-height: 480px;
-
-    overflow: hidden;
-
-    background: var(--surface-elevated);
+    background:
+        linear-gradient(
+            to bottom,
+            transparent 20%,
+            rgba(0, 0, 0, 0.12) 35%,
+            rgba(0, 0, 0, 0.58) 68%,
+            rgba(0, 0, 0, 0.92) 100%
+        );
 }
 
-.full-trainer-image img {
-    display: block;
-
-    width: 100%;
-    height: 100%;
-
-    min-height: 480px;
-
-    object-fit: cover;
-}
-
-
-/* =========================================================
-   CARD BODY
-   ========================================================= */
-
-.full-trainer-body {
-    display: flex;
-    flex-direction: column;
-
-    flex: 1;
-
-    padding: 26px;
-
-    background: var(--surface);
-
-    color: var(--text-primary);
-}
-
-
-/* =========================================================
-   TEXT
-   ========================================================= */
-
-.full-trainer-specialization,
-.full-trainer-meta,
-.full-trainer-meta span {
-    color: var(--text-secondary);
-}
-
+html[data-theme="light"]
 .full-trainer-image-content h3,
-.full-trainer-body h3 {
-    color: var(--text-primary);
+body.light-mode
+.full-trainer-image-content h3 {
+
+    color: #FFFFFF !important;
+
+    text-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.75),
+        0 4px 14px rgba(0, 0, 0, 0.65);
 }
 
-.full-trainer-description {
-    color: var(--text-secondary);
-}
+html[data-theme="light"]
+.full-trainer-specialization,
+body.light-mode
+.full-trainer-specialization {
 
+    color: var(--accent) !important;
 
-/* =========================================================
-   META LINE
-   ========================================================= */
-
-.full-trainer-meta {
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-    color: var(--text-secondary);
-}
-
-.full-trainer-meta .line {
-    flex: 1;
-
-    height: 1px;
-
-    background: var(--border);
-}
-
-.full-trainer-meta .experience {
-    color: var(--accent);
+    text-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.75);
 }
 
 
 /* =========================================================
-   TAGS
+   DARK THEME READABILITY
    ========================================================= */
 
-.trainer-tags {
-    display: flex;
+html[data-theme="dark"]
+.full-trainer-image-content h3,
+body.dark-mode
+.full-trainer-image-content h3 {
 
-    flex-wrap: wrap;
+    color: #FFFFFF !important;
 
-    gap: 8px;
-
-    margin-top: 20px;
-}
-
-.trainer-tag {
-    display: inline-flex;
-
-    align-items: center;
-
-    padding: 7px 10px;
-
-    background: var(--card-bg);
-
-    border: 1px solid var(--border);
-
-    color: var(--text-secondary);
-
-    font-size: 0.72rem;
+    text-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.7),
+        0 4px 12px rgba(0, 0, 0, 0.55);
 }
 
 
 /* =========================================================
-   PROFILE BUTTON
+   ARROW THEME SAFEGUARD
    ========================================================= */
 
-.view-profile-btn {
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 10px;
-
-    margin-top: 24px;
-
-    padding: 13px 18px;
-
-    background: var(--accent);
-
-    border: 1px solid var(--accent);
-
-    color: var(--text-on-accent);
-
-    cursor: pointer;
-
-    transition:
-        background-color var(--transition-fast),
-        transform var(--transition-fast);
-}
-
-.view-profile-btn:hover {
-    background: var(--accent-dark);
-
-    transform: translateX(3px);
-}
-
-
-/* =========================================================
-   SEARCH / FILTER
-   ========================================================= */
-
-#trainerSearch,
-#specializationFilter {
-    background: var(--input-bg);
-
-    color: var(--text-primary);
-
-    border: 1px solid var(--border);
-}
-
-#trainerSearch:focus,
-#specializationFilter:focus {
-    outline: none;
-
-    border-color: var(--accent);
-
-    box-shadow:
-        0 0 0 3px
-        color-mix(
-            in srgb,
-            var(--accent) 15%,
-            transparent
-        );
-}
-
-
-/* =========================================================
-   EMPTY STATE
-   ========================================================= */
-
-#trainerEmpty[hidden] {
-    display: none !important;
-}
-
-#trainerEmpty {
-    color: var(--text-secondary);
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 1100px) {
-
-    #trainerGrid {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-    }
-
-}
-
-
-@media (max-width: 700px) {
-
-    #trainerGrid {
-        grid-template-columns: 1fr;
-
-        gap: 20px;
-    }
-
-    .full-trainer-image {
-        min-height: 420px;
-    }
-
-    .full-trainer-image img {
-        min-height: 420px;
-    }
-
-    .full-trainer-body {
-        padding: 22px;
-    }
-
-}
-
-/* =========================================================
-   VYRON — TRAINER DIRECTORY GRID
-   ========================================================= */
-
-/*
-   IMPORTANT:
-   The grid is controlled by the number of rendered cards.
-
-   3 trainers = 3 equal columns
-   2 trainers = 2 equal columns
-   1 trainer  = 1 full-width column
-
-   This prevents empty visual spaces after search/filtering.
-*/
-
-#trainerGrid {
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 70px 25px;
-    align-items: stretch;
-}
-
-
-/* =========================================================
-   TWO TRAINERS
-   ========================================================= */
-
-#trainerGrid:has(> .full-trainer-card:nth-child(2):last-child) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-
-/* =========================================================
-   ONE TRAINER
-   ========================================================= */
-
-#trainerGrid:has(> .full-trainer-card:only-child) {
-    grid-template-columns: minmax(0, 1fr);
-}
-
-
-/* =========================================================
-   TRAINER CARD
-   ========================================================= */
-
-.full-trainer-card {
-    position: relative;
-
-    display: flex;
-    flex-direction: column;
-
-    width: 100%;
-    min-width: 0;
-    max-width: none;
-
-    overflow: hidden;
-
-    background: var(--surface);
-    color: var(--text-primary);
-
-    border: 1px solid var(--border);
-    border-radius: 0;
-
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-
-    transition:
-        transform var(--transition),
-        opacity var(--transition),
-        background-color 350ms ease,
-        border-color 350ms ease,
-        color 350ms ease,
-        box-shadow var(--transition);
-}
-
-
-/* =========================================================
-   NO ROUNDED CORNERS
-   ========================================================= */
-
-.full-trainer-card,
-.full-trainer-image,
-.full-trainer-body,
-.trainer-tag,
-.view-profile-btn,
-.full-trainer-action button {
-    border-radius: 0;
-}
-
-
-/* =========================================================
-   IMAGE
-   ========================================================= */
-
-.full-trainer-image {
-    position: relative;
-
-    width: 100%;
-    min-height: 480px;
-
-    overflow: hidden;
-
-    background: var(--surface-elevated);
-
-    border-radius: 0;
-}
-
-
-.full-trainer-image img {
-    display: block;
-
-    width: 100%;
-    height: 100%;
-    min-height: 480px;
-
-    object-fit: cover;
-}
-
-
-/* =========================================================
-   CARD BODY
-   ========================================================= */
-
-.full-trainer-body {
-    display: flex;
-    flex-direction: column;
-
-    flex: 1;
-
-    width: 100%;
-    min-width: 0;
-
-    padding: 26px;
-
-    background: var(--surface);
-    color: var(--text-primary);
-
-    border-radius: 0;
-}
-
-
-/* =========================================================
-   DESCRIPTION
-   ========================================================= */
-
-.full-trainer-description {
-    max-width: none;
-    margin: 16px 0 0;
-
-    color: var(--text-secondary);
-
-    font-family: var(--font-body);
-    font-size: 12px;
-    line-height: 1.75;
-}
-
-
-/* =========================================================
-   META
-   ========================================================= */
-
-.full-trainer-meta {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    width: 100%;
-
-    color: var(--text-secondary);
-}
-
-
-.full-trainer-meta .line {
-    flex: 1;
-
-    width: auto;
-    height: 1px;
-
-    background: var(--border);
-}
-
-
-.full-trainer-meta .experience {
-    color: var(--accent);
-}
-
-
-/* =========================================================
-   TAGS
-   ========================================================= */
-
-.trainer-tags {
-    display: flex;
-    flex-wrap: wrap;
-
-    gap: 8px;
-
-    margin-top: 20px;
-}
-
-
-.trainer-tag {
-    display: inline-flex;
-    align-items: center;
-
-    min-height: 27px;
-
-    padding: 7px 10px;
-
-    background: var(--card-bg);
-    color: var(--text-secondary);
-
-    border: 1px solid var(--border);
-    border-radius: 0;
-
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-
-/* =========================================================
-   PROFILE BUTTON
-   ========================================================= */
-
-.view-profile-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    align-self: flex-start;
-
-    gap: 10px;
-
-    margin-top: 24px;
-    padding: 13px 18px;
-
-    background: var(--accent);
-
-    border: 1px solid var(--accent);
-    border-radius: 0;
-
-    color: var(--text-on-accent);
-
-    cursor: pointer;
-
-    transition:
-        background-color var(--transition-fast),
-        transform var(--transition-fast);
-}
-
-
-.view-profile-btn:hover {
-    background: var(--accent-dark);
-
-    transform: translateX(3px);
-}
-
-
-/* =========================================================
-   PROFILE ACTION
-   ========================================================= */
-
-.full-trainer-action button {
-    border-radius: 0;
-}
-
-
-/* =========================================================
-   SEARCH / FILTER
-   ========================================================= */
-
-#trainerSearch,
-#specializationFilter {
-    width: 100%;
-
-    background: var(--input-bg);
-    color: var(--text-primary);
-
-    border: 1px solid var(--border);
-    border-radius: 0;
-}
-
-
-#trainerSearch:focus,
-#specializationFilter:focus {
-    outline: none;
-
-    border-color: var(--accent);
-
-    box-shadow:
-        0 0 0 3px
-        color-mix(
-            in srgb,
-            var(--accent) 15%,
-            transparent
-        );
-}
-
-
-/* =========================================================
-   EMPTY STATE
-   ========================================================= */
-
-#trainerEmpty[hidden] {
-    display: none !important;
-}
-
-
-#trainerEmpty {
-    width: 100%;
-
-    color: var(--text-secondary);
-
-    border-radius: 0;
-}
-
-
-/* =========================================================
-   REVEAL ANIMATION
-   ========================================================= */
-
-.full-trainer-card.reveal {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(28px);
-}
-
-
-.full-trainer-card.reveal.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-
-/* =========================================================
-   TABLET
-   ========================================================= */
-
-@media (max-width: 1100px) {
-
-    #trainerGrid {
-        gap: 55px 20px;
-    }
-
-    /*
-       On tablet, never allow 3 narrow cards.
-       The :has() rules still determine whether
-       1 or 2 cards are present.
-    */
-
-    #trainerGrid:not(:has(> .full-trainer-card:only-child))
-        :not(:has(> .full-trainer-card:nth-child(2):last-child)) {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 700px) {
-
-    #trainerGrid,
-    #trainerGrid:has(> .full-trainer-card:nth-child(2):last-child) {
-        grid-template-columns: 1fr;
-        gap: 50px;
-    }
-
-
-    .full-trainer-image {
-        min-height: 420px;
-    }
-
-
-    .full-trainer-image img {
-        min-height: 420px;
-    }
-
-
-    .full-trainer-body {
-        padding: 22px;
-    }
-
+html[data-theme="light"] .view-profile-btn i,
+html[data-theme="dark"] .view-profile-btn i,
+body.light-mode .view-profile-btn i,
+body.dark-mode .view-profile-btn i {
+
+    color:
+        var(--text-on-accent, #080A0A) !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 
@@ -2058,299 +2132,681 @@ body.trainer-modal-open {
     .view-profile-btn,
     .view-profile-btn i,
     .full-trainer-card {
-        transition: none;
-    }
 
+        transition: none !important;
+    }
 }
 
 /* =========================================================
-   VYRON — FINAL TRAINER CARD SIZE + ARROW FIX
+   TRAINERS HERO — TWO COLUMN LAYOUT
    ========================================================= */
 
-
-/* =========================================================
-   TRAINER GRID — BASE
-   ========================================================= */
-
-#trainerGrid {
+.trainers-hero-layout {
+    min-height: 100%;
     display: grid;
-    width: 100%;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 55px 25px;
-    align-items: start;
+    grid-template-columns: minmax(0, 1.05fr) minmax(380px, 0.75fr);
+    align-items: center;
+    gap: clamp(50px, 7vw, 110px);
+    padding: 110px 0 90px;
 }
 
 
 /* =========================================================
-   TWO TRAINERS
-   Keep both cards slightly narrower and shorter.
+   LEFT HERO CONTENT
    ========================================================= */
 
-#trainerGrid:has(> .full-trainer-card:nth-child(2):last-child) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    justify-content: center;
-}
-
-
-/* =========================================================
-   TWO-TRAINER IMAGE SIZE
-   ========================================================= */
-
-#trainerGrid:has(> .full-trainer-card:nth-child(2):last-child)
-.full-trainer-image {
-    width: 100%;
-    height: 440px;
-    min-height: 440px;
-    aspect-ratio: auto;
-}
-
-#trainerGrid:has(> .full-trainer-card:nth-child(2):last-child)
-.full-trainer-image img {
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-    object-fit: cover;
-}
-
-
-/* =========================================================
-   ONE TRAINER
-   Do NOT let one trainer become full-page width.
-   Make it approximately the same width as one card
-   when two trainers are displayed.
-   ========================================================= */
-
-#trainerGrid:has(> .full-trainer-card:only-child) {
-    grid-template-columns: minmax(0, calc(50% - 12.5px));
-    justify-content: center;
-}
-
-
-/* =========================================================
-   ONE-TRAINER IMAGE
-   Same width as a normal two-trainer card,
-   but slightly shorter.
-   ========================================================= */
-
-#trainerGrid:has(> .full-trainer-card:only-child)
-.full-trainer-image {
-    width: 100%;
-    height: 425px;
-    min-height: 425px;
-    aspect-ratio: auto;
-}
-
-#trainerGrid:has(> .full-trainer-card:only-child)
-.full-trainer-image img {
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-    object-fit: cover;
-}
-
-
-/* =========================================================
-   TRAINER CARD
-   ========================================================= */
-
-#trainerGrid .full-trainer-card {
-    width: 100%;
-    max-width: none;
-    min-width: 0;
-}
-
-
-/* =========================================================
-   FORWARD ARROW — VISIBILITY FIX
-   The arrow must NOT use the accent colour because
-   the button background is already the accent colour.
-   ========================================================= */
-
-.view-profile-btn i {
-    display: inline-block;
-    width: auto;
-    height: auto;
-    flex: 0 0 auto;
-
-    color: var(--text-on-accent) !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-
-    font-size: 11px;
-    line-height: 1;
-
-    transition:
-        transform 300ms ease,
-        color 300ms ease;
-}
-
-
-/* =========================================================
-   ARROW HOVER
-   ========================================================= */
-
-.view-profile-btn:hover i {
-    color: var(--text-on-accent) !important;
-    transform: translateX(5px);
-}
-
-
-/* =========================================================
-   ARROW — LIGHT/DARK MODE SAFEGUARD
-   Explicitly keep the arrow visible in both themes.
-   ========================================================= */
-
-html[data-theme="light"] .view-profile-btn i,
-html[data-theme="dark"] .view-profile-btn i,
-body.light-mode .view-profile-btn i,
-body.dark-mode .view-profile-btn i {
-    color: var(--text-on-accent) !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-
-/* =========================================================
-   TABLET
-   ========================================================= */
-
-@media (max-width: 1100px) {
-
-    #trainerGrid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 50px 20px;
-    }
-
-    /* One trainer remains the width of one normal card */
-    #trainerGrid:has(> .full-trainer-card:only-child) {
-        grid-template-columns: minmax(0, calc(50% - 10px));
-        justify-content: center;
-    }
-
-    #trainerGrid:has(> .full-trainer-card:nth-child(2):last-child)
-    .full-trainer-image {
-        height: 420px;
-        min-height: 420px;
-    }
-
-    #trainerGrid:has(> .full-trainer-card:only-child)
-    .full-trainer-image {
-        height: 410px;
-        min-height: 410px;
-    }
-}
-
-
-/* =========================================================
-   MOBILE
-   One card should naturally use the available width.
-   ========================================================= */
-
-@media (max-width: 700px) {
-
-    #trainerGrid,
-    #trainerGrid:has(> .full-trainer-card:nth-child(2):last-child),
-    #trainerGrid:has(> .full-trainer-card:only-child) {
-        grid-template-columns: 1fr;
-        gap: 50px;
-        justify-content: stretch;
-    }
-
-    /* Two/one trainers on mobile use the full mobile width */
-    #trainerGrid .full-trainer-image,
-    #trainerGrid:has(> .full-trainer-card:nth-child(2):last-child)
-    .full-trainer-image,
-    #trainerGrid:has(> .full-trainer-card:only-child)
-    .full-trainer-image {
-        width: 100%;
-        height: 400px;
-        min-height: 400px;
-    }
-
-    #trainerGrid .full-trainer-image img,
-    #trainerGrid:has(> .full-trainer-card:nth-child(2):last-child)
-    .full-trainer-image img,
-    #trainerGrid:has(> .full-trainer-card:only-child)
-    .full-trainer-image img {
-        width: 100%;
-        height: 100%;
-        min-height: 0;
-        object-fit: cover;
-    }
-}
-
-
-/* =========================================================
-   SMALL MOBILE
-   ========================================================= */
-
-@media (max-width: 480px) {
-
-    #trainerGrid .full-trainer-image,
-    #trainerGrid:has(> .full-trainer-card:nth-child(2):last-child)
-    .full-trainer-image,
-    #trainerGrid:has(> .full-trainer-card:only-child)
-    .full-trainer-image {
-        height: 370px;
-        min-height: 370px;
-    }
-}
-
-
-/* =========================================================
-   REDUCED MOTION
-   ========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-    .view-profile-btn i {
-        transition: none;
-    }
-}
-
-/* =========================================================
-   VYRON — TRAINER NAME VISIBILITY FIX
-   LIGHT + DARK MODE
-   ========================================================= */
-
-/* Keep trainer names clearly visible over the image */
-.full-trainer-image-content h3 {
+.trainers-hero-content {
     position: relative;
-    z-index: 4;
-    color: #FFFFFF !important;
-    text-shadow:
-        0 2px 4px rgba(0, 0, 0, 0.75),
-        0 4px 14px rgba(0, 0, 0, 0.65);
+    z-index: 2;
+    max-width: 720px;
 }
 
-/* Make the image lower gradient stronger in light mode */
-html[data-theme="light"] .full-trainer-image::after,
-body.light-mode .full-trainer-image::after {
+.trainers-hero-content h1 {
+    margin-bottom: 34px;
+}
+
+.trainers-hero-content > p {
+    max-width: 650px;
+}
+
+
+/* =========================================================
+   COACHING CARD
+   ========================================================= */
+
+.hero-coaching-card {
+    position: relative;
+    z-index: 3;
+
+    width: 100%;
+    max-width: 500px;
+    justify-self: end;
+
+    padding: 30px;
+
     background:
         linear-gradient(
-            to bottom,
-            transparent 20%,
-            rgba(0, 0, 0, 0.12) 35%,
-            rgba(0, 0, 0, 0.58) 68%,
-            rgba(0, 0, 0, 0.92) 100%
+            145deg,
+            rgba(255, 255, 255, 0.055),
+            rgba(255, 255, 255, 0.018)
         );
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.42),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.45s ease,
+        border-color 0.45s ease,
+        box-shadow 0.45s ease;
 }
 
-/* Ensure the specialization remains readable too */
-html[data-theme="light"] .full-trainer-specialization,
-body.light-mode .full-trainer-specialization {
-    position: relative;
-    z-index: 4;
-    color: var(--accent) !important;
-    text-shadow:
-        0 1px 3px rgba(0, 0, 0, 0.75);
+
+/* subtle lime accent */
+
+.hero-coaching-card::before {
+    content: "";
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 72px;
+    height: 2px;
+
+    background: var(--accent, #b7ff00);
+
+    box-shadow:
+        0 0 18px rgba(183, 255, 0, 0.35);
 }
 
-/* Dark mode — keep the same strong readability */
-html[data-theme="dark"] .full-trainer-image-content h3,
-body.dark-mode .full-trainer-image-content h3 {
-    color: #FFFFFF !important;
-    text-shadow:
-        0 2px 4px rgba(0, 0, 0, 0.7),
-        0 4px 12px rgba(0, 0, 0, 0.55);
+
+.hero-coaching-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    top: -100px;
+    right: -90px;
+
+    border-radius: 50%;
+
+    background: rgba(183, 255, 0, 0.055);
+
+    filter: blur(10px);
+
+    pointer-events: none;
+}
+
+
+.hero-coaching-card:hover {
+    transform: translateY(-5px);
+
+    border-color: rgba(183, 255, 0, 0.25);
+
+    box-shadow:
+        0 35px 90px rgba(0, 0, 0, 0.5),
+        0 0 35px rgba(183, 255, 0, 0.045);
+}
+
+
+/* =========================================================
+   CARD TOP
+   ========================================================= */
+
+.hero-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-bottom: 22px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+
+.hero-card-index {
+    font-family: "Space Mono", monospace;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.18em;
+
+    color: rgba(255, 255, 255, 0.42);
+}
+
+
+.hero-card-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-family: "Space Mono", monospace;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.13em;
+
+    color: rgba(255, 255, 255, 0.52);
+}
+
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: var(--accent, #b7ff00);
+
+    box-shadow:
+        0 0 10px rgba(183, 255, 0, 0.65);
+}
+
+
+/* =========================================================
+   CARD HEADING
+   ========================================================= */
+
+.hero-card-heading {
+    padding: 28px 0 25px;
+}
+
+
+.hero-card-label {
+    display: block;
+
+    margin-bottom: 11px;
+
+    font-family: "Space Mono", monospace;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.18em;
+
+    color: var(--accent, #b7ff00);
+}
+
+
+.hero-card-heading h2 {
+    margin: 0 0 15px;
+
+    font-family: "Bebas Neue", sans-serif;
+
+    font-size: clamp(30px, 3vw, 43px);
+
+    line-height: 0.95;
+    letter-spacing: 0.015em;
+
+    color: #fff;
+}
+
+
+.hero-card-heading h2 span {
+    display: block;
+
+    color: var(--accent, #b7ff00);
+}
+
+
+.hero-card-heading p {
+    margin: 0;
+
+    max-width: 430px;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 13px;
+    line-height: 1.75;
+
+    color: rgba(255, 255, 255, 0.58);
+}
+
+
+/* =========================================================
+   COACHING STEPS
+   ========================================================= */
+
+.hero-coaching-steps {
+    display: flex;
+    flex-direction: column;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+.hero-coaching-step {
+    display: grid;
+    grid-template-columns: 42px 1fr 20px;
+    align-items: center;
+
+    gap: 14px;
+
+    min-height: 66px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    transition:
+        background 0.3s ease,
+        padding 0.3s ease;
+}
+
+
+.hero-coaching-step:hover {
+    padding-left: 7px;
+
+    background: rgba(255, 255, 255, 0.025);
+}
+
+
+.step-number {
+    font-family: "Space Mono", monospace;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    color: var(--accent, #b7ff00);
+}
+
+
+.hero-coaching-step div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+
+.hero-coaching-step strong {
+    font-family: "Manrope", sans-serif;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 0.08em;
+
+    color: #fff;
+}
+
+
+.hero-coaching-step small {
+    font-family: "Manrope", sans-serif;
+
+    font-size: 11px;
+    line-height: 1.4;
+
+    color: rgba(255, 255, 255, 0.43);
+}
+
+
+.hero-coaching-step > i {
+    font-size: 10px;
+
+    color: rgba(255, 255, 255, 0.28);
+
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+.hero-coaching-step:hover > i {
+    color: var(--accent, #b7ff00);
+
+    transform: translateX(3px);
+}
+
+
+/* =========================================================
+   CARD FOOTER
+   ========================================================= */
+
+.hero-card-footer {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 15px 22px;
+
+    padding-top: 21px;
+}
+
+
+.hero-card-footer span {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    font-family: "Space Mono", monospace;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+
+    color: rgba(255, 255, 255, 0.42);
+}
+
+
+.hero-card-footer i {
+    color: var(--accent, #b7ff00);
+
+    font-size: 9px;
+}
+
+/* =========================================================
+   TRAINERS HERO RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1050px) {
+
+    .trainers-hero-layout {
+        grid-template-columns: minmax(0, 1fr) minmax(330px, 0.72fr);
+
+        gap: 45px;
+    }
+
+    .hero-coaching-card {
+        max-width: 440px;
+    }
+
+    .trainers-hero-content h1 {
+        font-size: clamp(70px, 8vw, 105px);
+    }
+}
+
+
+@media (max-width: 800px) {
+
+    .trainers-hero-layout {
+        grid-template-columns: 1fr;
+
+        gap: 55px;
+
+        padding-top: 90px;
+        padding-bottom: 75px;
+    }
+
+    .trainers-hero-content {
+        max-width: 680px;
+    }
+
+    .hero-coaching-card {
+        justify-self: start;
+
+        max-width: 560px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .trainers-hero-layout {
+        gap: 40px;
+
+        padding-top: 75px;
+        padding-bottom: 60px;
+    }
+
+    .hero-coaching-card {
+        padding: 23px;
+    }
+
+    .hero-card-heading {
+        padding-top: 24px;
+    }
+
+    .hero-card-heading h2 {
+        font-size: 34px;
+    }
+
+    .hero-card-heading p {
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    .hero-coaching-step {
+        grid-template-columns: 34px 1fr 16px;
+
+        min-height: 62px;
+    }
+
+    .hero-card-footer {
+        gap: 12px 16px;
+    }
+}
+
+/* =========================================================
+   VYRON — COACHING CARD LIGHT MODE FIX
+   Keeps dark mode unchanged
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   LIGHT MODE — CARD CONTAINER
+   --------------------------------------------------------- */
+
+html[data-theme="light"] .hero-coaching-card,
+body.light-mode .hero-coaching-card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.94),
+            rgba(248, 249, 243, 0.88)
+        );
+
+    border-color: rgba(20, 25, 18, 0.13);
+
+    box-shadow:
+        0 25px 70px rgba(20, 25, 18, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+
+/* ---------------------------------------------------------
+   LIGHT MODE — TOP DIVIDER
+   --------------------------------------------------------- */
+
+html[data-theme="light"] .hero-card-top,
+body.light-mode .hero-card-top {
+    border-bottom-color: rgba(20, 25, 18, 0.10);
+}
+
+
+/* ---------------------------------------------------------
+   LIGHT MODE — INDEX
+   --------------------------------------------------------- */
+
+html[data-theme="light"] .hero-card-index,
+body.light-mode .hero-card-index {
+    color: rgba(20, 25, 18, 0.45);
+}
+
+
+/* ---------------------------------------------------------
+   LIGHT MODE — STATUS
+   --------------------------------------------------------- */
+
+html[data-theme="light"] .hero-card-status,
+body.light-mode .hero-card-status {
+    color: rgba(20, 25, 18, 0.52);
+}
+
+
+/* ---------------------------------------------------------
+   LIGHT MODE — CARD HEADING
+   --------------------------------------------------------- */
+
+html[data-theme="light"] .hero-card-heading h2,
+body.light-mode .hero-card-heading h2 {
+    color: var(--text-primary, #111411) !important;
+}
+
+html[data-theme="light"] .hero-card-heading h2 span,
+body.light-mode .hero-card-heading h2 span {
+    color: var(--accent, #7daa00) !important;
+}
+
+
+/* ---------------------------------------------------------
+   LIGHT MODE — LABEL
+   --------------------------------------------------------- */
+
+html[data-theme="light"] .hero-card-label,
+body.light-mode .hero-card-label {
+    color: var(--accent, #7daa00);
+}
+
+
+/* ---------------------------------------------------------
+   LIGHT MODE — DESCRIPTION
+   --------------------------------------------------------- */
+
+html[data-theme="light"] .hero-card-heading p,
+body.light-mode .hero-card-heading p {
+    color: var(--text-secondary, #555b54);
+}
+
+
+/* ---------------------------------------------------------
+   LIGHT MODE — COACHING STEPS CONTAINER
+   --------------------------------------------------------- */
+
+html[data-theme="light"] .hero-coaching-steps,
+body.light-mode .hero-coaching-steps {
+    border-top-color: rgba(20, 25, 18, 0.10);
+}
+
+
+/* ---------------------------------------------------------
+   LIGHT MODE — INDIVIDUAL STEPS
+   --------------------------------------------------------- */
+
+html[data-theme="light"] .hero-coaching-step,
+body.light-mode .hero-coaching-step {
+    border-bottom-color: rgba(20, 25, 18, 0.10);
+}
+
+
+/* ---------------------------------------------------------
+   LIGHT MODE — STEP HOVER
+   --------------------------------------------------------- */
+
+html[data-theme="light"] .hero-coaching-step:hover,
+body.light-mode .hero-coaching-step:hover {
+    background: rgba(20, 25, 18, 0.035);
+}
+
+
+/* ---------------------------------------------------------
+   LIGHT MODE — STEP NUMBER
+   --------------------------------------------------------- */
+
+html[data-theme="light"] .step-number,
+body.light-mode .step-number {
+    color: var(--accent, #7daa00);
+}
+
+
+/* ---------------------------------------------------------
+   LIGHT MODE — STEP TITLE
+   --------------------------------------------------------- */
+
+html[data-theme="light"] .hero-coaching-step strong,
+body.light-mode .hero-coaching-step strong {
+    color: var(--text-primary, #111411);
+}
+
+
+/* ---------------------------------------------------------
+   LIGHT MODE — STEP DESCRIPTION
+   --------------------------------------------------------- */
+
+html[data-theme="light"] .hero-coaching-step small,
+body.light-mode .hero-coaching-step small {
+    color: var(--text-muted, #70766d);
+}
+
+
+/* ---------------------------------------------------------
+   LIGHT MODE — STEP ARROW
+   --------------------------------------------------------- */
+
+html[data-theme="light"] .hero-coaching-step > i,
+body.light-mode .hero-coaching-step > i {
+    color: rgba(20, 25, 18, 0.28);
+}
+
+html[data-theme="light"] .hero-coaching-step:hover > i,
+body.light-mode .hero-coaching-step:hover > i {
+    color: var(--accent, #7daa00);
+}
+
+
+/* ---------------------------------------------------------
+   LIGHT MODE — FOOTER
+   --------------------------------------------------------- */
+
+html[data-theme="light"] .hero-card-footer span,
+body.light-mode .hero-card-footer span {
+    color: rgba(20, 25, 18, 0.48);
+}
+
+html[data-theme="light"] .hero-card-footer i,
+body.light-mode .hero-card-footer i {
+    color: var(--accent, #7daa00);
+}
+
+
+/* ---------------------------------------------------------
+   LIGHT MODE — CARD HOVER
+   --------------------------------------------------------- */
+
+html[data-theme="light"] .hero-coaching-card:hover,
+body.light-mode .hero-coaching-card:hover {
+    border-color: color-mix(
+        in srgb,
+        var(--accent, #7daa00) 30%,
+        rgba(20, 25, 18, 0.13)
+    );
+
+    box-shadow:
+        0 30px 80px rgba(20, 25, 18, 0.13),
+        0 0 30px rgba(183, 255, 0, 0.035);
+}
+
+
+/* ---------------------------------------------------------
+   LIGHT MODE — TOP ACCENT
+   --------------------------------------------------------- */
+
+html[data-theme="light"] .hero-coaching-card::before,
+body.light-mode .hero-coaching-card::before {
+    background: var(--accent, #7daa00);
+    box-shadow:
+        0 0 14px rgba(183, 255, 0, 0.25);
+}
+
+
+/* ---------------------------------------------------------
+   LIGHT MODE — DECORATIVE GLOW
+   --------------------------------------------------------- */
+
+html[data-theme="light"] .hero-coaching-card::after,
+body.light-mode .hero-coaching-card::after {
+    background: rgba(183, 255, 0, 0.045);
+    opacity: 0.8;
 }
