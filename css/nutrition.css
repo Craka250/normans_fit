@@ -2188,3 +2188,865 @@
     }
 
 }
+
+/* =========================================================
+   VYRON FITNESS — NUTRITION PAGE
+   FINAL RESPONSIVE OVERRIDES
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   LARGE TABLET / SMALL LAPTOP
+   --------------------------------------------------------- */
+
+@media (max-width: 1100px) {
+
+    /* HERO */
+    .nutrition-hero-layout {
+        grid-template-columns: minmax(0, 1fr) minmax(340px, 0.8fr);
+        gap: 45px;
+    }
+
+    .nutrition-hero h1 {
+        font-size: clamp(4.5rem, 9vw, 8rem);
+    }
+
+    .nutrition-hero-card {
+        min-height: 450px;
+    }
+
+    /* OBJECTIVE HEADING */
+    .nutrition-section-heading {
+        grid-template-columns: minmax(0, 1fr) minmax(260px, 0.6fr);
+        column-gap: 45px;
+    }
+
+    .nutrition-heading-image {
+        height: 330px;
+    }
+
+    /* GOAL PANEL */
+    .nutrition-goal-panel {
+        grid-template-columns: 55px minmax(0, 1fr) 180px;
+    }
+
+    .nutrition-goal-panel-content {
+        padding: 40px 32px;
+    }
+
+    .nutrition-goal-panel-content h3 {
+        font-size: clamp(2.8rem, 5vw, 4.8rem);
+    }
+
+    /* FUNDAMENTALS */
+    .nutrition-fundamentals-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /* TIMING */
+    .nutrition-timing-layout {
+        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+        gap: 45px;
+    }
+
+    /* FRAMEWORK */
+    .nutrition-framework-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .nutrition-framework-card:nth-child(2) {
+        border-right: 0;
+    }
+
+    .nutrition-framework-card:nth-child(3),
+    .nutrition-framework-card:nth-child(4) {
+        border-top: 1px solid var(--border);
+    }
+}
+
+
+/* ---------------------------------------------------------
+   TABLET
+   --------------------------------------------------------- */
+
+@media (max-width: 900px) {
+
+    /* HERO */
+    .nutrition-hero-layout {
+        grid-template-columns: 1fr;
+        gap: 50px;
+        padding-block: 90px 70px;
+    }
+
+    .nutrition-hero-content {
+        max-width: 720px;
+    }
+
+    .nutrition-hero h1 {
+        font-size: clamp(4.8rem, 13vw, 8rem);
+    }
+
+    .nutrition-hero-content > p {
+        max-width: 650px;
+    }
+
+    .nutrition-hero-visual {
+        width: min(100%, 650px);
+        margin-inline: auto;
+    }
+
+    .nutrition-hero-card {
+        min-height: 460px;
+    }
+
+
+    /* INTRO */
+    .nutrition-intro-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .nutrition-intro-number {
+        flex-direction: row;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .nutrition-intro-number strong {
+        font-size: clamp(4rem, 9vw, 7rem);
+    }
+
+
+    /* OBJECTIVE HEADING */
+    .nutrition-section-heading {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        margin-bottom: 50px;
+    }
+
+    .nutrition-heading-copy {
+        max-width: 750px;
+    }
+
+    .nutrition-heading-copy > p {
+        max-width: 650px;
+    }
+
+    .nutrition-heading-image {
+        width: min(100%, 650px);
+        height: 380px;
+        justify-self: start;
+    }
+
+
+    /* GOALS */
+    .nutrition-goal-panel {
+        grid-template-columns: 55px minmax(0, 1fr) 170px;
+    }
+
+
+    /* TIMING */
+    .nutrition-timing-layout {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    .nutrition-timing-copy {
+        max-width: 700px;
+    }
+
+
+    /* FUNDAMENTALS */
+    .nutrition-fundamental {
+        min-height: 310px;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+
+@media (max-width: 700px) {
+
+    /* =====================================================
+       HERO
+       ===================================================== */
+
+    .nutrition-hero {
+        min-height: auto;
+    }
+
+    .nutrition-hero-layout {
+        display: grid;
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-block: 80px 60px;
+        gap: 45px;
+    }
+
+    .nutrition-hero-content {
+        width: 100%;
+        max-width: none;
+    }
+
+    .nutrition-hero-meta {
+        margin-bottom: 22px;
+        font-size: 8px;
+    }
+
+    .nutrition-hero h1 {
+        width: 100%;
+        font-size: clamp(4rem, 17vw, 6.2rem);
+        line-height: 0.82;
+        overflow-wrap: normal;
+    }
+
+    .nutrition-hero-content > p {
+        width: 100%;
+        margin-top: 28px;
+        font-size: 13px;
+        line-height: 1.75;
+    }
+
+    .nutrition-hero-actions {
+        width: 100%;
+        margin-top: 30px;
+        gap: 15px;
+    }
+
+    .nutrition-hero-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .nutrition-hero-actions .nutrition-text-link {
+        padding-block: 8px;
+    }
+
+
+    /* =====================================================
+       HERO VISUAL
+       ===================================================== */
+
+    .nutrition-hero-visual {
+        width: 100%;
+    }
+
+    .nutrition-hero-card {
+        width: 100%;
+        min-height: 390px;
+    }
+
+    .nutrition-visual-top {
+        top: 18px;
+        left: 18px;
+        right: 18px;
+        font-size: 7px;
+    }
+
+    .nutrition-plate {
+        width: min(230px, 65vw);
+    }
+
+    .nutrition-plate-ring {
+        inset: 20px;
+    }
+
+    .nutrition-plate i {
+        font-size: 55px;
+    }
+
+    .nutrition-visual-bottom {
+        left: 18px;
+        bottom: 18px;
+    }
+
+    .nutrition-visual-bottom strong {
+        font-size: clamp(2.3rem, 10vw, 3.5rem);
+    }
+
+    .nutrition-visual-label {
+        right: 18px;
+        bottom: 18px;
+        padding: 8px 10px;
+        font-size: 6px;
+    }
+
+
+    /* =====================================================
+       INTRO
+       ===================================================== */
+
+    .nutrition-intro-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .nutrition-intro-number {
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .nutrition-intro-number strong {
+        font-size: 4rem;
+    }
+
+    .nutrition-intro-content {
+        width: 100%;
+    }
+
+    .nutrition-intro-content .section-title {
+        margin-top: 15px;
+    }
+
+    .nutrition-intro-content > p {
+        font-size: 13px;
+        line-height: 1.8;
+    }
+
+    .nutrition-principles {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .nutrition-principles div {
+        min-height: 70px;
+    }
+
+
+    /* =====================================================
+       OBJECTIVE HEADING
+       ===================================================== */
+
+    .nutrition-section-heading {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+
+    .nutrition-heading-copy {
+        width: 100%;
+        max-width: none;
+    }
+
+    .nutrition-heading-copy .section-index {
+        margin-bottom: 15px;
+    }
+
+    .nutrition-heading-copy .section-title {
+        width: 100%;
+        max-width: 100%;
+        font-size: clamp(3.4rem, 14vw, 5.5rem);
+        line-height: 0.85;
+    }
+
+    .nutrition-heading-copy .section-title span {
+        display: block;
+    }
+
+    .nutrition-heading-copy > p {
+        width: 100%;
+        max-width: none;
+        margin-top: 22px;
+        font-size: 13px;
+        line-height: 1.75;
+    }
+
+    .nutrition-heading-image {
+        width: 100%;
+        height: min(75vw, 350px);
+        min-height: 240px;
+        justify-self: stretch;
+    }
+
+    .nutrition-heading-image img {
+        object-position: center;
+    }
+
+    .nutrition-heading-image-label {
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+        gap: 10px;
+    }
+
+    .nutrition-heading-image-label > span {
+        width: 30px;
+        height: 30px;
+        flex-basis: 30px;
+    }
+
+    .nutrition-heading-image-label strong {
+        font-size: clamp(1.3rem, 6vw, 2rem);
+    }
+
+
+    /* =====================================================
+       GOAL TABS
+       ===================================================== */
+
+    .nutrition-goal-tabs {
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 7px;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .nutrition-goal-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nutrition-goal-tab {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        padding: 12px 15px;
+        min-height: 42px;
+    }
+
+
+    /* =====================================================
+       GOAL PANELS
+       ===================================================== */
+
+    .nutrition-goal-panel {
+        display: none;
+        grid-template-columns: 1fr;
+        width: 100%;
+        min-height: auto;
+    }
+
+    .nutrition-goal-panel.active {
+        display: grid;
+    }
+
+    .nutrition-goal-panel-number {
+        padding: 15px 20px;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .nutrition-goal-panel-content {
+        width: 100%;
+        padding: 32px 22px;
+    }
+
+    .nutrition-goal-panel-content h3 {
+        font-size: clamp(3rem, 13vw, 4.8rem);
+        line-height: 0.82;
+    }
+
+    .nutrition-goal-panel-content > p {
+        max-width: none;
+        font-size: 12px;
+        line-height: 1.75;
+    }
+
+    .nutrition-goal-panel-content ul {
+        gap: 10px;
+    }
+
+    .nutrition-goal-panel-content li {
+        font-size: 10px;
+        line-height: 1.55;
+    }
+
+    .nutrition-goal-panel-side {
+        min-height: 160px;
+        padding: 25px;
+        border-left: 0;
+        border-top: 1px solid var(--border);
+    }
+
+
+    /* =====================================================
+       FUNDAMENTALS
+       ===================================================== */
+
+    .nutrition-fundamentals-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .nutrition-fundamental {
+        width: 100%;
+        min-height: 290px;
+        padding: 22px;
+    }
+
+    .nutrition-fundamental > i {
+        margin-top: 45px;
+    }
+
+    .nutrition-fundamental h3 {
+        font-size: 2.2rem;
+    }
+
+
+    /* =====================================================
+       TIMING
+       ===================================================== */
+
+    .nutrition-timing-layout {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .nutrition-timing-copy {
+        width: 100%;
+        max-width: none;
+    }
+
+    .nutrition-timing-copy .section-title {
+        margin-top: 15px;
+    }
+
+    .nutrition-timing-copy > p {
+        margin-top: 22px;
+        font-size: 13px;
+        line-height: 1.75;
+    }
+
+    .nutrition-timing-list {
+        width: 100%;
+    }
+
+    .nutrition-timing-item {
+        grid-template-columns: 30px minmax(0, 1fr) 30px;
+        gap: 10px;
+        padding: 20px 16px;
+    }
+
+    .nutrition-timing-item h3 {
+        font-size: clamp(1.7rem, 8vw, 2.3rem);
+    }
+
+    .nutrition-timing-item p {
+        font-size: 10px;
+        line-height: 1.65;
+    }
+
+
+    /* =====================================================
+       FRAMEWORK
+       ===================================================== */
+
+    .nutrition-framework-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nutrition-framework-card {
+        width: 100%;
+        min-height: 210px;
+        padding: 25px 20px;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .nutrition-framework-card:nth-child(2),
+    .nutrition-framework-card:nth-child(3),
+    .nutrition-framework-card:nth-child(4) {
+        border-top: 0;
+    }
+
+    .nutrition-framework-card:last-child {
+        border-bottom: 0;
+    }
+
+    .nutrition-framework-card strong {
+        margin-top: 45px;
+        font-size: 3rem;
+    }
+
+
+    /* =====================================================
+       CTA
+       ===================================================== */
+
+    .nutrition-cta {
+        padding-block: 75px;
+    }
+
+    .nutrition-cta-content {
+        width: 100%;
+        max-width: none;
+    }
+
+    .nutrition-cta-content h2 {
+        font-size: clamp(3.8rem, 16vw, 6rem);
+        line-height: 0.82;
+    }
+
+    .nutrition-cta-content > p {
+        width: 100%;
+        max-width: 100%;
+        font-size: 13px;
+        line-height: 1.75;
+    }
+
+    .nutrition-cta-actions {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .nutrition-cta-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   SMALL PHONES
+   --------------------------------------------------------- */
+
+@media (max-width: 430px) {
+
+    .nutrition-hero-layout {
+        padding-block: 75px 50px;
+        gap: 35px;
+    }
+
+    .nutrition-hero h1 {
+        font-size: clamp(3.7rem, 18vw, 5rem);
+    }
+
+    .nutrition-hero-meta {
+        gap: 9px;
+        font-size: 7px;
+    }
+
+    .nutrition-hero-meta .heading-line {
+        width: 28px;
+    }
+
+    .nutrition-hero-content > p {
+        font-size: 12px;
+    }
+
+    .nutrition-hero-card {
+        min-height: 350px;
+    }
+
+    .nutrition-plate {
+        width: 200px;
+    }
+
+    .nutrition-plate-ring {
+        inset: 18px;
+    }
+
+    .nutrition-plate i {
+        font-size: 48px;
+    }
+
+    .nutrition-visual-bottom strong {
+        font-size: 2.5rem;
+    }
+
+    .nutrition-visual-label {
+        right: 15px;
+        bottom: 15px;
+    }
+
+
+    /* INTRO */
+    .nutrition-intro-number {
+        gap: 15px;
+    }
+
+    .nutrition-intro-number strong {
+        font-size: 3.5rem;
+    }
+
+
+    /* OBJECTIVE */
+    .nutrition-section-heading {
+        gap: 25px;
+        margin-bottom: 35px;
+    }
+
+    .nutrition-heading-copy .section-title {
+        font-size: clamp(3rem, 15vw, 4.5rem);
+    }
+
+    .nutrition-heading-copy > p {
+        font-size: 12px;
+    }
+
+    .nutrition-heading-image {
+        height: 270px;
+        min-height: 0;
+    }
+
+    .nutrition-heading-image-label {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+    }
+
+
+    /* GOALS */
+    .nutrition-goal-tab {
+        padding: 11px 13px;
+        font-size: 7px;
+    }
+
+    .nutrition-goal-panel-content {
+        padding: 28px 18px;
+    }
+
+    .nutrition-goal-panel-content h3 {
+        font-size: 3rem;
+    }
+
+    .nutrition-goal-panel-side {
+        min-height: 145px;
+    }
+
+
+    /* FUNDAMENTALS */
+    .nutrition-fundamental {
+        min-height: 275px;
+        padding: 20px;
+    }
+
+    .nutrition-fundamental > i {
+        margin-top: 40px;
+    }
+
+
+    /* TIMING */
+    .nutrition-timing-item {
+        grid-template-columns: 25px minmax(0, 1fr);
+        padding: 18px 15px;
+    }
+
+    .nutrition-timing-item > i {
+        display: none;
+    }
+
+    .nutrition-timing-item h3 {
+        font-size: 1.8rem;
+    }
+
+
+    /* FRAMEWORK */
+    .nutrition-framework-card {
+        min-height: 190px;
+    }
+
+    .nutrition-framework-card strong {
+        font-size: 2.8rem;
+    }
+
+
+    /* CTA */
+    .nutrition-cta {
+        padding-block: 60px;
+    }
+
+    .nutrition-cta-content h2 {
+        font-size: clamp(3.4rem, 17vw, 5rem);
+    }
+
+    .nutrition-cta-content > p {
+        font-size: 12px;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   EXTRA SMALL PHONES
+   --------------------------------------------------------- */
+
+@media (max-width: 360px) {
+
+    .nutrition-hero h1 {
+        font-size: 3.45rem;
+    }
+
+    .nutrition-hero-card {
+        min-height: 320px;
+    }
+
+    .nutrition-plate {
+        width: 175px;
+    }
+
+    .nutrition-plate i {
+        font-size: 42px;
+    }
+
+    .nutrition-visual-bottom strong {
+        font-size: 2.2rem;
+    }
+
+    .nutrition-heading-image {
+        height: 240px;
+    }
+
+    .nutrition-goal-panel-content h3 {
+        font-size: 2.65rem;
+    }
+
+    .nutrition-framework-card strong {
+        font-size: 2.5rem;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   PREVENT HORIZONTAL OVERFLOW
+   --------------------------------------------------------- */
+
+.nutrition-hero,
+.nutrition-intro,
+.nutrition-section-heading,
+.nutrition-goal-panels,
+.nutrition-fundamentals-grid,
+.nutrition-timing-layout,
+.nutrition-framework-grid,
+.nutrition-cta {
+    max-width: 100%;
+}
+
+.nutrition-hero-layout > *,
+.nutrition-section-heading > *,
+.nutrition-goal-panel > *,
+.nutrition-timing-layout > *,
+.nutrition-framework-grid > * {
+    min-width: 0;
+}
+
+
+/* ---------------------------------------------------------
+   REDUCED MOTION
+   --------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .nutrition-plate-ring,
+    .nutrition-heading-image img {
+        animation: none;
+        transition: none;
+    }
+
+    .nutrition-fundamental,
+    .nutrition-timing-item,
+    .nutrition-goal-tab,
+    .nutrition-text-link i {
+        transition: none;
+        transform: none;
+    }
+}
