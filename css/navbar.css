@@ -324,7 +324,6 @@
 /* =========================================================
    MOBILE MENU BUTTON
 ========================================================= */
-
 .mobile-menu-toggle {
     display: none;
 
@@ -332,6 +331,8 @@
 
     width: 40px;
     height: 40px;
+
+    z-index: 10000;
 }
 
 .mobile-menu-toggle span {
@@ -366,51 +367,121 @@
     transform: rotate(-45deg);
 }
 
-
 /* =========================================================
-   MOBILE NAV
+   MOBILE NAVIGATION OVERLAY
 ========================================================= */
 
 .mobile-navigation {
     position: fixed;
     inset: 0;
+    z-index: 9998;
 
-    z-index: -1;
+    display: flex;
+    justify-content: flex-end;
 
-    background: var(--bg-primary);
+    width: 100%;
+    height: 100dvh;
+
+    background: rgb(0 0 0 / 62%);
 
     opacity: 0;
     visibility: hidden;
-
-    transform: translateY(-15px);
+    pointer-events: none;
 
     transition:
         opacity var(--transition),
-        visibility var(--transition),
-        transform var(--transition);
+        visibility var(--transition);
 }
+
+
+/* =========================================================
+   MOBILE NAVIGATION — ACTIVE
+========================================================= */
 
 .mobile-navigation.active {
     opacity: 1;
     visibility: visible;
-
-    transform: translateY(0);
+    pointer-events: auto;
 }
 
+
+/* =========================================================
+   MOBILE NAVIGATION PANEL
+========================================================= */
+
 .mobile-nav-inner {
-    height: 100%;
+    position: relative;
+
+    width: min(88vw, 430px);
+    height: 100dvh;
 
     display: flex;
     flex-direction: column;
 
     padding:
-        calc(var(--header-height) + 40px)
+        calc(var(--header-height) + 35px)
         var(--container-padding)
-        40px;
+        30px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background: var(--bg-primary);
+    color: var(--text-primary);
+
+    border-left: 1px solid var(--border);
+
+    box-shadow:
+        -20px 0 60px rgb(0 0 0 / 18%);
+
+    transform: translateX(100%);
+
+    transition:
+        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+
+/* =========================================================
+   MOBILE NAVIGATION PANEL — OPEN
+========================================================= */
+
+.mobile-navigation.active .mobile-nav-inner {
+    transform: translateX(0);
+}
+
+
+/* =========================================================
+   MOBILE NAVIGATION SCROLLBAR
+========================================================= */
+
+.mobile-nav-inner {
+    scrollbar-width: thin;
+    scrollbar-color:
+        var(--border)
+        transparent;
+}
+
+.mobile-nav-inner::-webkit-scrollbar {
+    width: 4px;
+}
+
+.mobile-nav-inner::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.mobile-nav-inner::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 10px;
+}
+
+
+/* =========================================================
+   MOBILE NAV TOP
+========================================================= */
 
 .mobile-nav-top {
     display: flex;
+    align-items: center;
     justify-content: space-between;
 
     margin-bottom: 40px;
@@ -419,54 +490,160 @@
 
     font-family: var(--font-mono);
     font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
 }
 
 .mobile-nav-number {
     color: var(--accent);
 }
 
+
+/* =========================================================
+   MOBILE NAV LIST
+========================================================= */
+
 .mobile-navigation nav {
     display: flex;
     flex-direction: column;
+
+    width: 100%;
 }
 
+
+/* =========================================================
+   MOBILE NAV LINKS
+========================================================= */
+
 .mobile-nav-link {
+    position: relative;
+
     display: flex;
     align-items: baseline;
+
     gap: 20px;
+
+    width: 100%;
 
     padding-block: 15px;
 
     border-bottom: 1px solid var(--border);
 
+    color: var(--text-primary);
+
     font-family: var(--font-display);
     font-size: clamp(38px, 10vw, 70px);
+    font-weight: 500;
 
     line-height: 0.9;
 
     text-transform: uppercase;
+    text-decoration: none;
 
     transition:
         color var(--transition),
-        padding-left var(--transition);
+        transform var(--transition),
+        border-color var(--transition);
 }
 
+
+/* =========================================================
+   MOBILE NAV NUMBER
+========================================================= */
+
 .mobile-nav-link span {
+    flex: 0 0 28px;
+
     width: 28px;
 
     font-family: var(--font-mono);
     font-size: 9px;
+    font-weight: 700;
+
+    line-height: 1;
 
     color: var(--accent);
+
+    transition:
+        color var(--transition),
+        transform var(--transition);
 }
+
+
+/* =========================================================
+   MOBILE NAV HOVER
+========================================================= */
 
 .mobile-nav-link:hover {
-    padding-left: 10px;
+    color: var(--accent);
+    transform: translateX(8px);
+}
+
+.mobile-nav-link:hover span {
     color: var(--accent);
 }
+
+
+/* =========================================================
+   MOBILE NAV ACTIVE PAGE
+   No underline — use accent + forward movement
+========================================================= */
+
+.mobile-nav-link.active {
+    color: var(--accent);
+
+    transform: translateX(12px);
+}
+
+
+/* Active number also gets emphasized */
+
+.mobile-nav-link.active span {
+    color: var(--accent);
+}
+
+
+/* =========================================================
+   ACTIVE LINK INDICATOR
+   Small accent marker instead of underline
+========================================================= */
+
+.mobile-nav-link.active::before {
+    content: "";
+
+    position: absolute;
+
+    left: -14px;
+    top: 50%;
+
+    width: 4px;
+    height: 4px;
+
+    background: var(--accent);
+
+    transform: translateY(-50%);
+
+    box-shadow:
+        0 0 10px
+        color-mix(
+            in srgb,
+            var(--accent) 60%,
+            transparent
+        );
+}
+
+
+/* =========================================================
+   MOBILE CTA
+========================================================= */
 
 .mobile-cta {
     margin-top: auto;
+    padding-top: 30px;
+
+    flex-shrink: 0;
 }
 
 /* =========================================================

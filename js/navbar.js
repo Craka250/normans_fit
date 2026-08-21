@@ -240,7 +240,7 @@
                 const href =
                     link.getAttribute("href");
 
-                if (!href) return;
+                if (!href || href === "#") return;
 
                 const linkPage =
                     href
@@ -250,6 +250,7 @@
                         .toLowerCase();
 
                 link.classList.remove("active");
+                link.removeAttribute("aria-current");
 
                 if (
                     linkPage === currentPage &&
@@ -257,6 +258,11 @@
                 ) {
 
                     link.classList.add("active");
+
+                    link.setAttribute(
+                        "aria-current",
+                        "page"
+                    );
                 }
 
             });
@@ -282,37 +288,82 @@
 
 
     /* =====================================================
-       MOBILE MENU
+        MOBILE MENU
     ====================================================== */
 
     if (menuToggle && mobileNavigation) {
 
+        function openMobileMenu() {
+
+            menuToggle.classList.add("active");
+
+            mobileNavigation.classList.add("active");
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+
+            mobileNavigation.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+            document.body.style.overflow = "hidden";
+        }
+
+
+        function closeMobileMenu() {
+
+            menuToggle.classList.remove("active");
+
+            mobileNavigation.classList.remove("active");
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            mobileNavigation.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            document.body.style.overflow = "";
+        }
+
+
+        function toggleMobileMenu() {
+
+            const isOpen =
+                mobileNavigation.classList.contains("active");
+
+            if (isOpen) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+        }
+
+
+        /* -------------------------------------------------
+        HAMBURGER BUTTON
+        ------------------------------------------------- */
+
         menuToggle.addEventListener(
             "click",
-            () => {
+            event => {
 
-                const active =
-                    menuToggle.classList.toggle(
-                        "active"
-                    );
+                event.stopPropagation();
 
-                mobileNavigation.classList.toggle(
-                    "active",
-                    active
-                );
-
-                menuToggle.setAttribute(
-                    "aria-expanded",
-                    active.toString()
-                );
-
-                document.body.style.overflow =
-                    active
-                        ? "hidden"
-                        : "";
+                toggleMobileMenu();
             }
         );
 
+
+        /* -------------------------------------------------
+        CLOSE WHEN CLICKING A MOBILE LINK
+        ------------------------------------------------- */
 
         document
             .querySelectorAll(".mobile-nav-link")
@@ -322,24 +373,121 @@
                     "click",
                     () => {
 
-                        menuToggle.classList.remove(
-                            "active"
-                        );
-
-                        mobileNavigation.classList.remove(
-                            "active"
-                        );
-
-                        menuToggle.setAttribute(
-                            "aria-expanded",
-                            "false"
-                        );
-
-                        document.body.style.overflow =
-                            "";
+                        closeMobileMenu();
                     }
                 );
+
             });
+
+
+        /* -------------------------------------------------
+        CLOSE WHEN CLICKING CTA
+        ------------------------------------------------- */
+
+        const mobileCTA =
+            mobileNavigation.querySelector(".mobile-cta");
+
+        if (mobileCTA) {
+
+            mobileCTA.addEventListener(
+                "click",
+                () => {
+
+                    closeMobileMenu();
+                }
+            );
+
+        }
+
+
+        /* -------------------------------------------------
+        CLOSE WHEN CLICKING OUTSIDE THE SIDEBAR
+        ------------------------------------------------- */
+
+        mobileNavigation.addEventListener(
+            "click",
+            event => {
+
+                /*
+                * The mobile-navigation itself is the
+                * backdrop. The inner panel is the sidebar.
+                *
+                * If the user clicks the backdrop,
+                * close the menu.
+                */
+
+                if (
+                    event.target === mobileNavigation
+                ) {
+
+                    closeMobileMenu();
+                }
+
+            }
+        );
+
+
+        /* -------------------------------------------------
+        PREVENT SIDEBAR CLICKS FROM CLOSING MENU
+        ------------------------------------------------- */
+
+        const mobileNavInner =
+            mobileNavigation.querySelector(
+                ".mobile-nav-inner"
+            );
+
+        if (mobileNavInner) {
+
+            mobileNavInner.addEventListener(
+                "click",
+                event => {
+
+                    event.stopPropagation();
+                }
+            );
+
+        }
+
+
+        /* -------------------------------------------------
+        ESC KEY CLOSES MOBILE MENU
+        ------------------------------------------------- */
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Escape" &&
+                    mobileNavigation.classList.contains("active")
+                ) {
+
+                    closeMobileMenu();
+                }
+
+            }
+        );
+
+
+        /* -------------------------------------------------
+        CLOSE MENU WHEN MOVING BACK TO DESKTOP
+        ------------------------------------------------- */
+
+        window.addEventListener(
+            "resize",
+            () => {
+
+                if (
+                    window.innerWidth > 900 &&
+                    mobileNavigation.classList.contains("active")
+                ) {
+
+                    closeMobileMenu();
+                }
+
+            }
+        );
+
     }
 
 
