@@ -39,11 +39,10 @@
 
 .nav-container {
     height: var(--header-height);
-
+    min-height: 70px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     gap: 30px;
 }
 
@@ -53,11 +52,14 @@
 ========================================================= */
 
 .brand {
+    position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-
     flex-shrink: 0;
+    width: auto;
+    min-height: 58px;
+    padding: 4px 0;
+    text-decoration: none;
 }
 
 .brand-mark {
@@ -78,41 +80,34 @@
 }
 
 /* =========================================================
-   VYRON NAVBAR BRAND
+   VYRON FITNESS — LOGO
 ========================================================= */
 
-.brand-name {
-    display: flex;
-    flex-direction: column;
-
-    color: var(--text-primary);
-    font-family: var(--font-display);
-    font-size: 25px;
-    font-weight: 700;
-
-    line-height: 0.82;
-    letter-spacing: 0.06em;
+.brand {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    width: auto;
+    text-decoration: none;
 }
 
-/* =========================================================
-   FITNESS LABEL
-========================================================= */
-
-.brand-name small {
+.brand-logo {
     display: block;
+    width: 172px;
+    height: auto;
+    max-height: 58px;
+    object-fit: contain;
+    object-position: left center;
 
-    margin-top: 7px;
+    transition:
+        transform var(--transition),
+        opacity var(--transition),
+        filter var(--transition);
+}
 
-    color: var(--accent);
-    font-family: var(--font-mono);
-
-    font-size: 11px;
-    font-weight: 700;
-
-    line-height: 1;
-    letter-spacing: 0.28em;
-
-    text-transform: uppercase;
+.brand:hover .brand-logo {
+    transform: translateY(-1px);
+    opacity: 0.94;
 }
 
 
@@ -542,4 +537,47 @@
 
 .site-header .nav-dropdown:first-of-type .dropdown-menu::-webkit-scrollbar-thumb {
     border-radius: 10px;
+}
+
+/* =========================================================
+   LOGO RESPONSIVENESS
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .brand-logo {
+        width: 155px;
+        max-height: 52px;
+    }
+
+}
+
+
+@media (max-width: 750px) {
+
+    .brand-logo {
+        width: 145px;
+        max-height: 50px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .brand-logo {
+        width: 135px;
+        max-height: 46px;
+    }
+
+}
+
+
+@media (max-width: 400px) {
+
+    .brand-logo {
+        width: 125px;
+        max-height: 43px;
+    }
+
 }
