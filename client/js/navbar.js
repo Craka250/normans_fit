@@ -50,7 +50,7 @@
 
 
     /* =====================================================
-       ACTIVE NAVIGATION
+        ACTIVE NAVIGATION
     ====================================================== */
 
     function setActiveNavigation() {
@@ -66,13 +66,11 @@
 
 
         /* -------------------------------------------------
-           DESKTOP NORMAL NAV LINKS
+        DESKTOP NORMAL NAV LINKS
         ------------------------------------------------- */
 
         document
-            .querySelectorAll(
-                ".desktop-nav > .nav-link"
-            )
+            .querySelectorAll(".desktop-nav > .nav-link")
             .forEach(link => {
 
                 const href =
@@ -81,7 +79,8 @@
                 if (!href) return;
 
                 const linkPage =
-                    href.split("#")[0]
+                    href
+                        .split("#")[0]
                         .split("/")
                         .pop()
                         .toLowerCase();
@@ -98,7 +97,7 @@
 
 
         /* -------------------------------------------------
-           DROPDOWN NAVIGATION
+        DROPDOWN NAVIGATION
         ------------------------------------------------- */
 
         document
@@ -118,6 +117,10 @@
                 let dropdownIsActive = false;
 
 
+                /* -----------------------------------------
+                CHECK DROPDOWN ITEMS
+                ------------------------------------------ */
+
                 links.forEach(link => {
 
                     const href =
@@ -126,7 +129,8 @@
                     if (!href) return;
 
                     const url =
-                        href.split("#")[0]
+                        href
+                            .split("#")[0]
                             .split("/")
                             .pop()
                             .toLowerCase();
@@ -134,42 +138,38 @@
                     const hash =
                         href.includes("#")
                             ? "#" +
-                              href.split("#")[1]
-                                  .toLowerCase()
+                            href
+                                .split("#")[1]
+                                .toLowerCase()
                             : "";
 
 
+                    /* Remove previous active state */
                     link.classList.remove("active");
 
 
-                    /*
-                     * A dropdown item is active when:
-                     *
-                     * members.html#basic
-                     * members.html#standard
-                     * members.html#premium
-                     * members.html#compare
-                     *
-                     * matches the current URL.
-                     */
+                    /* -------------------------------------
+                    EXACT PAGE + HASH MATCH
+                    -------------------------------------- */
+
                     if (
                         url === currentPage &&
-                        (
-                            !hash ||
-                            hash === currentHash
-                        )
+                        hash &&
+                        hash === currentHash
                     ) {
+
                         link.classList.add("active");
+
                         dropdownIsActive = true;
                     }
+
                 });
 
 
-                /*
-                 * If we are on members.html, keep the
-                 * Membership dropdown itself active even
-                 * when there is no hash.
-                 */
+                /* -----------------------------------------
+                KEEP DROPDOWN ACTIVE ON ITS PAGE
+                ------------------------------------------ */
+
                 const dropdownPages =
                     Array.from(links).some(link => {
 
@@ -179,7 +179,8 @@
                         if (!href) return false;
 
                         const page =
-                            href.split("#")[0]
+                            href
+                                .split("#")[0]
                                 .split("/")
                                 .pop()
                                 .toLowerCase();
@@ -193,29 +194,43 @@
                 }
 
 
+                /* -----------------------------------------
+                APPLY DROPDOWN ACTIVE STATE
+                ------------------------------------------ */
+
                 if (toggle) {
+
                     toggle.classList.toggle(
                         "active",
                         dropdownIsActive
                     );
 
-                    toggle.setAttribute(
-                        "aria-current",
-                        dropdownIsActive
-                            ? "page"
-                            : "false"
-                    );
+                    if (dropdownIsActive) {
+
+                        toggle.setAttribute(
+                            "aria-current",
+                            "page"
+                        );
+
+                    } else {
+
+                        toggle.removeAttribute(
+                            "aria-current"
+                        );
+                    }
                 }
+
 
                 dropdown.classList.toggle(
                     "active",
                     dropdownIsActive
                 );
+
             });
 
 
         /* -------------------------------------------------
-           MOBILE NAVIGATION
+        MOBILE NAVIGATION
         ------------------------------------------------- */
 
         document
@@ -228,7 +243,8 @@
                 if (!href) return;
 
                 const linkPage =
-                    href.split("#")[0]
+                    href
+                        .split("#")[0]
                         .split("/")
                         .pop()
                         .toLowerCase();
@@ -239,13 +255,16 @@
                     linkPage === currentPage &&
                     !href.includes("#")
                 ) {
+
                     link.classList.add("active");
                 }
+
             });
     }
 
-    setActiveNavigation();
 
+    /* Run immediately */
+    setActiveNavigation();
 
     /*
      * Re-run active state when the URL hash changes.

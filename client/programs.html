@@ -53,13 +53,6 @@
         referrerpolicy="no-referrer"
     >
 
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-    >
-
 
     <!-- =========================================================
          GLOBAL / SHARED CSS
@@ -127,13 +120,12 @@
             <!-- =================================================
                 PROGRAMS DROPDOWN
             ================================================== -->
-            <div class="nav-dropdown active">
+            <div class="nav-dropdown">
 
                 <button
-                    class="nav-dropdown-toggle active"
+                    class="nav-dropdown-toggle"
                     type="button"
                     aria-expanded="false"
-                    aria-current="page"
                 >
                     Programs
                     <i class="fa-solid fa-chevron-down"></i>
@@ -141,52 +133,125 @@
 
                 <div class="dropdown-menu">
 
-                    <!-- Strength Training -->
-                    <a href="programs.html#programs">
+                    <!-- 01 — Strength Training -->
+                    <a
+                        href="programs.html#strength"
+                        data-program="strength"
+                    >
                         <span>
                             <i class="fa-solid fa-dumbbell"></i>
                         </span>
                         Strength Training
                     </a>
 
-                    <!-- HIIT -->
-                    <a href="programs.html#programs">
+                    <!-- 02 — Hypertrophy -->
+                    <a
+                        href="programs.html#hypertrophy"
+                        data-program="hypertrophy"
+                    >
+                        <span>
+                            <i class="fa-solid fa-weight-hanging"></i>
+                        </span>
+                        Hypertrophy
+                    </a>
+
+                    <!-- 03 — HIIT -->
+                    <a
+                        href="programs.html#hiit"
+                        data-program="hiit"
+                    >
                         <span>
                             <i class="fa-solid fa-bolt"></i>
                         </span>
                         HIIT
                     </a>
 
-                    <!-- Fat Loss -->
-                    <a href="programs.html#programs">
+                    <!-- 04 — Fat Loss -->
+                    <a
+                        href="programs.html#fat-loss"
+                        data-program="fat-loss"
+                    >
                         <span>
                             <i class="fa-solid fa-fire"></i>
                         </span>
                         Fat Loss
                     </a>
 
-                    <!-- Functional Training -->
-                    <a href="programs.html#programs">
-                        <span>
-                            <i class="fa-solid fa-person-running"></i>
-                        </span>
-                        Functional Training
-                    </a>
-
-                    <!-- Personal Training -->
-                    <a href="programs.html#programs">
+                    <!-- 05 — Personal Training -->
+                    <a
+                        href="programs.html#personal-training"
+                        data-program="personal-training"
+                    >
                         <span>
                             <i class="fa-solid fa-user"></i>
                         </span>
                         Personal Training
                     </a>
 
-                    <!-- CrossFit -->
-                    <a href="programs.html#programs">
+                    <!-- 06 — CrossFit -->
+                    <a
+                        href="programs.html#crossfit"
+                        data-program="crossfit"
+                    >
                         <span>
                             <i class="fa-solid fa-people-group"></i>
                         </span>
                         CrossFit
+                    </a>
+
+                    <!-- 07 — Independent Training -->
+                    <a
+                        href="programs.html#independent-training"
+                        data-program="independent-training"
+                    >
+                        <span>
+                            <i class="fa-solid fa-person-running"></i>
+                        </span>
+                        Independent Training
+                    </a>
+
+                    <!-- 08 — Boxing & Combat Conditioning -->
+                    <a
+                        href="programs.html#boxing-combat"
+                        data-program="boxing-combat"
+                    >
+                        <span>
+                            <i class="fa-solid fa-hand-fist"></i>
+                        </span>
+                        Boxing & Combat
+                    </a>
+
+                    <!-- 09 — Small Group Training -->
+                    <a
+                        href="programs.html#small-group"
+                        data-program="small-group"
+                    >
+                        <span>
+                            <i class="fa-solid fa-users"></i>
+                        </span>
+                        Small Group Training
+                    </a>
+
+                    <!-- 10 — Physiotherapy & Recovery -->
+                    <a
+                        href="programs.html#physiotherapy"
+                        data-program="physiotherapy"
+                    >
+                        <span>
+                            <i class="fa-solid fa-person-walking"></i>
+                        </span>
+                        Physiotherapy & Recovery
+                    </a>
+
+                    <!-- 11 — Athletic Conditioning -->
+                    <a
+                        href="programs.html#athletic-conditioning"
+                        data-program="athletic-conditioning"
+                    >
+                        <span>
+                            <i class="fa-solid fa-person-running"></i>
+                        </span>
+                        Athletic Conditioning
                     </a>
 
                 </div>
@@ -287,7 +352,7 @@
             </a>
 
 
-            <a href="members.html" class="btn btn-primary nav-cta">
+            <a href="index.html#membership" class="btn btn-primary nav-cta">
                 Get Started
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
@@ -340,7 +405,7 @@
                     Trainers
                 </a>
 
-                <a href="membership.html" class="mobile-nav-link">
+                <a href="members.html" class="mobile-nav-link">
                     <span>04</span>
                     Membership
                 </a>
@@ -368,7 +433,7 @@
             </nav>
 
 
-            <a href="membership.html" class="btn btn-primary mobile-cta">
+            <a href="members.html" class="btn btn-primary mobile-cta">
                 Start Your Journey
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
@@ -457,7 +522,7 @@
             <div class="programs-hero-stat">
 
                 <span class="programs-stat-number">
-                    10
+                    11
                 </span>
 
                 <span class="programs-stat-label">
@@ -600,6 +665,7 @@
 
             <article
                 class="program-directory-card program-featured reveal"
+                id="strength"
                 data-category="performance"
             >
 
@@ -681,6 +747,7 @@
 
             <article
                 class="program-directory-card reveal"
+                id="hypertrophy"
                 data-category="performance"
             >
 
@@ -762,6 +829,7 @@
 
             <article
                 class="program-directory-card reveal"
+                id="hiit"
                 data-category="fitness"
             >
 
@@ -843,6 +911,7 @@
 
             <article
                 class="program-directory-card reveal"
+                id="fat-loss"
                 data-category="fitness"
             >
 
@@ -924,6 +993,7 @@
 
             <article
                 class="program-directory-card reveal"
+                id="personal-training"
                 data-category="coaching"
             >
 
@@ -1005,6 +1075,7 @@
 
             <article
                 class="program-directory-card reveal"
+                id="crossfit"
                 data-category="performance"
             >
 
@@ -1086,6 +1157,7 @@
 
             <article
                 class="program-directory-card reveal"
+                id="independent-training"
                 data-category="fitness"
             >
 
@@ -1167,6 +1239,7 @@
 
             <article
                 class="program-directory-card reveal"
+                id="boxing-combat"
                 data-category="fitness"
             >
 
@@ -1248,6 +1321,7 @@
 
             <article
                 class="program-directory-card reveal"
+                id="small-group"
                 data-category="coaching"
             >
 
@@ -1329,6 +1403,7 @@
 
             <article
                 class="program-directory-card reveal"
+                id="physiotherapy"
                 data-category="recovery"
             >
 
@@ -1404,36 +1479,42 @@
             </article>
 
             <!-- =================================================
-                11 - ATHLETIC CONDITIONING
+                11 — ATHLETIC CONDITIONING
             ================================================== -->
-            <article class="program-card reveal">
+            <article
+                class="program-directory-card reveal"
+                id="athletic-conditioning"
+                data-category="performance"
+            >
 
-                <div class="program-image">
+                <div class="program-directory-image">
+
                     <img
                         src="assets/images/gym-3.jpg"
                         alt="Athletic conditioning training program at VYRON"
                         loading="lazy"
                     >
+
                 </div>
 
-                <div class="program-overlay"></div>
+                <div class="program-directory-overlay"></div>
 
-                <div class="program-content">
+                <div class="program-directory-content">
 
-                    <span class="program-number">
+                    <span class="program-directory-number">
                         11
                     </span>
 
-                    <div class="program-details">
+                    <div class="program-directory-info">
 
-                        <span class="program-category">
+                        <span class="program-directory-category">
                             ATHLETIC CONDITIONING
                         </span>
 
-                        <h3>
+                        <h2>
                             BUILD
                             <span>YOUR EDGE.</span>
-                        </h3>
+                        </h2>
 
                         <p>
                             Performance-focused training designed to develop
@@ -1441,7 +1522,7 @@
                             explosive movement for a stronger, more capable body.
                         </p>
 
-                        <div class="program-meta">
+                        <div class="program-directory-meta">
 
                             <span>
                                 <i class="fa-regular fa-clock"></i>
@@ -1459,7 +1540,7 @@
 
                     <a
                         href="#"
-                        class="program-link"
+                        class="program-directory-link"
                         aria-label="Explore athletic conditioning program"
                     >
                         <i class="fa-solid fa-arrow-up-right-from-square"></i>
@@ -1644,7 +1725,7 @@
             <div class="cta-actions">
 
                 <a
-                    href="members.html"
+                    href="index.html#membership"
                     class="btn btn-primary"
                 >
                     Get Started
@@ -1681,7 +1762,7 @@
 
             <div class="footer-brand">
 
-                <a href="#home" class="brand">
+                <a href="index.html" class="brand">
 
                     <span class="brand-mark">
                         V
