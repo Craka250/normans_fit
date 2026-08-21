@@ -457,3 +457,32 @@
 .mobile-cta {
     margin-top: auto;
 }
+
+/* =========================================================
+   ACTIVE MEMBERSHIP DROPDOWN
+   ========================================================= */
+
+.nav-dropdown.is-active > .nav-dropdown-toggle {
+    color: var(--accent);
+}
+
+.nav-dropdown.is-active > .nav-dropdown-toggle i {
+    color: var(--accent);
+}
+
+.nav-dropdown .dropdown-menu a.active {
+    color: var(--accent);
+    background: color-mix(
+        in srgb,
+        var(--accent) 8%,
+        transparent
+    );
+}
+
+.nav-dropdown .dropdown-menu a.active span {
+    color: var(--accent);
+}
+
+.nav-dropdown .dropdown-menu a.active i {
+    color: var(--accent);
+}

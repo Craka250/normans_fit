@@ -4,15 +4,26 @@
 ========================================================= */
 
 (() => {
+    "use strict";
+
+    /* =====================================================
+       ELEMENT REFERENCES
+    ====================================================== */
 
     const header =
         document.getElementById("siteHeader");
 
+    /*
+     * Support both the original JS IDs and the IDs
+     * currently used in your HTML.
+     */
     const menuToggle =
-        document.getElementById("mobileMenuToggle");
+        document.getElementById("mobileMenuToggle") ||
+        document.getElementById("menuToggle");
 
     const mobileNavigation =
-        document.getElementById("mobileNavigation");
+        document.getElementById("mobileNavigation") ||
+        document.getElementById("navLinks");
 
 
     /* =====================================================
@@ -20,13 +31,13 @@
     ====================================================== */
 
     function handleScroll() {
+        if (!header) return;
 
         if (window.scrollY > 40) {
             header.classList.add("scrolled");
         } else {
             header.classList.remove("scrolled");
         }
-
     }
 
     window.addEventListener(
@@ -39,55 +50,277 @@
 
 
     /* =====================================================
+       ACTIVE NAVIGATION
+    ====================================================== */
+
+    function setActiveNavigation() {
+
+        const currentPage =
+            window.location.pathname
+                .split("/")
+                .pop()
+                .toLowerCase() || "index.html";
+
+        const currentHash =
+            window.location.hash.toLowerCase();
+
+
+        /* -------------------------------------------------
+           DESKTOP NORMAL NAV LINKS
+        ------------------------------------------------- */
+
+        document
+            .querySelectorAll(
+                ".desktop-nav > .nav-link"
+            )
+            .forEach(link => {
+
+                const href =
+                    link.getAttribute("href");
+
+                if (!href) return;
+
+                const linkPage =
+                    href.split("#")[0]
+                        .split("/")
+                        .pop()
+                        .toLowerCase();
+
+                link.classList.remove("active");
+
+                if (
+                    linkPage === currentPage &&
+                    !href.includes("#")
+                ) {
+                    link.classList.add("active");
+                }
+            });
+
+
+        /* -------------------------------------------------
+           DROPDOWN NAVIGATION
+        ------------------------------------------------- */
+
+        document
+            .querySelectorAll(".nav-dropdown")
+            .forEach(dropdown => {
+
+                const toggle =
+                    dropdown.querySelector(
+                        ".nav-dropdown-toggle"
+                    );
+
+                const links =
+                    dropdown.querySelectorAll(
+                        ".dropdown-menu a"
+                    );
+
+                let dropdownIsActive = false;
+
+
+                links.forEach(link => {
+
+                    const href =
+                        link.getAttribute("href");
+
+                    if (!href) return;
+
+                    const url =
+                        href.split("#")[0]
+                            .split("/")
+                            .pop()
+                            .toLowerCase();
+
+                    const hash =
+                        href.includes("#")
+                            ? "#" +
+                              href.split("#")[1]
+                                  .toLowerCase()
+                            : "";
+
+
+                    link.classList.remove("active");
+
+
+                    /*
+                     * A dropdown item is active when:
+                     *
+                     * members.html#basic
+                     * members.html#standard
+                     * members.html#premium
+                     * members.html#compare
+                     *
+                     * matches the current URL.
+                     */
+                    if (
+                        url === currentPage &&
+                        (
+                            !hash ||
+                            hash === currentHash
+                        )
+                    ) {
+                        link.classList.add("active");
+                        dropdownIsActive = true;
+                    }
+                });
+
+
+                /*
+                 * If we are on members.html, keep the
+                 * Membership dropdown itself active even
+                 * when there is no hash.
+                 */
+                const dropdownPages =
+                    Array.from(links).some(link => {
+
+                        const href =
+                            link.getAttribute("href");
+
+                        if (!href) return false;
+
+                        const page =
+                            href.split("#")[0]
+                                .split("/")
+                                .pop()
+                                .toLowerCase();
+
+                        return page === currentPage;
+                    });
+
+
+                if (dropdownPages) {
+                    dropdownIsActive = true;
+                }
+
+
+                if (toggle) {
+                    toggle.classList.toggle(
+                        "active",
+                        dropdownIsActive
+                    );
+
+                    toggle.setAttribute(
+                        "aria-current",
+                        dropdownIsActive
+                            ? "page"
+                            : "false"
+                    );
+                }
+
+                dropdown.classList.toggle(
+                    "active",
+                    dropdownIsActive
+                );
+            });
+
+
+        /* -------------------------------------------------
+           MOBILE NAVIGATION
+        ------------------------------------------------- */
+
+        document
+            .querySelectorAll(".mobile-nav-link")
+            .forEach(link => {
+
+                const href =
+                    link.getAttribute("href");
+
+                if (!href) return;
+
+                const linkPage =
+                    href.split("#")[0]
+                        .split("/")
+                        .pop()
+                        .toLowerCase();
+
+                link.classList.remove("active");
+
+                if (
+                    linkPage === currentPage &&
+                    !href.includes("#")
+                ) {
+                    link.classList.add("active");
+                }
+            });
+    }
+
+    setActiveNavigation();
+
+
+    /*
+     * Re-run active state when the URL hash changes.
+     *
+     * Example:
+     * members.html#basic
+     * members.html#standard
+     * members.html#premium
+     * members.html#compare
+     */
+    window.addEventListener(
+        "hashchange",
+        setActiveNavigation
+    );
+
+
+    /* =====================================================
        MOBILE MENU
     ====================================================== */
 
     if (menuToggle && mobileNavigation) {
 
-        menuToggle.addEventListener("click", () => {
+        menuToggle.addEventListener(
+            "click",
+            () => {
 
-            const active =
-                menuToggle.classList.toggle("active");
+                const active =
+                    menuToggle.classList.toggle(
+                        "active"
+                    );
 
-            mobileNavigation.classList.toggle(
-                "active",
-                active
-            );
+                mobileNavigation.classList.toggle(
+                    "active",
+                    active
+                );
 
-            menuToggle.setAttribute(
-                "aria-expanded",
-                active
-            );
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    active.toString()
+                );
 
-            document.body.style.overflow =
-                active ? "hidden" : "";
-
-        });
+                document.body.style.overflow =
+                    active
+                        ? "hidden"
+                        : "";
+            }
+        );
 
 
         document
             .querySelectorAll(".mobile-nav-link")
             .forEach(link => {
 
-                link.addEventListener("click", () => {
+                link.addEventListener(
+                    "click",
+                    () => {
 
-                    menuToggle.classList.remove("active");
+                        menuToggle.classList.remove(
+                            "active"
+                        );
 
-                    mobileNavigation.classList.remove(
-                        "active"
-                    );
+                        mobileNavigation.classList.remove(
+                            "active"
+                        );
 
-                    menuToggle.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
+                        menuToggle.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
 
-                    document.body.style.overflow = "";
-
-                });
-
+                        document.body.style.overflow =
+                            "";
+                    }
+                );
             });
-
     }
 
 
@@ -99,78 +332,119 @@
         .querySelectorAll(".nav-dropdown-toggle")
         .forEach(button => {
 
-            button.addEventListener("click", event => {
+            button.addEventListener(
+                "click",
+                event => {
 
-                event.stopPropagation();
+                    event.stopPropagation();
 
-                const parent =
-                    button.closest(".nav-dropdown");
+                    const parent =
+                        button.closest(
+                            ".nav-dropdown"
+                        );
 
-                const isOpen =
-                    parent.classList.contains("open");
+                    if (!parent) return;
+
+                    const isOpen =
+                        parent.classList.contains(
+                            "open"
+                        );
 
 
-                document
-                    .querySelectorAll(".nav-dropdown")
-                    .forEach(dropdown => {
+                    /*
+                     * Close all dropdowns first.
+                     */
+                    document
+                        .querySelectorAll(
+                            ".nav-dropdown"
+                        )
+                        .forEach(dropdown => {
 
-                        dropdown.classList.remove("open");
-
-                        const toggle =
-                            dropdown.querySelector(
-                                ".nav-dropdown-toggle"
+                            dropdown.classList.remove(
+                                "open"
                             );
 
-                        if (toggle) {
-                            toggle.setAttribute(
-                                "aria-expanded",
-                                "false"
-                            );
-                        }
+                            const toggle =
+                                dropdown.querySelector(
+                                    ".nav-dropdown-toggle"
+                                );
 
-                    });
+                            if (toggle) {
+                                toggle.setAttribute(
+                                    "aria-expanded",
+                                    "false"
+                                );
+                            }
+                        });
 
 
-                if (!isOpen) {
+                    /*
+                     * Open the clicked dropdown.
+                     */
+                    if (!isOpen) {
 
-                    parent.classList.add("open");
+                        parent.classList.add(
+                            "open"
+                        );
 
-                    button.setAttribute(
-                        "aria-expanded",
-                        "true"
-                    );
-
+                        button.setAttribute(
+                            "aria-expanded",
+                            "true"
+                        );
+                    }
                 }
-
-            });
-
+            );
         });
 
 
-    document.addEventListener("click", () => {
+    /* =====================================================
+       CLOSE DROPDOWNS WHEN CLICKING OUTSIDE
+    ====================================================== */
 
-        document
-            .querySelectorAll(".nav-dropdown")
-            .forEach(dropdown => {
+    document.addEventListener(
+        "click",
+        () => {
 
-                dropdown.classList.remove("open");
+            document
+                .querySelectorAll(
+                    ".nav-dropdown"
+                )
+                .forEach(dropdown => {
 
-                const toggle =
-                    dropdown.querySelector(
-                        ".nav-dropdown-toggle"
+                    dropdown.classList.remove(
+                        "open"
                     );
 
-                if (toggle) {
+                    const toggle =
+                        dropdown.querySelector(
+                            ".nav-dropdown-toggle"
+                        );
 
-                    toggle.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
+                    if (toggle) {
+                        toggle.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+                    }
+                });
+        }
+    );
 
+
+    /* =====================================================
+       PREVENT DROPDOWN MENU CLICKS FROM CLOSING TOO EARLY
+    ====================================================== */
+
+    document
+        .querySelectorAll(".dropdown-menu")
+        .forEach(menu => {
+
+            menu.addEventListener(
+                "click",
+                event => {
+                    event.stopPropagation();
                 }
-
-            });
-
-    });
+            );
+        });
 
 })();
