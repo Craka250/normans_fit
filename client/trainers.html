@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Meet the VYRON coaching team. Explore our strength, performance, conditioning, HIIT, mobility and functional training specialists."
+    >
+
+    <meta
+        name="robots"
+        content="index, follow"
+    >
+
+    <meta
+        name="theme-color"
+        content="#080A0A"
+    >
+
+    <title>Our Trainers | VYRON</title>
+
+    <!-- =====================================================
+         EXISTING SITE STYLES
+    ====================================================== -->
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- =====================================================
+         TRAINERS PAGE STYLES
+    ====================================================== -->
+
+    <link rel="stylesheet" href="css/trainers.css">
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+</head>
+
+<body>
+
+<!-- =========================================================
+     PAGE LOADER
+========================================================== -->
+<div class="page-loader" id="pageLoader">
+    <div class="loader-logo">VYRON</div>
+    <div class="loader-line">
+        <span></span>
+    </div>
+</div>
+
+
+<!-- =========================================================
+     HEADER
+========================================================== -->
+<header class="site-header" id="siteHeader">
+
+    <div class="container nav-container">
+
+        <!-- LOGO -->
+        <a href="index.html" class="brand" aria-label="VYRON Fitness home">
+
+            <span class="brand-mark">
+                V
+            </span>
+
+            <span class="brand-name">
+                VYRON
+                <small>FITNESS</small>
+            </span>
+
+        </a>
+
+
+        <!-- DESKTOP NAVIGATION -->
+        <nav class="desktop-nav" aria-label="Main navigation">
+
+            <a href="index.html" class="nav-link">
+                Home
+            </a>
+
+
+            <!-- PROGRAMS -->
+            <div class="nav-dropdown">
+
+                <button 
+                    class="nav-dropdown-toggle" 
+                    type="button" 
+                    aria-expanded="false"
+                >
+                    Programs
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+
+                <div class="dropdown-menu">
+
+                    <!-- Strength Training -->
+                    <a href="#programs">
+                        <span>
+                            <i class="fa-solid fa-dumbbell"></i>
+                        </span>
+                        Strength Training
+                    </a>
+
+                    <!-- HIIT -->
+                    <a href="#programs">
+                        <span>
+                            <i class="fa-solid fa-bolt"></i>
+                        </span>
+                        HIIT
+                    </a>
+
+                    <!-- Fat Loss -->
+                    <a href="#programs">
+                        <span>
+                            <i class="fa-solid fa-fire"></i>
+                        </span>
+                        Fat Loss
+                    </a>
+
+                    <!-- Functional Training -->
+                    <a href="#programs">
+                        <span>
+                            <i class="fa-solid fa-person-running"></i>
+                        </span>
+                        Functional Training
+                    </a>
+
+                    <!-- Personal Training -->
+                    <a href="#programs">
+                        <span>
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                        Personal Training
+                    </a>
+
+                    <!-- CrossFit -->
+                    <a href="#programs">
+                        <span>
+                            <i class="fa-solid fa-people-group"></i>
+                        </span>
+                        CrossFit
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <a href="trainers.html" class="nav-link active">
+                Trainers
+            </a>
+
+
+            <!-- MEMBERSHIP -->
+            <div class="nav-dropdown">
+
+                <button
+                    class="nav-dropdown-toggle"
+                    type="button"
+                    aria-expanded="false"
+                >
+                    Membership
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+
+                <div class="dropdown-menu">
+
+                    <a href="#membership">
+                        <span>
+                            <i class="fa-solid fa-seedling"></i>
+                        </span>
+
+                        Basic
+                    </a>
+
+                    <a href="#membership">
+                        <span>
+                            <i class="fa-solid fa-chart-line"></i>
+                        </span>
+
+                        Standard
+                    </a>
+
+                    <a href="#membership">
+                        <span>
+                            <i class="fa-solid fa-crown"></i>
+                        </span>
+
+                        Premium
+                    </a>
+
+                    <a href="#membership">
+                        <span>
+                            <i class="fa-solid fa-table-list"></i>
+                        </span>
+
+                        Compare Plans
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <a href="nutrition.html" class="nav-link">
+                Nutrition
+            </a>
+
+            <a href="gallery.html" class="nav-link">
+                Gallery
+            </a>
+
+             <a href="about.html" class="nav-link">
+                About
+            </a>
+
+            <a href="contact.html" class="nav-link">
+                Contact
+            </a>
+
+        </nav>
+
+
+        <!-- NAV ACTIONS -->
+        <div class="nav-actions">
+
+            <!-- THEME -->
+            <button
+                class="theme-toggle"
+                id="themeToggle"
+                type="button"
+                aria-label="Switch theme"
+            >
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+
+            <a href="#" class="login-link">
+                Login
+            </a>
+
+
+            <a href="#membership" class="btn btn-primary nav-cta">
+                Get Started
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+
+            <!-- MOBILE MENU -->
+            <button
+                class="mobile-menu-toggle"
+                id="menuToggle"
+                type="button"
+                aria-label="Open navigation"
+                aria-expanded="false"
+            >
+                <i class="fa-solid fa-bars" aria-hidden="true"></i>
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- MOBILE NAVIGATION -->
+    <div class="mobile-navigation" id="navLinks">
+
+        <div class="mobile-nav-inner">
+
+            <div class="mobile-nav-top">
+                <span>MENU</span>
+
+                <span class="mobile-nav-number">
+                    01 — 08
+                </span>
+            </div>
+
+
+            <nav>
+
+                <a href="index.html" class="mobile-nav-link">
+                    <span>01</span>
+                    Home
+                </a>
+
+                <a href="programs.html" class="mobile-nav-link">
+                    <span>02</span>
+                    Programs
+                </a>
+
+                <a href="trainers.html" class="mobile-nav-link">
+                    <span>03</span>
+                    Trainers
+                </a>
+
+                <a href="membership.html" class="mobile-nav-link">
+                    <span>04</span>
+                    Membership
+                </a>
+
+                <a href="#nutrition" class="mobile-nav-link">
+                    <span>05</span>
+                    Nutrition
+                </a>
+
+                <a href="#gallery" class="mobile-nav-link">
+                    <span>06</span>
+                    Gallery
+                </a>
+
+                <a href="contact.html" class="mobile-nav-link">
+                    <span>07</span>
+                    Contact
+                </a>
+
+                <a href="#" class="mobile-nav-link">
+                    <span>08</span>
+                    Login
+                </a>
+
+            </nav>
+
+
+            <a href="#membership" class="btn btn-primary mobile-cta">
+                Start Your Journey
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+    <!-- =====================================================
+         TRAINERS HERO
+    ====================================================== -->
+
+    <main>
+
+        <section
+            class="trainers-hero"
+            aria-labelledby="trainersHeroTitle"
+        >
+
+            <div class="trainers-hero-grid"></div>
+
+            <div class="trainers-hero-glow"></div>
+
+            <div class="container">
+
+                <div class="trainers-hero-content reveal">
+
+                    <span class="section-index">
+                        03 / EXPERT COACHING
+                    </span>
+
+                    <h1 id="trainersHeroTitle">
+                        TRAIN WITH
+                        <span>THE BEST.</span>
+                    </h1>
+
+                    <p>
+                        Meet the coaches behind the VYRON training experience.
+                        Every session is built around purpose, progression
+                        and the individual athlete.
+                    </p>
+
+                    <div class="trainers-hero-meta">
+
+                        <span>
+                            <strong id="trainerCount">
+                                03
+                            </strong>
+                            COACHES
+                        </span>
+
+                        <span class="meta-divider"></span>
+
+                        <span>
+                            PERFORMANCE
+                        </span>
+
+                        <span class="meta-divider"></span>
+
+                        <span>
+                            RESULTS
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             TRAINER DIRECTORY
+        ================================================== -->
+
+        <section
+            class="trainer-directory section"
+            id="trainerDirectory"
+            aria-labelledby="trainerDirectoryTitle"
+        >
+            <div class="container">
+
+                <!-- SECTION HEADER -->
+                <div class="section-header reveal">
+
+                    <span class="section-index">
+                        03.01 / THE COACHING TEAM
+                    </span>
+
+                    <div>
+                        <h2
+                            class="section-title"
+                            id="trainerDirectoryTitle"
+                        >
+                            MEET YOUR
+                            <span>COACH.</span>
+                        </h2>
+
+                        <p class="section-description">
+                            Specialized coaching for strength, conditioning,
+                            mobility and long-term performance.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- TRAINER FILTER BAR -->
+                <div
+                    class="trainer-controls reveal"
+                    aria-label="Trainer filters"
+                >
+
+                    <!-- SEARCH -->
+                    <div class="trainer-search">
+
+                        <i
+                            class="fa-solid fa-magnifying-glass"
+                            aria-hidden="true"
+                        ></i>
+
+                        <label
+                            for="trainerSearch"
+                            class="sr-only"
+                        >
+                            Search trainers
+                        </label>
+
+                        <input
+                            type="search"
+                            id="trainerSearch"
+                            name="trainerSearch"
+                            placeholder="Search trainers or specialties..."
+                            autocomplete="off"
+                            maxlength="80"
+                        >
+
+                    </div>
+
+
+                    <!-- SPECIALIZATION FILTER -->
+                    <div class="trainer-filter">
+
+                        <label
+                            for="specializationFilter"
+                            class="sr-only"
+                        >
+                            Filter by specialization
+                        </label>
+
+                        <select
+                            id="specializationFilter"
+                            name="specializationFilter"
+                        >
+                            <option value="all">
+                                All specialties
+                            </option>
+
+                            <option value="strength">
+                                Strength / Performance
+                            </option>
+
+                            <option value="conditioning">
+                                Conditioning / HIIT
+                            </option>
+
+                            <option value="mobility">
+                                Mobility / Functional
+                            </option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TRAINER GRID -->
+                <div
+                    class="full-trainer-grid"
+                    id="trainerGrid"
+                    aria-live="polite"
+                >
+                </div>
+
+
+                <!-- EMPTY SEARCH STATE -->
+                <div
+                    class="trainer-empty"
+                    id="trainerEmpty"
+                    hidden
+                >
+
+                    <i
+                        class="fa-solid fa-user-slash"
+                        aria-hidden="true"
+                    ></i>
+
+                    <h3>
+                        No trainers found.
+                    </h3>
+
+                    <p>
+                        Try another name or specialization.
+                    </p>
+
+                    <button
+                        type="button"
+                        class="btn btn-outline"
+                        id="clearTrainerSearch"
+                    >
+                        Clear filters
+                    </button>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             COACHING PHILOSOPHY
+        ====================================================== -->
+
+        <section
+            class="trainer-philosophy section"
+            aria-labelledby="philosophyTitle"
+        >
+
+            <div class="container">
+
+                <div class="philosophy-layout">
+
+                    <div class="philosophy-heading reveal">
+
+                        <span class="section-index">
+                            03.02 / OUR APPROACH
+                        </span>
+
+                        <h2 id="philosophyTitle">
+                            BETTER COACHING
+                            <span>WITH PURPOSE.</span>
+                        </h2>
+
+                    </div>
+
+
+                    <div class="philosophy-content reveal">
+
+                        <p class="philosophy-lead">
+                            Training is more than moving weight.
+                            It is understanding where you are,
+                            where you want to go and what needs to
+                            happen between the two.
+                        </p>
+
+                        <div class="philosophy-points">
+
+                            <article class="philosophy-point">
+
+                                <span class="point-number">
+                                    01
+                                </span>
+
+                                <div>
+                                    <h3>
+                                        Assess
+                                    </h3>
+
+                                    <p>
+                                        Understand your current ability,
+                                        movement quality and training needs.
+                                    </p>
+                                </div>
+
+                            </article>
+
+
+                            <article class="philosophy-point">
+
+                                <span class="point-number">
+                                    02
+                                </span>
+
+                                <div>
+                                    <h3>
+                                        Build
+                                    </h3>
+
+                                    <p>
+                                        Apply focused training designed
+                                        around your specific goals.
+                                    </p>
+                                </div>
+
+                            </article>
+
+
+                            <article class="philosophy-point">
+
+                                <span class="point-number">
+                                    03
+                                </span>
+
+                                <div>
+                                    <h3>
+                                        Progress
+                                    </h3>
+
+                                    <p>
+                                        Track improvement and continually
+                                        adapt the training stimulus.
+                                    </p>
+                                </div>
+
+                            </article>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CTA
+        ====================================================== -->
+
+        <section
+            class="trainers-cta"
+            aria-labelledby="trainersCtaTitle"
+        >
+
+            <div class="trainers-cta-grid"></div>
+
+            <div class="container">
+
+                <div class="trainers-cta-content reveal">
+
+                    <span class="section-index">
+                        03.03 / START YOUR JOURNEY
+                    </span>
+
+                    <h2 id="trainersCtaTitle">
+                        READY TO
+                        <span>GET STARTED?</span>
+                    </h2>
+
+                    <p>
+                        Find the right training environment,
+                        choose your direction and start building
+                        something stronger.
+                    </p>
+
+                    <div class="cta-actions">
+
+                        <a
+                            href="signup.html"
+                            class="btn btn-primary"
+                        >
+                            Start Training
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                        <a
+                            href="index.html#programs"
+                            class="btn btn-outline"
+                        >
+                            Explore Programs
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         TRAINER PROFILE MODAL
+    ====================================================== -->
+
+    <div
+        class="trainer-modal"
+        id="trainerModal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTrainerName"
+        aria-describedby="modalTrainerDescription"
+        hidden
+    >
+
+        <div
+            class="trainer-modal-backdrop"
+            data-modal-close
+        ></div>
+
+        <div
+            class="trainer-modal-panel"
+            role="document"
+        >
+
+            <button
+                type="button"
+                class="trainer-modal-close"
+                id="trainerModalClose"
+                aria-label="Close trainer profile"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+
+            <div class="trainer-modal-image">
+
+                <img
+                    src=""
+                    id="modalTrainerImage"
+                    alt=""
+                >
+
+                <div class="trainer-modal-image-overlay"></div>
+
+                <div class="trainer-modal-number">
+                    <span>
+                        COACH
+                    </span>
+
+                    <strong id="modalTrainerNumber">
+                        01
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="trainer-modal-content">
+
+                <div class="trainer-modal-topline">
+
+                    <span id="modalTrainerSpecialization">
+                        SPECIALIZATION
+                    </span>
+
+                    <span
+                        class="modal-line"
+                        aria-hidden="true"
+                    ></span>
+
+                    <span id="modalTrainerExperience">
+                        EXPERIENCE
+                    </span>
+
+                </div>
+
+                <h2 id="modalTrainerName">
+                    Trainer Name
+                </h2>
+
+                <p
+                    class="trainer-modal-description"
+                    id="modalTrainerDescription"
+                >
+                </p>
+
+
+                <div class="trainer-modal-sections">
+
+                    <div>
+
+                        <span class="modal-label">
+                            TRAINING FOCUS
+                        </span>
+
+                        <ul id="modalTrainerFocus"></ul>
+
+                    </div>
+
+
+                    <div>
+
+                        <span class="modal-label">
+                            IDEAL FOR
+                        </span>
+
+                        <p id="modalTrainerIdeal">
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <a
+                    href="index.html#contact"
+                    class="btn btn-primary modal-contact-btn"
+                >
+                    Work With This Coach
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+<!-- =========================================================
+     FOOTER
+========================================================== -->
+<footer class="site-footer">
+
+    <div class="container">
+
+        <div class="footer-main">
+
+            <div class="footer-brand">
+
+                <a href="#home" class="brand">
+
+                    <span class="brand-mark">
+                        V
+                    </span>
+
+                    <span class="brand-name">
+                        VYRON
+                        <small>FITNESS</small>
+                    </span>
+
+                </a>
+
+
+                <p>
+                    Built different.
+                    Built strong.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <span>EXPLORE</span>
+
+                <a href="programs.html">Programs</a>
+                <a href="trainers.html">Trainers</a>
+                <a href="membership.html">Membership</a>
+                <a href="nutrition.html">Nutrition</a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <span>COMPANY</span>
+
+                <a href="about.html">About</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="contact.html">Contact</a>
+                <a href="#">Careers</a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <span>CONNECT</span>
+
+                <a href="#">
+                    Instagram
+                </a>
+
+                <a href="#">
+                    Facebook
+                </a>
+
+                <a href="#">
+                    TikTok
+                </a>
+
+                <a href="#">
+                    YouTube
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 VYRON FITNESS.
+                SOME RIGHTS RESERVED.
+            </span>
+
+            <div>
+
+                <a href="#">
+                    Privacy
+                </a>
+
+                <a href="#">
+                    Terms
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+    <!-- =====================================================
+         TRAINERS JAVASCRIPT
+    ====================================================== -->
+    
+    <script src="js/theme.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/counters.js"></script>
+    <script src="js/main.js"></script>
+
+    <script src="js/trainers.js"></script>
+
+</body>
+</html>

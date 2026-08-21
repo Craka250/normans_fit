@@ -108,6 +108,16 @@
     --z-header: 1000;
     --z-mobile-menu: 1100;
     --z-loader: 2000;
+
+    /* =========================================================
+    COMPATIBILITY ALIASES
+    Keeps older page styles working with the new design tokens
+    ========================================================= */
+
+    --background: var(--bg-primary);
+    --background-secondary: var(--bg-secondary);
+    --foreground: var(--text-primary);
+    --foreground-secondary: var(--text-secondary);
 }
 
 
@@ -161,6 +171,12 @@
 
     --theme-shadow:
         0 25px 70px rgba(0, 0, 0, 0.10);    
+       
+    --background: var(--bg-primary);
+    --background-secondary: var(--bg-secondary);
+    --foreground: var(--text-primary);
+    --foreground-secondary: var(--text-secondary);
+
 }
 
 
@@ -184,4 +200,123 @@
 
 .section {
     padding-block: clamp(90px, 10vw, 160px);
+}
+
+/* =========================================================
+   GLOBAL THEME FOUNDATION
+   ========================================================= */
+
+html {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    color-scheme: dark;
+
+    transition:
+        background-color 350ms ease,
+        color 350ms ease;
+}
+
+html[data-theme="light"] {
+    color-scheme: light;
+}
+
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+
+    transition:
+        background-color 350ms ease,
+        color 350ms ease;
+}
+
+
+/* =========================================================
+   THEME-AWARE SURFACES
+   ========================================================= */
+
+body,
+main,
+section,
+header,
+footer,
+nav,
+article,
+.card,
+.surface,
+.full-trainer-card,
+.full-trainer-body,
+.full-trainer-image,
+.trainer-search-panel,
+.trainer-filters,
+.trainer-filter,
+.trainer-empty,
+.trainer-modal-content,
+input,
+select,
+textarea,
+button {
+    border-color: var(--border);
+}
+
+
+/* =========================================================
+   FORM CONTROLS
+   ========================================================= */
+
+input,
+select,
+textarea {
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    border-color: var(--border);
+}
+
+input::placeholder {
+    color: var(--text-muted);
+}
+
+select option {
+    background: var(--surface);
+    color: var(--text-primary);
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+button {
+    color: var(--text-primary);
+}
+
+
+/* =========================================================
+   SMOOTH THEME TRANSITION
+   ========================================================= */
+
+body,
+section,
+header,
+footer,
+main,
+nav,
+article,
+.card,
+.surface,
+.full-trainer-card,
+.full-trainer-body,
+.full-trainer-image,
+.trainer-search-panel,
+.trainer-filters,
+.trainer-empty,
+.trainer-modal-content,
+input,
+select,
+textarea,
+button {
+    transition:
+        background-color 350ms ease,
+        color 350ms ease,
+        border-color 350ms ease,
+        box-shadow 350ms ease;
 }
