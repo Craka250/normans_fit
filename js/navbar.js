@@ -288,10 +288,52 @@
 
 
     /* =====================================================
-        MOBILE MENU
+    MOBILE MENU
     ====================================================== */
 
     if (menuToggle && mobileNavigation) {
+
+        /* -------------------------------------------------
+        MOBILE MENU ICON
+        ------------------------------------------------- */
+
+        const menuIcon = menuToggle.querySelector("i");
+
+
+        /* -------------------------------------------------
+        UPDATE HAMBURGER / X ICON
+        ------------------------------------------------- */
+
+        function updateMenuIcon(isOpen) {
+
+            if (!menuIcon) return;
+
+            if (isOpen) {
+
+                menuIcon.classList.remove("fa-bars");
+                menuIcon.classList.add("fa-xmark");
+
+                menuToggle.setAttribute(
+                    "aria-label",
+                    "Close navigation"
+                );
+
+            } else {
+
+                menuIcon.classList.remove("fa-xmark");
+                menuIcon.classList.add("fa-bars");
+
+                menuToggle.setAttribute(
+                    "aria-label",
+                    "Open navigation"
+                );
+            }
+        }
+
+
+        /* -------------------------------------------------
+        OPEN MOBILE MENU
+        ------------------------------------------------- */
 
         function openMobileMenu() {
 
@@ -310,8 +352,14 @@
             );
 
             document.body.style.overflow = "hidden";
+
+            updateMenuIcon(true);
         }
 
+
+        /* -------------------------------------------------
+        CLOSE MOBILE MENU
+        ------------------------------------------------- */
 
         function closeMobileMenu() {
 
@@ -330,8 +378,14 @@
             );
 
             document.body.style.overflow = "";
+
+            updateMenuIcon(false);
         }
 
+
+        /* -------------------------------------------------
+        TOGGLE MOBILE MENU
+        ------------------------------------------------- */
 
         function toggleMobileMenu() {
 
@@ -339,9 +393,13 @@
                 mobileNavigation.classList.contains("active");
 
             if (isOpen) {
+
                 closeMobileMenu();
+
             } else {
+
                 openMobileMenu();
+
             }
         }
 
@@ -357,6 +415,7 @@
                 event.stopPropagation();
 
                 toggleMobileMenu();
+
             }
         );
 
@@ -374,6 +433,7 @@
                     () => {
 
                         closeMobileMenu();
+
                     }
                 );
 
@@ -385,7 +445,9 @@
         ------------------------------------------------- */
 
         const mobileCTA =
-            mobileNavigation.querySelector(".mobile-cta");
+            mobileNavigation.querySelector(
+                ".mobile-cta"
+            );
 
         if (mobileCTA) {
 
@@ -394,6 +456,7 @@
                 () => {
 
                     closeMobileMenu();
+
                 }
             );
 
@@ -401,7 +464,7 @@
 
 
         /* -------------------------------------------------
-        CLOSE WHEN CLICKING OUTSIDE THE SIDEBAR
+        CLOSE WHEN CLICKING OUTSIDE
         ------------------------------------------------- */
 
         mobileNavigation.addEventListener(
@@ -409,11 +472,8 @@
             event => {
 
                 /*
-                * The mobile-navigation itself is the
-                * backdrop. The inner panel is the sidebar.
-                *
-                * If the user clicks the backdrop,
-                * close the menu.
+                * The mobile-navigation itself is
+                * the backdrop.
                 */
 
                 if (
@@ -421,6 +481,7 @@
                 ) {
 
                     closeMobileMenu();
+
                 }
 
             }
@@ -443,6 +504,7 @@
                 event => {
 
                     event.stopPropagation();
+
                 }
             );
 
@@ -459,10 +521,13 @@
 
                 if (
                     event.key === "Escape" &&
-                    mobileNavigation.classList.contains("active")
+                    mobileNavigation.classList.contains(
+                        "active"
+                    )
                 ) {
 
                     closeMobileMenu();
+
                 }
 
             }
@@ -470,7 +535,7 @@
 
 
         /* -------------------------------------------------
-        CLOSE MENU WHEN MOVING BACK TO DESKTOP
+        CLOSE WHEN RETURNING TO DESKTOP
         ------------------------------------------------- */
 
         window.addEventListener(
@@ -479,14 +544,24 @@
 
                 if (
                     window.innerWidth > 900 &&
-                    mobileNavigation.classList.contains("active")
+                    mobileNavigation.classList.contains(
+                        "active"
+                    )
                 ) {
 
                     closeMobileMenu();
+
                 }
 
             }
         );
+
+
+        /* -------------------------------------------------
+        INITIAL ICON STATE
+        ------------------------------------------------- */
+
+        updateMenuIcon(false);
 
     }
 
