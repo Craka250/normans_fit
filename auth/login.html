@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Securely sign in to your VYRON Fitness account."
+    >
+
+    <meta
+        name="theme-color"
+        content="#080A0A"
+    >
+
+    <title>Login | VYRON Fitness</title>
+
+    <link
+        rel="icon"
+        href="../assets/images/vyron-icon.png"
+    >
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
+    >
+
+    <!-- VYRON Styles -->
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-shell">
+
+        <!-- BRAND -->
+        <a
+            class="auth-brand"
+            href="../index.html"
+            aria-label="VYRON Fitness home"
+        >
+            <img
+                src="../assets/images/vyron-logo.png"
+                alt="VYRON Fitness"
+            >
+        </a>
+
+
+        <!-- AUTH LAYOUT -->
+        <main class="auth-layout">
+
+            <!-- VISUAL PANEL -->
+            <section
+                class="auth-visual"
+                aria-label="VYRON member access"
+            >
+
+                <div
+                    class="auth-visual-grid"
+                    aria-hidden="true"
+                ></div>
+
+                <div
+                    class="auth-visual-glow"
+                    aria-hidden="true"
+                ></div>
+
+
+                <div class="auth-visual-content">
+
+                    <span class="section-index">
+                        02 / MEMBER ACCESS
+                    </span>
+
+                    <h1>
+                        WELCOME
+                        <br>
+                        <span>BACK.</span>
+                    </h1>
+
+                    <p>
+                        Your training journey continues here.
+                        Sign in to safely access the VYRON member
+                        experience.
+                    </p>
+
+
+                    <div class="auth-proof">
+
+                        <span>
+                            <i
+                                class="fa-solid fa-shield-halved"
+                                aria-hidden="true"
+                            ></i>
+                            SECURE SESSION
+                        </span>
+
+                        <span>
+                            <i
+                                class="fa-solid fa-dumbbell"
+                                aria-hidden="true"
+                            ></i>
+                            MEMBER ACCESS
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- LOGIN PANEL -->
+            <section class="auth-panel">
+
+                <div class="auth-card">
+
+                    <!-- HEADING -->
+                    <div class="auth-card-heading">
+
+                        <span class="auth-kicker">
+                            MEMBER LOGIN
+                        </span>
+
+                        <h2>
+                            GET
+                            <span>BACK IN.</span>
+                        </h2>
+
+                        <p>
+                            Enter your registered credentials
+                            to continue.
+                        </p>
+
+                    </div>
+
+
+                    <!-- MESSAGE -->
+                    <div
+                        class="auth-message"
+                        id="authMessage"
+                        role="alert"
+                        aria-live="polite"
+                    ></div>
+
+
+                    <!-- LOGIN FORM -->
+                    <form
+                        id="loginForm"
+                        class="auth-form"
+                        novalidate
+                    >
+
+                        <!-- EMAIL -->
+                        <div class="form-field">
+
+                            <label for="email">
+                                Email address
+                            </label>
+
+                            <div class="input-wrap">
+
+                                <i
+                                    class="fa-regular fa-envelope"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <input
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    autocomplete="email"
+                                    maxlength="120"
+                                    inputmode="email"
+                                    placeholder="you@example.com"
+                                    required
+                                >
+
+                            </div>
+
+                            <small
+                                class="field-error"
+                                data-error-for="email"
+                                aria-live="polite"
+                            ></small>
+
+                        </div>
+
+
+                        <!-- PASSWORD -->
+                        <div class="form-field">
+
+                            <div class="label-row">
+
+                                <label for="password">
+                                    Password
+                                </label>
+
+                                <a href="forgot-password.html">
+                                    Forgot password?
+                                </a>
+
+                            </div>
+
+
+                            <div class="input-wrap">
+
+                                <i
+                                    class="fa-solid fa-lock"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <input
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    autocomplete="current-password"
+                                    maxlength="128"
+                                    placeholder="Enter your password"
+                                    required
+                                >
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    data-toggle-password="password"
+                                    aria-label="Show password"
+                                    aria-pressed="false"
+                                >
+                                    <i
+                                        class="fa-regular fa-eye"
+                                        aria-hidden="true"
+                                    ></i>
+                                </button>
+
+                            </div>
+
+                            <small
+                                class="field-error"
+                                data-error-for="password"
+                                aria-live="polite"
+                            ></small>
+
+                        </div>
+
+
+                        <!-- REMEMBER ME -->
+                        <label class="check-row">
+
+                            <input
+                                type="checkbox"
+                                id="remember"
+                                name="remember"
+                            >
+
+                            <span>
+                                Keep me signed in on this device
+                            </span>
+
+                        </label>
+
+
+                        <!-- SUBMIT -->
+                        <button
+                            type="submit"
+                            class="auth-submit"
+                            id="loginSubmit"
+                        >
+                            <span>
+                                Sign In Securely
+                            </span>
+
+                            <i
+                                class="fa-solid fa-arrow-right"
+                                aria-hidden="true"
+                            ></i>
+                        </button>
+
+                    </form>
+
+
+                    <!-- SIGNUP DIVIDER -->
+                    <div class="auth-divider">
+                        <span>
+                            NEW TO VYRON?
+                        </span>
+                    </div>
+
+
+                    <!-- SIGNUP -->
+                    <a
+                        class="auth-secondary-action"
+                        href="signup.html"
+                    >
+                        Create your VYRON account
+
+                        <i
+                            class="fa-solid fa-arrow-right"
+                            aria-hidden="true"
+                        ></i>
+                    </a>
+
+
+                    <!-- BACK -->
+                    <a
+                        class="auth-back"
+                        href="../index.html"
+                    >
+                        <i
+                            class="fa-solid fa-arrow-left"
+                            aria-hidden="true"
+                        ></i>
+
+                        Back to VYRON
+                    </a>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- Scripts -->
+    <script src="../js/theme.js"></script>
+    <script src="auth.js"></script>
+
+</body>
+
+</html>

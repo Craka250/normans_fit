@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Create your VYRON Fitness account and start your stronger journey."
+    >
+
+    <meta
+        name="theme-color"
+        content="#080A0A"
+    >
+
+    <title>Create Account | VYRON Fitness</title>
+
+    <!-- Favicon -->
+    <link
+        rel="icon"
+        type="image/png"
+        href="../assets/images/vyron-icon.png"
+    >
+
+    <!-- Performance -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
+    >
+
+    <!-- Global Styles -->
+    <link
+        rel="stylesheet"
+        href="../css/reset.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/variables.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/animations.css"
+    >
+
+    <!-- Authentication Styles -->
+    <link
+        rel="stylesheet"
+        href="auth.css"
+    >
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-shell">
+
+        <!-- ================================
+             BRAND
+        ================================= -->
+        <a
+            class="auth-brand"
+            href="../index.html"
+            aria-label="VYRON Fitness home"
+        >
+            <img
+                src="../assets/images/vyron-logo.png"
+                alt="VYRON Fitness"
+            >
+        </a>
+
+
+        <!-- ================================
+             AUTHENTICATION LAYOUT
+        ================================= -->
+        <main class="auth-layout">
+
+            <!-- =================================
+                 VISUAL PANEL
+            ================================== -->
+            <section
+                class="auth-visual"
+                aria-label="VYRON Fitness membership"
+            >
+
+                <div
+                    class="auth-visual-grid"
+                    aria-hidden="true"
+                ></div>
+
+                <div
+                    class="auth-visual-glow"
+                    aria-hidden="true"
+                ></div>
+
+
+                <div class="auth-visual-content">
+
+                    <span class="section-index">
+                        01 / JOIN VYRON
+                    </span>
+
+                    <h1>
+                        BUILD YOUR
+                        <br>
+                        <span>STRONGER</span>
+                        <br>
+                        SELF.
+                    </h1>
+
+                    <p>
+                        Create your VYRON account to access programs,
+                        membership, nutrition, training resources and
+                        your personal member journey.
+                    </p>
+
+
+                    <div class="auth-proof">
+
+                        <span>
+                            <i
+                                class="fa-solid fa-shield-halved"
+                                aria-hidden="true"
+                            ></i>
+                            ACCOUNT PROTECTED
+                        </span>
+
+                        <span>
+                            <i
+                                class="fa-solid fa-bolt"
+                                aria-hidden="true"
+                            ></i>
+                            BUILT FOR PERFORMANCE
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================
+                 SIGNUP PANEL
+            ================================== -->
+            <section class="auth-panel">
+
+                <div class="auth-card">
+
+                    <!-- Heading -->
+                    <header class="auth-card-heading">
+
+                        <span class="auth-kicker">
+                            CREATE ACCOUNT
+                        </span>
+
+                        <h2>
+                            START
+                            <span>STRONG.</span>
+                        </h2>
+
+                        <p>
+                            Set up your VYRON member account.
+                            Required fields are validated before submission.
+                        </p>
+
+                    </header>
+
+
+                    <!-- Global authentication message -->
+                    <div
+                        class="auth-message"
+                        id="authMessage"
+                        role="alert"
+                        aria-live="polite"
+                        aria-atomic="true"
+                    ></div>
+
+
+                    <!-- =================================
+                         SIGNUP FORM
+                    ================================== -->
+                    <form
+                        id="signupForm"
+                        class="auth-form"
+                        novalidate
+                    >
+
+                        <!-- First + Last Name -->
+                        <div class="form-grid two">
+
+                            <!-- First Name -->
+                            <div class="form-field">
+
+                                <label for="firstName">
+                                    First name
+                                </label>
+
+                                <div class="input-wrap">
+
+                                    <i
+                                        class="fa-regular fa-user"
+                                        aria-hidden="true"
+                                    ></i>
+
+                                    <input
+                                        id="firstName"
+                                        name="firstName"
+                                        type="text"
+                                        autocomplete="given-name"
+                                        maxlength="50"
+                                        required
+                                        aria-describedby="firstNameError"
+                                    >
+
+                                </div>
+
+                                <small
+                                    class="field-error"
+                                    id="firstNameError"
+                                    data-error-for="firstName"
+                                    aria-live="polite"
+                                ></small>
+
+                            </div>
+
+
+                            <!-- Last Name -->
+                            <div class="form-field">
+
+                                <label for="lastName">
+                                    Last name
+                                </label>
+
+                                <div class="input-wrap">
+
+                                    <i
+                                        class="fa-regular fa-user"
+                                        aria-hidden="true"
+                                    ></i>
+
+                                    <input
+                                        id="lastName"
+                                        name="lastName"
+                                        type="text"
+                                        autocomplete="family-name"
+                                        maxlength="50"
+                                        required
+                                        aria-describedby="lastNameError"
+                                    >
+
+                                </div>
+
+                                <small
+                                    class="field-error"
+                                    id="lastNameError"
+                                    data-error-for="lastName"
+                                    aria-live="polite"
+                                ></small>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Email -->
+                        <div class="form-field">
+
+                            <label for="email">
+                                Email address
+                            </label>
+
+                            <div class="input-wrap">
+
+                                <i
+                                    class="fa-regular fa-envelope"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <input
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    autocomplete="email"
+                                    maxlength="120"
+                                    required
+                                    spellcheck="false"
+                                    aria-describedby="emailError"
+                                >
+
+                            </div>
+
+                            <small
+                                class="field-error"
+                                id="emailError"
+                                data-error-for="email"
+                                aria-live="polite"
+                            ></small>
+
+                        </div>
+
+
+                        <!-- Phone -->
+                        <div class="form-field">
+
+                            <label for="phone">
+                                Phone number
+                                <span>(optional)</span>
+                            </label>
+
+                            <div class="input-wrap">
+
+                                <i
+                                    class="fa-solid fa-phone"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <input
+                                    id="phone"
+                                    name="phone"
+                                    type="tel"
+                                    autocomplete="tel"
+                                    inputmode="tel"
+                                    maxlength="20"
+                                    aria-describedby="phoneError"
+                                >
+
+                            </div>
+
+                            <small
+                                class="field-error"
+                                id="phoneError"
+                                data-error-for="phone"
+                                aria-live="polite"
+                            ></small>
+
+                        </div>
+
+
+                        <!-- Password -->
+                        <div class="form-field">
+
+                            <label for="password">
+                                Password
+                            </label>
+
+                            <div class="input-wrap">
+
+                                <i
+                                    class="fa-solid fa-lock"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <input
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    autocomplete="new-password"
+                                    minlength="8"
+                                    maxlength="128"
+                                    required
+                                    aria-describedby="passwordHint passwordError"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    data-toggle-password="password"
+                                    aria-label="Show password"
+                                    aria-pressed="false"
+                                >
+                                    <i
+                                        class="fa-regular fa-eye"
+                                        aria-hidden="true"
+                                    ></i>
+                                </button>
+
+                            </div>
+
+
+                            <!-- Password strength -->
+                            <div
+                                class="password-strength"
+                                aria-hidden="true"
+                            >
+                                <span></span>
+                            </div>
+
+                            <small
+                                class="password-hint"
+                                id="passwordHint"
+                            >
+                                8+ characters with uppercase, lowercase,
+                                a number and a special character.
+                            </small>
+
+                            <small
+                                class="field-error"
+                                id="passwordError"
+                                data-error-for="password"
+                                aria-live="polite"
+                            ></small>
+
+                        </div>
+
+
+                        <!-- Confirm Password -->
+                        <div class="form-field">
+
+                            <label for="confirmPassword">
+                                Confirm password
+                            </label>
+
+                            <div class="input-wrap">
+
+                                <i
+                                    class="fa-solid fa-lock"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <input
+                                    id="confirmPassword"
+                                    name="confirmPassword"
+                                    type="password"
+                                    autocomplete="new-password"
+                                    minlength="8"
+                                    maxlength="128"
+                                    required
+                                    aria-describedby="confirmPasswordError"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    data-toggle-password="confirmPassword"
+                                    aria-label="Show password"
+                                    aria-pressed="false"
+                                >
+                                    <i
+                                        class="fa-regular fa-eye"
+                                        aria-hidden="true"
+                                    ></i>
+                                </button>
+
+                            </div>
+
+                            <small
+                                class="field-error"
+                                id="confirmPasswordError"
+                                data-error-for="confirmPassword"
+                                aria-live="polite"
+                            ></small>
+
+                        </div>
+
+
+                        <!-- Terms -->
+                        <div class="terms-field">
+
+                            <label class="check-row">
+
+                                <input
+                                    type="checkbox"
+                                    id="terms"
+                                    name="terms"
+                                    required
+                                    aria-describedby="termsError"
+                                >
+
+                                <span>
+                                    I agree to the VYRON
+                                    <a href="../terms.html">
+                                        terms
+                                    </a>
+                                    and
+                                    <a href="../privacy.html">
+                                        privacy requirements
+                                    </a>.
+                                </span>
+
+                            </label>
+
+                            <small
+                                class="field-error"
+                                id="termsError"
+                                data-error-for="terms"
+                                aria-live="polite"
+                            ></small>
+
+                        </div>
+
+
+                        <!-- Submit -->
+                        <button
+                            type="submit"
+                            class="auth-submit"
+                            id="signupSubmit"
+                        >
+                            <span>
+                                Create VYRON Account
+                            </span>
+
+                            <i
+                                class="fa-solid fa-arrow-right"
+                                aria-hidden="true"
+                            ></i>
+                        </button>
+
+                    </form>
+
+
+                    <!-- Divider -->
+                    <div class="auth-divider">
+                        <span>
+                            ALREADY A MEMBER?
+                        </span>
+                    </div>
+
+
+                    <!-- Login -->
+                    <a
+                        class="auth-secondary-action"
+                        href="login.html"
+                    >
+                        <span>
+                            Sign in to your account
+                        </span>
+
+                        <i
+                            class="fa-solid fa-arrow-right"
+                            aria-hidden="true"
+                        ></i>
+                    </a>
+
+
+                    <!-- Back -->
+                    <a
+                        class="auth-back"
+                        href="../index.html"
+                    >
+                        <i
+                            class="fa-solid fa-arrow-left"
+                            aria-hidden="true"
+                        ></i>
+
+                        Back to VYRON
+                    </a>
+
+
+                    <!-- Registered users -->
+                    <div class="registered-counter">
+
+                        <span>
+                            REGISTERED USERS
+                        </span>
+
+                        <strong data-user-count>
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- Global Theme -->
+    <script src="../js/theme.js"></script>
+
+    <!-- Authentication -->
+    <script src="auth.js"></script>
+
+</body>
+</html>
