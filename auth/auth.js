@@ -671,15 +671,22 @@
     AUTH ROUTES
     ========================================================= */
 
-    function getAuthPath(page) {
-
-        return `auth/${page}`;
-    }
-
+    /*
+    * VYRON directory structure:
+    *
+    * /index.html
+    * /member-dashboard.html
+    * /auth/login.html
+    * /auth/signup.html
+    * /auth/forgot-password.html
+    * /auth/reset-password.html
+    *
+    * Because auth pages live inside /auth/,
+    * dashboard is one level above them.
+    */
 
     function redirectToLogin(redirect = "") {
-
-        let url = "auth/login.html";
+        let url = "login.html";
 
         if (redirect) {
             url += `?redirect=${encodeURIComponent(redirect)}`;
@@ -687,11 +694,9 @@
 
         window.location.replace(url);
     }
-
 
     function redirectToSignup(redirect = "") {
-
-        let url = "auth/signup.html";
+        let url = "signup.html";
 
         if (redirect) {
             url += `?redirect=${encodeURIComponent(redirect)}`;
@@ -700,11 +705,9 @@
         window.location.replace(url);
     }
 
-
     function redirectToDashboard() {
-
         window.location.replace(
-            "member-dashboard.html"
+            "../member-dashboard.html"
         );
     }
 
@@ -766,17 +769,16 @@
             currentPage !== "login.html" &&
             currentPage !== "signup.html"
         ) {
+            const requestedPage =
+                `../${currentPage}`;
 
             if (hasRegisteredAccounts()) {
-
                 redirectToLogin(
-                    currentPage
+                    requestedPage
                 );
-
             } else {
-
                 redirectToSignup(
-                    currentPage
+                    requestedPage
                 );
             }
 
