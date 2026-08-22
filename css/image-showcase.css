@@ -1,0 +1,510 @@
+/* =========================================================
+   VYRON FITNESS
+   IMAGE SHOWCASE / VISUAL ACCENT
+========================================================= */
+
+.image-showcase {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 420px;
+    padding-block: clamp(70px, 9vw, 130px);
+    background: var(--image-section-bg);
+}
+
+
+/* =========================================================
+   BACKGROUND GRID
+========================================================= */
+
+.image-showcase::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+
+    background-image:
+        linear-gradient(
+            to right,
+            var(--image-grid) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            to bottom,
+            var(--image-grid) 1px,
+            transparent 1px
+        );
+
+    background-size: 70px 70px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            transparent,
+            black 20%,
+            black 80%,
+            transparent
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   IMAGE SHOWCASE INNER
+========================================================= */
+
+.image-showcase-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    align-items: center;
+    gap: clamp(40px, 7vw, 110px);
+}
+
+
+/* =========================================================
+   CONTENT SIDE
+========================================================= */
+
+.image-showcase-content {
+    position: relative;
+    z-index: 2;
+}
+
+.image-showcase-index {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 18px;
+
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.image-showcase-index::before {
+    content: "";
+
+    width: 28px;
+    height: 1px;
+
+    background: var(--accent);
+}
+
+.image-showcase-title {
+    max-width: 600px;
+    margin: 0;
+
+    color: var(--text-primary);
+
+    font-family: var(--font-display);
+    font-size: clamp(48px, 7vw, 100px);
+    font-weight: 500;
+    line-height: 0.88;
+    text-transform: uppercase;
+}
+
+.image-showcase-title span {
+    color: var(--accent);
+}
+
+.image-showcase-description {
+    max-width: 520px;
+    margin-top: 24px;
+
+    color: var(--text-secondary);
+
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   IMAGE AREA
+========================================================= */
+
+.image-showcase-visual {
+    position: relative;
+
+    display: grid;
+    place-items: center;
+
+    min-height: 430px;
+}
+
+
+/* =========================================================
+   IMAGE GLOW
+========================================================= */
+
+.image-showcase-glow {
+    position: absolute;
+
+    width: 55%;
+    aspect-ratio: 1;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            color-mix(
+                in srgb,
+                var(--accent) 18%,
+                transparent
+            ) 0%,
+            transparent 68%
+        );
+
+    filter: blur(20px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   MAIN IMAGE
+========================================================= */
+
+.image-showcase-image {
+    position: relative;
+    z-index: 2;
+
+    display: block;
+
+    width: min(100%, 560px);
+    max-height: 600px;
+
+    object-fit: contain;
+    object-position: center;
+
+    filter: drop-shadow(
+        0 30px 50px
+        rgba(0, 0, 0, 0.25)
+    );
+
+    transition:
+        transform var(--transition),
+        filter var(--transition);
+}
+
+.image-showcase-image:hover {
+    transform: translateY(-8px) scale(1.015);
+
+    filter:
+        drop-shadow(
+            0 40px 70px
+            rgba(0, 0, 0, 0.3)
+        )
+        drop-shadow(
+            0 0 35px
+            color-mix(
+                in srgb,
+                var(--accent) 12%,
+                transparent
+            )
+        );
+}
+
+
+/* =========================================================
+   IMAGE FRAME
+   Useful for normal JPG / WEBP images
+========================================================= */
+
+.image-showcase-frame {
+    position: relative;
+
+    width: min(100%, 560px);
+
+    padding: 10px;
+
+    border: 1px solid var(--border);
+
+    background: var(--image-frame);
+
+    box-shadow: var(--shadow-large);
+
+    overflow: hidden;
+}
+
+.image-showcase-frame img {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   FLOATING DECORATIVE ELEMENTS
+========================================================= */
+
+.image-showcase-orbit {
+    position: absolute;
+
+    width: 70%;
+    aspect-ratio: 1;
+
+    border: 1px solid
+        color-mix(
+            in srgb,
+            var(--accent) 18%,
+            transparent
+        );
+
+    border-radius: 50%;
+
+    transform: rotate(-18deg);
+
+    pointer-events: none;
+}
+
+.image-showcase-orbit::before {
+    content: "";
+
+    position: absolute;
+
+    top: 12%;
+    right: 8%;
+
+    width: 6px;
+    height: 6px;
+
+    background: var(--accent);
+
+    box-shadow:
+        0 0 15px var(--accent);
+
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   SMALL IMAGE / FLOATING CARD
+========================================================= */
+
+.image-showcase-badge {
+    position: absolute;
+
+    right: 4%;
+    bottom: 8%;
+
+    z-index: 4;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px 15px;
+
+    border: 1px solid var(--border);
+
+    background:
+        color-mix(
+            in srgb,
+            var(--surface) 88%,
+            transparent
+        );
+
+    backdrop-filter: blur(14px);
+
+    color: var(--text-primary);
+
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.image-showcase-badge i {
+    color: var(--accent);
+}
+
+
+/* =========================================================
+   FLOATING ANIMATION
+========================================================= */
+
+.image-showcase-image.is-floating {
+    animation:
+        imageFloat 5s
+        ease-in-out
+        infinite;
+}
+
+@keyframes imageFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+
+/* =========================================================
+   SECONDARY IMAGE
+========================================================= */
+
+.image-showcase-secondary {
+    position: absolute;
+
+    left: 2%;
+    bottom: 5%;
+
+    z-index: 3;
+
+    width: clamp(100px, 18vw, 180px);
+
+    filter:
+        drop-shadow(
+            0 20px 35px
+            rgba(0, 0, 0, 0.25)
+        );
+
+    animation:
+        secondaryFloat 6s
+        ease-in-out
+        infinite;
+}
+
+@keyframes secondaryFloat {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-3deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(2deg);
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .image-showcase-image.is-floating,
+    .image-showcase-secondary {
+        animation: none;
+    }
+
+    .image-showcase-image {
+        transition: none;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .image-showcase-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .image-showcase-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-showcase-description {
+        margin-inline: auto;
+    }
+
+    .image-showcase-visual {
+        min-height: 400px;
+    }
+
+    .image-showcase-orbit {
+        width: 65%;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .image-showcase {
+        min-height: auto;
+        padding-block: 80px;
+    }
+
+    .image-showcase-inner {
+        gap: 35px;
+    }
+
+    .image-showcase-title {
+        font-size: clamp(48px, 16vw, 76px);
+    }
+
+    .image-showcase-description {
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .image-showcase-visual {
+        min-height: 320px;
+    }
+
+    .image-showcase-image {
+        width: 90%;
+        max-height: 450px;
+    }
+
+    .image-showcase-secondary {
+        width: 110px;
+        left: 0;
+    }
+
+    .image-showcase-badge {
+        right: 0;
+        bottom: 2%;
+        font-size: 8px;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .image-showcase-visual {
+        min-height: 280px;
+    }
+
+    .image-showcase-image {
+        width: 94%;
+    }
+
+    .image-showcase-secondary {
+        width: 90px;
+    }
+}
