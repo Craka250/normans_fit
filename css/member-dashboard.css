@@ -109,7 +109,7 @@
 
 .sidebar-member strong {
     display: block;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 800;
 }
 
@@ -119,10 +119,10 @@
     margin-top: 4px;
 
     font-family: "Space Mono", monospace;
-    font-size: 8px;
+    font-size: 10px;
     letter-spacing: 1.2px;
 
-    opacity: 0.5;
+    opacity: 0.62;
 }
 
 
@@ -141,10 +141,10 @@
     padding: 12px 12px 7px;
 
     font-family: "Space Mono", monospace;
-    font-size: 8px;
+    font-size: 10px;
     letter-spacing: 1.5px;
 
-    opacity: 0.38;
+    opacity: 0.52;
 }
 
 
@@ -156,7 +156,7 @@
 .dashboard-nav-link {
     position: relative;
 
-    min-height: 39px;
+    min-height: 42px;
 
     display: flex;
     align-items: center;
@@ -169,10 +169,10 @@
 
     border-radius: 0;
 
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
 
-    opacity: 0.62;
+    opacity: 0.72;
 
     transition:
         background 0.25s ease,
@@ -185,7 +185,7 @@
 .dashboard-nav-link i {
     width: 18px;
     text-align: center;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 
@@ -242,7 +242,7 @@
 ========================================================= */
 
 .sidebar-bottom {
-    margin-top: 10;
+    margin-top: 10px;
 
     padding-top: 18px;
 
@@ -271,10 +271,10 @@
     text-decoration: none;
 
     font-family: inherit;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
 
-    opacity: 0.55;
+    opacity: 0.68;
 
     cursor: pointer;
 
@@ -348,9 +348,9 @@
 .dashboard-section-index,
 .dashboard-card-label {
     font-family: "Space Mono", monospace;
-    font-size: 8px;
+    font-size: 10px;
     letter-spacing: 1.5px;
-    opacity: 0.45;
+    opacity: 0.58;
 }
 
 
@@ -445,7 +445,7 @@
 
 
 .dashboard-profile-name {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 800;
 }
 
@@ -584,10 +584,10 @@
 
     margin: 0;
 
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.8;
 
-    opacity: 0.58;
+    opacity: 0.72;
 }
 
 
@@ -613,7 +613,7 @@
 
     text-decoration: none;
 
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 800;
 
     letter-spacing: 0.4px;
@@ -778,10 +778,10 @@
     display: block;
 
     font-family: "Space Mono", monospace;
-    font-size: 8px;
+    font-size: 10px;
     letter-spacing: 1.1px;
 
-    opacity: 0.45;
+    opacity: 0.58;
 }
 
 
@@ -804,10 +804,10 @@
 
 
 .kpi-data p {
-    margin: 6px 0 0;
-
-    font-size: 9px;
-    opacity: 0.4;
+    margin: 7px 0 0;
+    font-size: 11px;
+    line-height: 1.5;
+    opacity: 0.62;
 }
 
 
@@ -888,7 +888,7 @@
     color: var(--accent-color, #f1c40f);
     text-decoration: none;
 
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 800;
 }
 
@@ -966,9 +966,9 @@
     display: block;
 
     font-family: "Space Mono", monospace;
-    font-size: 7px;
+    font-size: 9px;
 
-    opacity: 0.45;
+    opacity: 0.62;
 }
 
 
@@ -992,13 +992,13 @@
 
 .progress-item span {
     font-family: "Space Mono", monospace;
-    font-size: 7px;
-    opacity: 0.4;
+    font-size: 9px;
+    opacity: 0.58;
 }
 
 
 .progress-item strong {
-    font-size: 10px;
+    font-size: 12px;
     text-align: right;
 }
 
@@ -1008,14 +1008,14 @@
 ========================================================= */
 
 .membership-status {
-    padding: 5px 9px;
+    padding: 6px 10px;
 
     background: rgba(241, 196, 15, 0.1);
 
     color: var(--accent-color, #f1c40f);
 
     font-family: "Space Mono", monospace;
-    font-size: 7px;
+    font-size: 9px;
     letter-spacing: 1px;
 }
 
@@ -1043,9 +1043,9 @@
     display: block;
 
     font-family: "Space Mono", monospace;
-    font-size: 7px;
+    font-size: 9px;
 
-    opacity: 0.4;
+    opacity: 0.58;
 }
 
 
@@ -1110,8 +1110,8 @@
 
 .activity-day > span {
     font-family: "Space Mono", monospace;
-    font-size: 7px;
-    opacity: 0.35;
+    font-size: 9px;
+    opacity: 0.55;
 }
 
 
@@ -1144,8 +1144,8 @@
 
 .activity-day small {
     font-family: "Space Mono", monospace;
-    font-size: 6px;
-    opacity: 0.3;
+    font-size: 8px;
+    opacity: 0.48;
 }
 
 
@@ -1199,7 +1199,7 @@
 
 .session-date span {
     font-family: "Space Mono", monospace;
-    font-size: 7px;
+    font-size: 9px;
 
     color: var(--accent-color, #f1c40f);
 }
@@ -1215,7 +1215,7 @@
 .session-details strong {
     display: block;
 
-    font-size: 11px;
+    font-size: 13px;
 }
 
 
@@ -1226,21 +1226,21 @@
 
     margin: 5px 12px 0 0;
 
-    font-size: 8px;
+    font-size: 10px;
 
-    opacity: 0.42;
+    opacity: 0.58;
 }
 
 
 .session-status {
-    padding: 6px 9px;
+    padding: 6px 10px;
 
     color: var(--accent-color, #f1c40f);
 
     border: 1px solid rgba(241, 196, 15, 0.2);
 
     font-family: "Space Mono", monospace;
-    font-size: 6px;
+    font-size: 9px;
     letter-spacing: 0.8px;
 }
 
@@ -1298,9 +1298,9 @@
     display: block;
 
     font-family: "Space Mono", monospace;
-    font-size: 7px;
-
-    opacity: 0.4;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    opacity: 0.62;
 }
 
 
@@ -1309,7 +1309,8 @@
 
     margin-top: 4px;
 
-    font-size: 13px;
+    font-size: 15px;
+    font-weight: 800;
 }
 
 
@@ -1317,7 +1318,8 @@
     color: var(--accent-color, #f1c40f);
 
     font-family: "Space Mono", monospace;
-    font-size: 8px;
+    font-size: 10px;
+    font-weight: 700;
 }
 
 
@@ -1374,23 +1376,23 @@
 .notification-item strong {
     display: block;
 
-    font-size: 10px;
+    font-size: 12px;
 }
 
 
 .notification-item p {
-    margin: 4px 0;
+    margin: 5px 0;
 
-    font-size: 8px;
-    line-height: 1.5;
+    font-size: 10px;
+    line-height: 1.6;
 
-    opacity: 0.45;
+    opacity: 0.62;
 }
 
 
 .notification-item small {
-    font-size: 7px;
-    opacity: 0.3;
+    font-size: 9px;
+    opacity: 0.48;
 }
 
 
@@ -1437,7 +1439,7 @@
     margin-top: 5px;
 
     font-family: "Space Mono", monospace;
-    font-size: 7px;
+    font-size: 9px;
 
     color: var(--accent-color, #f1c40f);
 }
@@ -1446,8 +1448,9 @@
 .profile-details p {
     margin: 6px 0 0;
 
-    font-size: 8px;
-    opacity: 0.4;
+    font-size: 10px;
+    line-height: 1.5;
+    opacity: 0.58;
 }
 
 
@@ -1473,9 +1476,8 @@
     display: block;
 
     font-family: "Space Mono", monospace;
-    font-size: 7px;
-
-    opacity: 0.35;
+    font-size: 9px;
+    opacity: 0.55;
 }
 
 
@@ -1484,7 +1486,7 @@
 
     margin-top: 6px;
 
-    font-size: 9px;
+    font-size: 11px;
 }
 
 
@@ -1573,7 +1575,7 @@
 .quick-action-card strong {
     display: block;
 
-    font-size: 10px;
+    font-size: 12px;
 }
 
 
@@ -1582,9 +1584,9 @@
 
     margin-top: 4px;
 
-    font-size: 7px;
-
-    opacity: 0.4;
+    font-size: 9px;
+    line-height: 1.5;
+    opacity: 0.58;
 }
 
 
@@ -1796,6 +1798,49 @@
     border-color: rgba(0, 0, 0, 0.08);
 }
 
+/* =========================================================
+   LIGHT THEME — IMPROVED TEXT CONTRAST
+========================================================= */
+
+[data-theme="light"] .sidebar-member span,
+[data-theme="light"] .dashboard-nav-label,
+[data-theme="light"] .topbar-overline,
+[data-theme="light"] .dashboard-section-index,
+[data-theme="light"] .dashboard-card-label,
+[data-theme="light"] .kpi-data span,
+[data-theme="light"] .kpi-data p,
+[data-theme="light"] .progress-circle span,
+[data-theme="light"] .progress-item span,
+[data-theme="light"] .membership-plan span,
+[data-theme="light"] .membership-expiry span,
+[data-theme="light"] .membership-plan small,
+[data-theme="light"] .membership-expiry small,
+[data-theme="light"] .activity-day > span,
+[data-theme="light"] .activity-day small,
+[data-theme="light"] .session-details span,
+[data-theme="light"] .notification-item p,
+[data-theme="light"] .notification-item small,
+[data-theme="light"] .profile-details p,
+[data-theme="light"] .profile-info-grid span,
+[data-theme="light"] .quick-action-card small {
+    opacity: 0.72;
+}
+
+[data-theme="light"] .member-kpi-card,
+[data-theme="light"] .dashboard-card,
+[data-theme="light"] .quick-action-card,
+[data-theme="light"] .membership-plan,
+[data-theme="light"] .membership-expiry,
+[data-theme="light"] .profile-info-grid div,
+[data-theme="light"] .recovery-metrics > div {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.035);
+}
+
+[data-theme="light"] .recovery-metrics > div {
+    background: rgba(0, 0, 0, 0.025);
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
 
 /* =========================================================
    RESPONSIVE
@@ -1985,6 +2030,86 @@
 
 }
 
+@media (max-width: 600px) {
+
+    .member-welcome-banner p {
+        font-size: 13px;
+        line-height: 1.75;
+    }
+
+    .dashboard-nav-link {
+        font-size: 14px;
+        min-height: 44px;
+    }
+
+    .sidebar-bottom-link {
+        font-size: 13px;
+        min-height: 44px;
+    }
+
+    .dashboard-card-label,
+    .dashboard-section-index,
+    .topbar-overline {
+        font-size: 9px;
+    }
+
+    .kpi-data span,
+    .metric-info span,
+    .progress-item span,
+    .membership-plan span,
+    .membership-expiry span {
+        font-size: 9px;
+    }
+
+    .kpi-data p,
+    .membership-plan small,
+    .membership-expiry small,
+    .notification-item p,
+    .profile-details p,
+    .quick-action-card small {
+        font-size: 10px;
+    }
+
+    .metric-info strong {
+        font-size: 15px;
+    }
+
+    .session-details strong {
+        font-size: 13px;
+    }
+
+    .session-details span {
+        font-size: 10px;
+    }
+
+    .notification-item strong {
+        font-size: 12px;
+    }
+
+    .profile-info-grid span {
+        font-size: 9px;
+    }
+
+    .profile-info-grid strong {
+        font-size: 11px;
+    }
+
+    .quick-action-card strong {
+        font-size: 13px;
+    }
+
+    .recovery-content p {
+        font-size: 0.84rem;
+    }
+
+    .recovery-metrics span {
+        font-size: 0.65rem;
+    }
+
+    .recovery-metrics strong {
+        font-size: 0.95rem;
+    }
+}
 
 @media (max-width: 420px) {
 
