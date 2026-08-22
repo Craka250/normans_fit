@@ -568,6 +568,9 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
+    /*
+     * Make sure the required elements exist.
+     */
     if (
         !editButton ||
         !profileEditModal ||
@@ -577,10 +580,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* OPEN */
-    editButton.addEventListener("click", () => {
+    /* =====================================================
+       OPEN EDIT PROFILE
+    ====================================================== */
 
-        profileEditModal.classList.add("show");
+    editButton.addEventListener("click", (event) => {
+
+        event.preventDefault();
+
+        profileEditModal.classList.add("active");
 
         profileEditModal.setAttribute(
             "aria-hidden",
@@ -590,15 +598,17 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.add(
             "modal-open"
         );
-
     });
 
 
-    /* CLOSE */
+    /* =====================================================
+       CLOSE EDIT PROFILE
+    ====================================================== */
+
     function closeProfileEditor() {
 
         profileEditModal.classList.remove(
-            "show"
+            "active"
         );
 
         profileEditModal.setAttribute(
@@ -609,9 +619,12 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.remove(
             "modal-open"
         );
-
     }
 
+
+    /* =====================================================
+       CLOSE BUTTON
+    ====================================================== */
 
     if (profileEditClose) {
 
@@ -623,6 +636,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /* =====================================================
+       CANCEL BUTTON
+    ====================================================== */
+
     if (profileEditCancel) {
 
         profileEditCancel.addEventListener(
@@ -633,7 +650,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* CLICK OUTSIDE */
+    /* =====================================================
+       CLICK OUTSIDE MODAL
+    ====================================================== */
+
     profileEditModal.addEventListener(
         "click",
         (event) => {
@@ -642,30 +662,42 @@ document.addEventListener("DOMContentLoaded", () => {
                 event.target ===
                 profileEditModal
             ) {
+
                 closeProfileEditor();
+
             }
 
         }
     );
 
 
-    /* ESC KEY */
+    /* =====================================================
+       ESC KEY
+    ====================================================== */
+
     document.addEventListener(
         "keydown",
         (event) => {
 
             if (
                 event.key === "Escape" &&
-                profileEditModal.classList.contains("show")
+                profileEditModal.classList.contains(
+                    "active"
+                )
             ) {
+
                 closeProfileEditor();
+
             }
 
         }
     );
 
 
-    /* SAVE */
+    /* =====================================================
+       SAVE PROFILE
+    ====================================================== */
+
     profileEditForm.addEventListener(
         "submit",
         (event) => {
@@ -673,30 +705,49 @@ document.addEventListener("DOMContentLoaded", () => {
             event.preventDefault();
 
 
-            const fullName =
+            const fullNameElement =
                 document.getElementById(
                     "editFullName"
-                ).value.trim();
+                );
 
-            const email =
+            const emailElement =
                 document.getElementById(
                     "editEmail"
-                ).value.trim();
+                );
 
-            const phone =
+            const phoneElement =
                 document.getElementById(
                     "editPhone"
-                ).value.trim();
+                );
 
+
+            const fullName =
+                fullNameElement
+                    ? fullNameElement.value.trim()
+                    : "";
+
+            const email =
+                emailElement
+                    ? emailElement.value.trim()
+                    : "";
+
+            const phone =
+                phoneElement
+                    ? phoneElement.value.trim()
+                    : "";
+
+
+            /* Required fields */
 
             if (!fullName || !email) {
                 return;
             }
 
 
-            /*
-             * Update visible dashboard information
-             */
+            /* =================================================
+               UPDATE VISIBLE NAME
+            ================================================= */
+
             const profileNames =
                 document.querySelectorAll(
                     ".dashboard-profile-name, " +
@@ -705,54 +756,75 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
 
-            profileNames.forEach((element) => {
-                element.textContent = fullName;
-            });
+            profileNames.forEach(
+                (element) => {
+
+                    element.textContent =
+                        fullName;
+
+                }
+            );
 
 
-            const emailElement =
-                document.querySelector(
-                    ".profile-info-grid strong"
-                );
+            /* =================================================
+               UPDATE PROFILE INFORMATION
+            ================================================= */
 
-            if (emailElement) {
-                emailElement.textContent = email;
-            }
-
-
-            const phoneElements =
+            const profileInfoValues =
                 document.querySelectorAll(
                     ".profile-info-grid strong"
                 );
 
 
-            if (
-                phone &&
-                phoneElements.length > 1
-            ) {
-                phoneElements[1].textContent =
-                    phone;
+            /*
+             * Email
+             */
+            if (profileInfoValues[0]) {
+
+                profileInfoValues[0].textContent =
+                    email;
+
             }
 
 
             /*
-             * Save locally for now.
-             *
-             * Later we can replace this with
-             * your backend/API request.
+             * Phone
              */
+            if (
+                phone &&
+                profileInfoValues[1]
+            ) {
+
+                profileInfoValues[1].textContent =
+                    phone;
+
+            }
+
+
+            /* =================================================
+               SAVE LOCALLY
+            ================================================= */
+
             const profileData = {
+
                 fullName,
                 email,
                 phone
+
             };
 
 
             localStorage.setItem(
                 "vyronMemberProfile",
-                JSON.stringify(profileData)
+                JSON.stringify(
+                    profileData
+                )
             );
 
+
+            /* =================================================
+               CLOSE MODAL
+            ================================================= */
 
             closeProfileEditor();
 

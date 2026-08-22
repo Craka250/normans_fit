@@ -167,7 +167,7 @@
     color: inherit;
     text-decoration: none;
 
-    border-radius: 8px;
+    border-radius: 0;
 
     font-size: 12px;
     font-weight: 700;
@@ -266,6 +266,7 @@
     color: inherit;
     background: transparent;
     border: 0;
+    border-radius: 0;
 
     text-decoration: none;
 
@@ -2027,7 +2028,7 @@
     align-items: center;
     padding: 6px 10px;
     border: 1px solid rgba(241, 196, 15, 0.35);
-    color: var(--color-accent, #f1c40f);
+    color: var(--accent-color, #f1c40f);
     font-family: "Space Mono", monospace;
     font-size: 0.65rem;
     letter-spacing: 0.12em;
@@ -2040,45 +2041,93 @@
     margin: 22px 0;
 }
 
+/* =========================================================
+   RECOVERY / READINESS CIRCLE
+========================================================= */
+
 .recovery-circle {
     width: 92px;
     height: 92px;
     flex: 0 0 92px;
+
     border-radius: 50%;
+
     display: grid;
     place-items: center;
+
     background:
         conic-gradient(
-            var(--color-accent, #f1c40f) 84%,
-            rgba(255,255,255,0.08) 84%
+            var(--accent-color, #f1c40f) 84%,
+            rgba(255, 255, 255, 0.08) 84%
         );
+
     position: relative;
+
+    color: #ffffff;
 }
 
+
+/*
+ * Inner circle
+ */
 .recovery-circle::after {
     content: "";
+
     position: absolute;
     inset: 7px;
+
     border-radius: 50%;
-    background: var(--color-bg-card, #101313);
+
+    background: #101313;
 }
 
+
+/*
+ * Number and /100
+ */
 .recovery-circle > div {
     position: relative;
     z-index: 2;
+
     text-align: center;
+
+    color: #ffffff;
 }
 
 .recovery-circle strong {
     display: block;
+
     font-family: "Bebas Neue", sans-serif;
+
     font-size: 1.8rem;
+
     line-height: 1;
+
+    color: #ffffff;
 }
 
 .recovery-circle span {
+    display: block;
+
     font-size: 0.6rem;
+
     opacity: 0.55;
+
+    color: #ffffff;
+}
+
+/* =========================================================
+   RECOVERY CIRCLE — LIGHT MODE
+========================================================= */
+
+[data-theme="light"] .recovery-circle::after {
+    background: #ffffff;
+}
+
+[data-theme="light"] .recovery-circle > div,
+[data-theme="light"] .recovery-circle strong,
+[data-theme="light"] .recovery-circle span {
+    color: #111313;
 }
 
 .recovery-content {
@@ -2140,9 +2189,26 @@
 ========================================================= */
 
 .profile-edit-modal {
-    width: min(680px, calc(100vw - 32px));
+    position: relative;
+
+    width: min(
+        680px,
+        calc(100vw - 32px)
+    );
+
     max-height: calc(100vh - 40px);
+
     overflow-y: auto;
+
+    padding: 40px 30px;
+
+    text-align: left;
+
+    background: #111313;
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    box-sizing: border-box;
 }
 
 .profile-edit-modal h2 {
@@ -2151,7 +2217,9 @@
 
 .profile-edit-modal > p {
     margin-bottom: 28px;
+
     line-height: 1.65;
+
     opacity: 0.62;
 }
 
@@ -2161,7 +2229,10 @@
 
 .profile-form-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
     gap: 18px;
 }
 
@@ -2173,22 +2244,36 @@
 
 .profile-form-field label {
     font-family: "Space Mono", monospace;
+
     font-size: 0.65rem;
+
     letter-spacing: 0.08em;
+
     text-transform: uppercase;
+
     opacity: 0.6;
 }
 
 .profile-form-field input,
 .profile-form-field select {
     width: 100%;
+
     min-height: 48px;
+
     padding: 12px 14px;
+
+    box-sizing: border-box;
+
     border: 1px solid rgba(255,255,255,0.1);
+
     background: rgba(255,255,255,0.04);
+
     color: inherit;
+
     font-family: "Manrope", sans-serif;
+
     outline: none;
+
     transition:
         border-color 0.25s ease,
         background 0.25s ease;
@@ -2196,15 +2281,22 @@
 
 .profile-form-field input:focus,
 .profile-form-field select:focus {
-    border-color: var(--color-accent, #f1c40f);
-    background: rgba(255,255,255,0.06);
+    border-color:
+        var(--color-accent, #f1c40f);
+
+    background:
+        rgba(255,255,255,0.06);
 }
 
 .profile-edit-actions {
     display: flex;
+
     justify-content: flex-end;
+
     align-items: center;
+
     gap: 12px;
+
     margin-top: 28px;
 }
 
@@ -2216,7 +2308,21 @@ body.modal-open {
     overflow: hidden;
 }
 
+
+/* =========================================================
+   EDIT PROFILE — MOBILE
+========================================================= */
+
 @media (max-width: 600px) {
+
+    .profile-edit-modal {
+        width: calc(100vw - 24px);
+
+        max-height:
+            calc(100vh - 24px);
+
+        padding: 32px 20px;
+    }
 
     .profile-form-grid {
         grid-template-columns: 1fr;
@@ -2224,12 +2330,52 @@ body.modal-open {
 
     .profile-edit-actions {
         flex-direction: column-reverse;
+
         align-items: stretch;
     }
 
     .profile-edit-actions button {
         width: 100%;
+
         justify-content: center;
     }
+}
 
+@media (max-height: 700px) and (min-width: 1001px) {
+
+    .member-sidebar {
+        padding-top: 14px;
+        padding-bottom: 14px;
+    }
+
+    .dashboard-brand {
+        padding-bottom: 12px;
+    }
+
+    .sidebar-member {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .dashboard-nav-link {
+        min-height: 35px;
+    }
+
+    .dashboard-nav-label {
+        padding-top: 5px;
+        padding-bottom: 3px;
+    }
+
+    .dashboard-nav-label-spaced {
+        margin-top: 6px;
+    }
+
+    .sidebar-bottom {
+        margin-top: 6px;
+        padding-top: 7px;
+    }
+
+    .sidebar-bottom-link {
+        min-height: 33px;
+    }
 }
