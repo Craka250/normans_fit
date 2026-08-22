@@ -1666,251 +1666,227 @@
 
 }
 
-
 /* =========================================================
-   MOBILE
+   MOBILE — MEMBERSHIP HERO
+   Full-width mobile layout
    ========================================================= */
 
 @media (max-width: 700px) {
 
     .membership-hero {
+        width: 100%;
         min-height: auto;
-        padding-block: 100px 80px;
+        padding-block: 85px 70px;
+        overflow: hidden;
     }
 
+    /*
+     * Make sure the hero container itself
+     * uses the complete mobile width.
+     */
+    .membership-hero .container {
+        width: 100%;
+        max-width: 100%;
+        padding-inline: 20px;
+        margin-inline: 0;
+    }
 
+    /*
+     * Single-column mobile layout.
+     */
     .membership-hero-layout {
-        grid-template-columns: 1fr;
+        width: 100%;
+        max-width: 100%;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
     }
 
+    /*
+     * IMPORTANT:
+     * Remove the desktop max-width limitation.
+     */
+    .membership-hero-content {
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+    }
 
+    /*
+     * Section label.
+     */
+    .membership-hero-label {
+        margin-top: 42px;
+        gap: 10px;
+        font-size: 8px;
+    }
+
+    .membership-hero-label span {
+        width: 30px;
+    }
+
+    /*
+     * Main heading.
+     *
+     * Using clamp() keeps the typography large
+     * without making it unnecessarily narrow.
+     */
     .membership-hero-content h1 {
-        font-size: clamp(
-            68px,
-            18vw,
-            105px
-        );
-    }
-
-
-    .membership-hero-visual {
-        min-height: 400px;
+        width: 100%;
+        max-width: 100%;
         margin-top: 20px;
-    }
 
-
-    .hero-floating-card-one {
-        left: -5px;
-        bottom: 25px;
-    }
-
-
-    .hero-floating-card-two {
-        right: -5px;
-        top: 30px;
-    }
-
-
-    .membership-intro-grid {
-        grid-template-columns: 1fr;
-        gap: 45px;
-    }
-
-
-    .membership-intro-heading h2,
-    .benefits-heading h2 {
         font-size: clamp(
-            58px,
-            16vw,
-            90px
+            72px,
+            19vw,
+            118px
         );
+
+        line-height: 0.76;
+        letter-spacing: -0.045em;
     }
 
-
-    .membership-intro-meta {
-        margin-top: 35px;
+    .membership-hero-content h1 span,
+    .membership-hero-content h1 strong {
+        display: block;
+        width: 100%;
     }
 
+    /*
+     * Hero description.
+     */
+    .membership-hero-content > p {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 32px;
 
-    .membership-plan-card {
-        padding: 25px;
-        min-height: 550px;
+        font-size: 14px;
+        line-height: 1.75;
     }
 
-
-    .plan-price strong {
-        font-size: clamp(
-            65px,
-            18vw,
-            90px
-        );
-    }
-
-
-    .plans-note {
-        align-items: flex-start;
+    /*
+     * Hero buttons.
+     */
+    .membership-hero-actions {
+        width: 100%;
+        display: flex;
+        align-items: stretch;
         flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 30px;
     }
 
-
-    .plans-note span {
-        flex-basis: calc(
-            100% - 35px
-        );
+    .membership-hero-actions .btn {
+        flex: 1 1 auto;
+        min-width: 160px;
     }
 
-
-    .plans-note a {
-        margin-left: 35px;
-    }
-
-
-    .benefits-grid {
-        grid-template-columns: 1fr;
-    }
-
-
-    .process-grid {
-        grid-template-columns: 1fr;
-    }
-
-
-    .process-card {
-        min-height: 260px;
-    }
-
-
-    .process-card > i {
+    /*
+     * Hero visual.
+     */
+    .membership-hero-visual {
+        width: 100%;
+        min-height: 400px;
         margin-top: 45px;
     }
 
-
-    .faq-heading h2 {
-        font-size: clamp(
-            62px,
-            17vw,
-            90px
-        );
+    /*
+     * Keep decorative floating cards inside
+     * the mobile viewport.
+     */
+    .hero-floating-card-one {
+        left: 0;
+        bottom: 20px;
     }
 
-
-    .membership-cta-content h2 {
-        font-size: clamp(
-            70px,
-            19vw,
-            115px
-        );
+    .hero-floating-card-two {
+        right: 0;
+        top: 25px;
     }
-
 }
 
-
 /* =========================================================
-   SMALL MOBILE
+   SMALL MOBILE — MEMBERSHIP HERO
    ========================================================= */
 
 @media (max-width: 420px) {
 
     .membership-hero {
-        padding-block: 85px 65px;
+        padding-block: 75px 60px;
     }
 
+    .membership-hero .container {
+        padding-inline: 18px;
+    }
+
+    .membership-hero-label {
+        margin-top: 35px;
+        font-size: 7px;
+        letter-spacing: 0.13em;
+    }
 
     .membership-hero-content h1 {
-        font-size: 67px;
+        width: 100%;
+        max-width: 100%;
+        font-size: clamp(
+            64px,
+            19vw,
+            82px
+        );
+        line-height: 0.77;
+        letter-spacing: -0.04em;
     }
-
 
     .membership-hero-content > p {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 28px;
         font-size: 13px;
+        line-height: 1.75;
     }
 
-
     .membership-hero-actions {
+        width: 100%;
         flex-direction: column;
         align-items: stretch;
     }
 
-
     .membership-hero-actions .btn {
         width: 100%;
+        min-width: 0;
     }
-
 
     .membership-hero-visual {
+        width: 100%;
         min-height: 340px;
+        margin-top: 35px;
     }
-
 
     .hero-visual-main {
+        width: 100%;
         padding: 20px;
     }
-
 
     .hero-visual-number {
         font-size: 125px;
     }
 
-
     .hero-visual-title {
         font-size: 52px;
     }
 
-
     .hero-floating-card {
+        max-width: calc(100% - 20px);
         padding: 10px;
     }
 
-
     .hero-floating-card-one {
-        left: -3px;
+        left: 0;
     }
-
 
     .hero-floating-card-two {
-        right: -3px;
+        right: 0;
     }
-
-
-    .membership-intro-meta {
-        grid-template-columns: 1fr;
-    }
-
-
-    .membership-intro-meta div {
-        border-bottom: 1px solid var(--border);
-    }
-
-
-    .membership-plan-card {
-        padding: 22px;
-    }
-
-
-    .plan-price strong {
-        font-size: 65px;
-    }
-
-
-    .benefit-card {
-        min-height: 250px;
-    }
-
-
-    .comparison-table {
-        min-width: 620px;
-    }
-
-
-    .membership-cta-actions {
-        flex-direction: column;
-    }
-
-
-    .membership-cta-actions .btn {
-        width: 100%;
-    }
-
 }
 
 
