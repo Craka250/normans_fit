@@ -1,0 +1,2082 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="VYRON Fitness member dashboard — manage your membership, workouts, progress, sessions and fitness journey."
+    >
+
+    <meta
+        name="theme-color"
+        content="#080A0A"
+    >
+
+    <title>
+        Member Dashboard | VYRON Fitness
+    </title>
+
+
+    <!-- =========================================================
+         GOOGLE FONTS
+    ========================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =========================================================
+         FONT AWESOME
+    ========================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    >
+
+
+    <!-- =========================================================
+         SHARED VYRON STYLES
+    ========================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="css/reset.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/variables.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/navbar.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/hero.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/sections.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/cards.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/animations.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/responsive.css"
+    >
+
+
+    <!-- =========================================================
+         MEMBER DASHBOARD
+    ========================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="css/member-dashboard.css"
+    >
+
+</head>
+
+
+<body class="member-dashboard-page">
+
+
+<!-- =========================================================
+     PAGE LOADER
+========================================================== -->
+
+<div
+    class="page-loader"
+    id="pageLoader"
+>
+
+    <div class="loader-logo">
+        VYRON
+    </div>
+
+    <div class="loader-line">
+        <span></span>
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     DASHBOARD SHELL
+========================================================== -->
+
+<div class="dashboard-shell">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside
+        class="member-sidebar"
+        id="memberSidebar"
+    >
+
+        <!-- BRAND -->
+
+        <div class="dashboard-brand">
+
+            <a
+                href="index.html"
+                aria-label="VYRON Fitness home"
+            >
+
+                <img
+                    src="assets/images/vyron-logo.png"
+                    alt="VYRON Fitness"
+                >
+
+            </a>
+
+        </div>
+
+
+        <!-- MEMBER PROFILE -->
+
+        <div class="sidebar-member">
+
+            <div class="sidebar-avatar">
+                JO
+            </div>
+
+            <div>
+
+                <strong>
+                    Job Otieno
+                </strong>
+
+                <span>
+                    VYRON MEMBER
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav
+            class="dashboard-nav"
+            aria-label="Member dashboard navigation"
+        >
+
+            <span class="dashboard-nav-label">
+                DASHBOARD
+            </span>
+
+            <a
+                href="#overview"
+                class="dashboard-nav-link active"
+            >
+
+                <i class="fa-solid fa-grid-2"></i>
+
+                <span>
+                    Overview
+                </span>
+
+            </a>
+
+
+            <a
+                href="#workouts"
+                class="dashboard-nav-link"
+            >
+
+                <i class="fa-solid fa-dumbbell"></i>
+
+                <span>
+                    My Workouts
+                </span>
+
+            </a>
+
+
+            <a
+                href="#progress"
+                class="dashboard-nav-link"
+            >
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <span>
+                    Progress
+                </span>
+
+            </a>
+
+
+            <a
+                href="#sessions"
+                class="dashboard-nav-link"
+            >
+
+                <i class="fa-solid fa-calendar-days"></i>
+
+                <span>
+                    Sessions
+                </span>
+
+                <span class="nav-badge">
+                    2
+                </span>
+
+            </a>
+
+
+            <span class="dashboard-nav-label dashboard-nav-label-spaced">
+                ACCOUNT
+            </span>
+
+
+            <a
+                href="#membership"
+                class="dashboard-nav-link"
+            >
+
+                <i class="fa-solid fa-id-card"></i>
+
+                <span>
+                    Membership
+                </span>
+
+            </a>
+
+
+            <a
+                href="#notifications"
+                class="dashboard-nav-link"
+            >
+
+                <i class="fa-solid fa-bell"></i>
+
+                <span>
+                    Notifications
+                </span>
+
+                <span class="nav-badge">
+                    3
+                </span>
+
+            </a>
+
+
+            <a
+                href="#profile"
+                class="dashboard-nav-link"
+            >
+
+                <i class="fa-solid fa-user"></i>
+
+                <span>
+                    My Profile
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <!-- SIDEBAR BOTTOM -->
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="index.html"
+                class="sidebar-bottom-link"
+            >
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                <span>
+                    Back to Website
+                </span>
+
+            </a>
+
+
+            <button
+                type="button"
+                class="sidebar-bottom-link logout-button"
+                id="logoutButton"
+            >
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>
+                    Logout
+                </span>
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN DASHBOARD
+    ====================================================== -->
+
+    <main class="member-main">
+
+
+        <!-- =================================================
+             TOPBAR
+        ================================================== -->
+
+        <header class="dashboard-topbar">
+
+            <div class="topbar-left">
+
+                <button
+                    type="button"
+                    class="dashboard-menu-toggle"
+                    id="dashboardMenuToggle"
+                    aria-label="Open dashboard navigation"
+                    aria-expanded="false"
+                >
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
+
+
+                <div>
+
+                    <span class="topbar-overline">
+                        MEMBER PORTAL
+                    </span>
+
+                    <h1>
+                        Dashboard
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="topbar-actions">
+
+
+                <!-- NOTIFICATIONS -->
+
+                <button
+                    type="button"
+                    class="topbar-icon-button notification-button"
+                    aria-label="Notifications"
+                    id="notificationButton"
+                >
+
+                    <i class="fa-regular fa-bell"></i>
+
+                    <span class="notification-dot">
+                    </span>
+
+                </button>
+
+
+                <!-- THEME -->
+
+                <button
+                    type="button"
+                    class="topbar-icon-button"
+                    id="memberThemeToggle"
+                    aria-label="Switch theme"
+                >
+
+                    <i class="fa-solid fa-moon"></i>
+
+                </button>
+
+
+                <!-- PROFILE -->
+
+                <button
+                    type="button"
+                    class="dashboard-profile-button"
+                    id="profileButton"
+                >
+
+                    <span class="dashboard-avatar">
+                        JO
+                    </span>
+
+                    <span class="dashboard-profile-name">
+                        Job Otieno
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down"></i>
+
+                </button>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             DASHBOARD CONTENT
+        ================================================== -->
+
+        <div class="dashboard-content">
+
+
+            <!-- =================================================
+                 WELCOME BANNER
+            ================================================== -->
+
+            <section
+                class="member-welcome-banner"
+                id="overview"
+            >
+
+                <div class="welcome-grid"></div>
+
+                <div class="welcome-glow"></div>
+
+
+                <div class="welcome-content">
+
+                    <span class="dashboard-section-index">
+                        01 / MEMBER OVERVIEW
+                    </span>
+
+
+                    <h2>
+                        WELCOME BACK,
+                        <span>JOB.</span>
+                    </h2>
+
+
+                    <p>
+                        Keep showing up. Keep building.
+                        Your strongest version is created
+                        one session at a time.
+                    </p>
+
+
+                    <div class="welcome-actions">
+
+                        <a
+                            href="#workouts"
+                            class="dashboard-primary-button"
+                        >
+
+                            Start Workout
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+
+                        <a
+                            href="#progress"
+                            class="dashboard-outline-button"
+                        >
+
+                            View Progress
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TODAY STATUS -->
+
+                <div class="welcome-status">
+
+                    <span>
+                        TODAY
+                    </span>
+
+                    <strong>
+                        TRAINING DAY
+                    </strong>
+
+                    <small>
+                        Upper Body · 06:00 PM
+                    </small>
+
+                    <div class="status-line">
+
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 KPI CARDS
+            ================================================== -->
+
+            <section class="member-kpi-grid">
+
+
+                <!-- STREAK -->
+
+                <article class="member-kpi-card">
+
+                    <div class="kpi-icon">
+                        <i class="fa-solid fa-fire"></i>
+                    </div>
+
+                    <div class="kpi-data">
+
+                        <span>
+                            CURRENT STREAK
+                        </span>
+
+                        <strong>
+                            12
+                            <small>DAYS</small>
+                        </strong>
+
+                        <p>
+                            Keep it going.
+                        </p>
+
+                    </div>
+
+                    <span class="kpi-number">
+                        01
+                    </span>
+
+                </article>
+
+
+
+                <!-- WORKOUTS -->
+
+                <article class="member-kpi-card">
+
+                    <div class="kpi-icon">
+                        <i class="fa-solid fa-dumbbell"></i>
+                    </div>
+
+                    <div class="kpi-data">
+
+                        <span>
+                            WORKOUTS
+                        </span>
+
+                        <strong>
+                            38
+                        </strong>
+
+                        <p>
+                            This month
+                        </p>
+
+                    </div>
+
+                    <span class="kpi-number">
+                        02
+                    </span>
+
+                </article>
+
+
+
+                <!-- HOURS -->
+
+                <article class="member-kpi-card">
+
+                    <div class="kpi-icon">
+                        <i class="fa-regular fa-clock"></i>
+                    </div>
+
+                    <div class="kpi-data">
+
+                        <span>
+                            TRAINING HOURS
+                        </span>
+
+                        <strong>
+                            24.5
+                        </strong>
+
+                        <p>
+                            This month
+                        </p>
+
+                    </div>
+
+                    <span class="kpi-number">
+                        03
+                    </span>
+
+                </article>
+
+
+
+                <!-- PROGRESS -->
+
+                <article class="member-kpi-card">
+
+                    <div class="kpi-icon">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+
+                    <div class="kpi-data">
+
+                        <span>
+                            PROGRAM PROGRESS
+                        </span>
+
+                        <strong>
+                            76<small>%</small>
+                        </strong>
+
+                        <p>
+                            9 weeks completed
+                        </p>
+
+                    </div>
+
+                    <span class="kpi-number">
+                        04
+                    </span>
+
+                </article>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 MAIN DASHBOARD GRID
+            ================================================== -->
+
+            <div class="dashboard-main-grid">
+
+
+                <!-- =============================================
+                     WORKOUT PROGRESS
+                ============================================== -->
+
+                <section
+                    class="dashboard-card workout-progress-card"
+                    id="workouts"
+                >
+
+                    <div class="dashboard-card-header">
+
+                        <div>
+
+                            <span class="dashboard-card-label">
+                                CURRENT PROGRAM
+                            </span>
+
+                            <h3>
+                                Strength Foundation
+                            </h3>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            class="card-menu-button"
+                            aria-label="Workout options"
+                        >
+
+                            <i class="fa-solid fa-ellipsis"></i>
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="program-progress">
+
+                        <div class="progress-circle">
+
+                            <div>
+
+                                <strong>
+                                    76%
+                                </strong>
+
+                                <span>
+                                    COMPLETE
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="progress-information">
+
+                            <div class="progress-item">
+
+                                <span>
+                                    PROGRAM
+                                </span>
+
+                                <strong>
+                                    Strength Foundation
+                                </strong>
+
+                            </div>
+
+
+                            <div class="progress-item">
+
+                                <span>
+                                    WEEK
+                                </span>
+
+                                <strong>
+                                    09 / 12
+                                </strong>
+
+                            </div>
+
+
+                            <div class="progress-item">
+
+                                <span>
+                                    NEXT SESSION
+                                </span>
+
+                                <strong>
+                                    Upper Body
+                                </strong>
+
+                            </div>
+
+
+                            <a
+                                href="#workouts"
+                                class="small-action-link"
+                            >
+
+                                Continue Program
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =============================================
+                     MEMBERSHIP
+                ============================================== -->
+
+                <section
+                    class="dashboard-card membership-status-card"
+                    id="membership"
+                >
+
+                    <div class="dashboard-card-header">
+
+                        <div>
+
+                            <span class="dashboard-card-label">
+                                MEMBERSHIP
+                            </span>
+
+                            <h3>
+                                Standard
+                            </h3>
+
+                        </div>
+
+                        <span class="membership-status">
+                            ACTIVE
+                        </span>
+
+                    </div>
+
+
+                    <div class="membership-card-body">
+
+                        <div class="membership-plan">
+
+                            <span>
+                                CURRENT PLAN
+                            </span>
+
+                            <strong>
+                                KSH 2,999
+                            </strong>
+
+                            <small>
+                                / MONTH
+                            </small>
+
+                        </div>
+
+
+                        <div class="membership-expiry">
+
+                            <span>
+                                RENEWS
+                            </span>
+
+                            <strong>
+                                14 SEPT 2026
+                            </strong>
+
+                            <small>
+                                23 DAYS REMAINING
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="membership-actions">
+
+                        <a
+                            href="members.html"
+                            class="small-action-link"
+                        >
+
+                            Manage Membership
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =============================================
+                     WEEKLY ACTIVITY
+                ============================================== -->
+
+                <section
+                    class="dashboard-card activity-card"
+                >
+
+                    <div class="dashboard-card-header">
+
+                        <div>
+
+                            <span class="dashboard-card-label">
+                                ACTIVITY
+                            </span>
+
+                            <h3>
+                                Weekly Training
+                            </h3>
+
+                        </div>
+
+                        <span class="activity-summary">
+                            4 / 5
+                        </span>
+
+                    </div>
+
+
+                    <div class="activity-chart">
+
+                        <div class="activity-day">
+
+                            <span>
+                                M
+                            </span>
+
+                            <div class="activity-bar">
+                                <span style="height: 80%;"></span>
+                            </div>
+
+                            <small>
+                                01
+                            </small>
+
+                        </div>
+
+
+                        <div class="activity-day">
+
+                            <span>
+                                T
+                            </span>
+
+                            <div class="activity-bar">
+                                <span style="height: 100%;"></span>
+                            </div>
+
+                            <small>
+                                02
+                            </small>
+
+                        </div>
+
+
+                        <div class="activity-day">
+
+                            <span>
+                                W
+                            </span>
+
+                            <div class="activity-bar">
+                                <span style="height: 60%;"></span>
+                            </div>
+
+                            <small>
+                                03
+                            </small>
+
+                        </div>
+
+
+                        <div class="activity-day">
+
+                            <span>
+                                T
+                            </span>
+
+                            <div class="activity-bar">
+                                <span style="height: 95%;"></span>
+                            </div>
+
+                            <small>
+                                04
+                            </small>
+
+                        </div>
+
+
+                        <div class="activity-day">
+
+                            <span>
+                                F
+                            </span>
+
+                            <div class="activity-bar">
+                                <span style="height: 20%;"></span>
+                            </div>
+
+                            <small>
+                                05
+                            </small>
+
+                        </div>
+
+
+                        <div class="activity-day">
+
+                            <span>
+                                S
+                            </span>
+
+                            <div class="activity-bar">
+                                <span style="height: 0%;"></span>
+                            </div>
+
+                            <small>
+                                06
+                            </small>
+
+                        </div>
+
+
+                        <div class="activity-day">
+
+                            <span>
+                                S
+                            </span>
+
+                            <div class="activity-bar">
+                                <span style="height: 0%;"></span>
+                            </div>
+
+                            <small>
+                                07
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <!-- =============================================
+                    RECOVERY & READINESS
+                ================================================= -->
+                <section
+                    class="dashboard-card recovery-card"
+                >
+
+                    <div class="dashboard-card-header">
+
+                        <div>
+                            <span class="dashboard-card-label">
+                                RECOVERY
+                            </span>
+
+                            <h3>
+                                Readiness
+                            </h3>
+                        </div>
+
+                        <span class="recovery-status">
+                            GOOD
+                        </span>
+
+                    </div>
+
+
+                    <div class="recovery-score">
+
+                        <div class="recovery-circle">
+
+                            <div>
+                                <strong>
+                                    84
+                                </strong>
+
+                                <span>
+                                    / 100
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="recovery-content">
+
+                            <strong>
+                                You're ready to train.
+                            </strong>
+
+                            <p>
+                                Your recovery indicators are looking good.
+                                Keep today's session focused and controlled.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="recovery-metrics">
+
+                        <div>
+                            <span>
+                                SLEEP
+                            </span>
+
+                            <strong>
+                                7h 42m
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>
+                                ENERGY
+                            </span>
+
+                            <strong>
+                                88%
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>
+                                RECOVERY
+                            </span>
+
+                            <strong>
+                                84%
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <a
+                        href="#progress"
+                        class="small-action-link"
+                    >
+                        View Recovery
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </section>
+
+
+
+                <!-- =============================================
+                     UPCOMING SESSIONS
+                ============================================== -->
+
+                <section
+                    class="dashboard-card sessions-card"
+                    id="sessions"
+                >
+
+                    <div class="dashboard-card-header">
+
+                        <div>
+
+                            <span class="dashboard-card-label">
+                                SCHEDULE
+                            </span>
+
+                            <h3>
+                                Upcoming Sessions
+                            </h3>
+
+                        </div>
+
+                        <a
+                            href="#sessions"
+                            class="header-text-link"
+                        >
+                            View all
+                        </a>
+
+                    </div>
+
+
+                    <div class="session-list">
+
+
+                        <article class="session-item">
+
+                            <div class="session-date">
+
+                                <span>
+                                    AUG
+                                </span>
+
+                                <strong>
+                                    23
+                                </strong>
+
+                            </div>
+
+
+                            <div class="session-details">
+
+                                <strong>
+                                    Upper Body Strength
+                                </strong>
+
+                                <span>
+                                    <i class="fa-regular fa-clock"></i>
+                                    06:00 PM — 07:00 PM
+                                </span>
+
+                                <span>
+                                    <i class="fa-solid fa-user"></i>
+                                    Coach Amara
+                                </span>
+
+                            </div>
+
+
+                            <span class="session-status">
+                                BOOKED
+                            </span>
+
+                        </article>
+
+
+
+                        <article class="session-item">
+
+                            <div class="session-date">
+
+                                <span>
+                                    AUG
+                                </span>
+
+                                <strong>
+                                    26
+                                </strong>
+
+                            </div>
+
+
+                            <div class="session-details">
+
+                                <strong>
+                                    HIIT Conditioning
+                                </strong>
+
+                                <span>
+                                    <i class="fa-regular fa-clock"></i>
+                                    05:30 PM — 06:15 PM
+                                </span>
+
+                                <span>
+                                    <i class="fa-solid fa-user"></i>
+                                    Coach Marcus
+                                </span>
+
+                            </div>
+
+
+                            <span class="session-status">
+                                BOOKED
+                            </span>
+
+                        </article>
+
+
+
+                        <article class="session-item">
+
+                            <div class="session-date">
+
+                                <span>
+                                    AUG
+                                </span>
+
+                                <strong>
+                                    29
+                                </strong>
+
+                            </div>
+
+
+                            <div class="session-details">
+
+                                <strong>
+                                    Mobility & Recovery
+                                </strong>
+
+                                <span>
+                                    <i class="fa-regular fa-clock"></i>
+                                    04:00 PM — 05:00 PM
+                                </span>
+
+                                <span>
+                                    <i class="fa-solid fa-user"></i>
+                                    Coach Daniel
+                                </span>
+
+                            </div>
+
+
+                            <span class="session-status pending">
+                                UPCOMING
+                            </span>
+
+                        </article>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =============================================
+                     PROGRESS
+                ============================================== -->
+
+                <section
+                    class="dashboard-card progress-card"
+                    id="progress"
+                >
+
+                    <div class="dashboard-card-header">
+
+                        <div>
+
+                            <span class="dashboard-card-label">
+                                PERFORMANCE
+                            </span>
+
+                            <h3>
+                                Your Progress
+                            </h3>
+
+                        </div>
+
+                        <a
+                            href="#progress"
+                            class="header-text-link"
+                        >
+                            Details
+                        </a>
+
+                    </div>
+
+
+                    <div class="progress-metrics">
+
+
+                        <div class="metric-row">
+
+                            <div class="metric-icon">
+                                <i class="fa-solid fa-weight-hanging"></i>
+                            </div>
+
+                            <div class="metric-info">
+
+                                <span>
+                                    BENCH PRESS
+                                </span>
+
+                                <strong>
+                                    82.5 KG
+                                </strong>
+
+                            </div>
+
+                            <span class="metric-change">
+                                +12%
+                            </span>
+
+                        </div>
+
+
+                        <div class="metric-row">
+
+                            <div class="metric-icon">
+                                <i class="fa-solid fa-person-running"></i>
+                            </div>
+
+                            <div class="metric-info">
+
+                                <span>
+                                    5K RUN
+                                </span>
+
+                                <strong>
+                                    27:42
+                                </strong>
+
+                            </div>
+
+                            <span class="metric-change">
+                                +8%
+                            </span>
+
+                        </div>
+
+
+                        <div class="metric-row">
+
+                            <div class="metric-icon">
+                                <i class="fa-solid fa-bolt"></i>
+                            </div>
+
+                            <div class="metric-info">
+
+                                <span>
+                                    DEADLIFT
+                                </span>
+
+                                <strong>
+                                    115 KG
+                                </strong>
+
+                            </div>
+
+                            <span class="metric-change">
+                                +15%
+                            </span>
+
+                        </div>
+
+                        <div class="metric-row">
+
+                            <div class="metric-icon">
+                                <i class="fa-solid fa-person"></i>
+                            </div>
+
+                            <div class="metric-info">
+
+                                <span>
+                                    BODY FAT
+                                </span>
+
+                                <strong>
+                                    14.8%
+                                </strong>
+
+                            </div>
+
+                            <span class="metric-change">
+                                -3.2%
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =============================================
+                     NOTIFICATIONS
+                ============================================== -->
+
+                <section
+                    class="dashboard-card notifications-card"
+                    id="notifications"
+                >
+
+                    <div class="dashboard-card-header">
+
+                        <div>
+
+                            <span class="dashboard-card-label">
+                                UPDATES
+                            </span>
+
+                            <h3>
+                                Notifications
+                            </h3>
+
+                        </div>
+
+                        <span class="notification-count">
+                            3 NEW
+                        </span>
+
+                    </div>
+
+
+                    <div class="notification-list">
+
+
+                        <article class="notification-item">
+
+                            <span class="notification-icon">
+                                <i class="fa-solid fa-calendar-check"></i>
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Session confirmed
+                                </strong>
+
+                                <p>
+                                    Your Upper Body Strength
+                                    session is booked for tomorrow.
+                                </p>
+
+                                <small>
+                                    2 hours ago
+                                </small>
+
+                            </div>
+
+                        </article>
+
+
+                        <article class="notification-item">
+
+                            <span class="notification-icon">
+                                <i class="fa-solid fa-bolt"></i>
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    New workout available
+                                </strong>
+
+                                <p>
+                                    Week 9 of your program is ready.
+                                </p>
+
+                                <small>
+                                    Yesterday
+                                </small>
+
+                            </div>
+
+                        </article>
+
+
+                        <article class="notification-item">
+
+                            <span class="notification-icon">
+                                <i class="fa-solid fa-star"></i>
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Great consistency
+                                </strong>
+
+                                <p>
+                                    You've completed 12 consecutive
+                                    training days.
+                                </p>
+
+                                <small>
+                                    2 days ago
+                                </small>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =============================================
+                     PROFILE
+                ============================================== -->
+
+                <section
+                    class="dashboard-card profile-card"
+                    id="profile"
+                >
+
+                    <div class="dashboard-card-header">
+
+                        <div>
+
+                            <span class="dashboard-card-label">
+                                ACCOUNT
+                            </span>
+
+                            <h3>
+                                My Profile
+                            </h3>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            class="header-text-link profile-edit-button"
+                        >
+                            Edit profile
+                        </button>
+
+                    </div>
+
+
+                    <div class="profile-summary">
+
+                        <div class="large-profile-avatar">
+                            JO
+                        </div>
+
+
+                        <div class="profile-details">
+
+                            <h4>
+                                Job Otieno
+                            </h4>
+
+                            <span>
+                                VYRON STANDARD MEMBER
+                            </span>
+
+                            <p>
+                                Member since January 2026
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="profile-info-grid">
+
+                        <div>
+
+                            <span>
+                                EMAIL
+                            </span>
+
+                            <strong>
+                                job@example.com
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                PHONE
+                            </span>
+
+                            <strong>
+                                +254 7XX XXX XXX
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 QUICK ACTIONS
+            ================================================== -->
+
+            <section class="quick-actions-section">
+
+                <div class="quick-actions-heading">
+
+                    <div>
+
+                        <span class="dashboard-section-index">
+                            02 / QUICK ACTIONS
+                        </span>
+
+                        <h2>
+                            KEEP
+                            <span>MOVING.</span>
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="quick-actions-grid">
+
+
+                    <a
+                        href="programs.html"
+                        class="quick-action-card"
+                    >
+
+                        <span>
+                            <i class="fa-solid fa-dumbbell"></i>
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Explore Programs
+                            </strong>
+
+                            <small>
+                                Find your next challenge
+                            </small>
+
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+
+                    <a
+                        href="trainers.html"
+                        class="quick-action-card"
+                    >
+
+                        <span>
+                            <i class="fa-solid fa-user-group"></i>
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Meet Your Coaches
+                            </strong>
+
+                            <small>
+                                Get expert guidance
+                            </small>
+
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+
+                    <a
+                        href="nutrition.html"
+                        class="quick-action-card"
+                    >
+
+                        <span>
+                            <i class="fa-solid fa-apple-whole"></i>
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Nutrition
+                            </strong>
+
+                            <small>
+                                Fuel your performance
+                            </small>
+
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+
+                    <a
+                        href="contact.html"
+                        class="quick-action-card"
+                    >
+
+                        <span>
+                            <i class="fa-solid fa-message"></i>
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Contact VYRON
+                            </strong>
+
+                            <small>
+                                We're here to help
+                            </small>
+
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================================================
+     MOBILE SIDEBAR OVERLAY
+========================================================== -->
+
+<div
+    class="dashboard-sidebar-overlay"
+    id="dashboardSidebarOverlay"
+>
+</div>
+
+
+
+<!-- =========================================================
+     LOGOUT MODAL
+========================================================== -->
+
+<div
+    class="dashboard-modal"
+    id="logoutModal"
+    aria-hidden="true"
+>
+
+    <div class="dashboard-modal-card">
+
+        <button
+            type="button"
+            class="modal-close"
+            id="modalClose"
+            aria-label="Close logout dialog"
+        >
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+
+        <span class="modal-icon">
+            <i class="fa-solid fa-right-from-bracket"></i>
+        </span>
+
+
+        <h2>
+            Ready to leave?
+        </h2>
+
+
+        <p>
+            You can sign back in anytime to continue
+            your VYRON journey.
+        </p>
+
+
+        <div class="modal-actions">
+
+            <button
+                type="button"
+                class="dashboard-outline-button"
+                id="cancelLogout"
+            >
+                Stay
+            </button>
+
+
+            <a
+                href="index.html"
+                class="dashboard-primary-button"
+            >
+                Logout
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================================
+     EDIT PROFILE MODAL
+========================================================== -->
+<div
+    class="dashboard-modal"
+    id="profileEditModal"
+    aria-hidden="true"
+>
+
+    <div class="dashboard-modal-card profile-edit-modal">
+
+        <button
+            type="button"
+            class="modal-close"
+            id="profileEditClose"
+            aria-label="Close edit profile dialog"
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+
+        <span class="modal-icon">
+            <i class="fa-solid fa-user-pen"></i>
+        </span>
+
+
+        <span class="dashboard-card-label">
+            ACCOUNT SETTINGS
+        </span>
+
+        <h2>
+            Edit Profile
+        </h2>
+
+        <p>
+            Update your personal information and keep your
+            VYRON member profile up to date.
+        </p>
+
+
+        <form
+            id="profileEditForm"
+            class="profile-edit-form"
+        >
+
+            <div class="profile-form-grid">
+
+                <div class="profile-form-field">
+
+                    <label for="editFullName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="editFullName"
+                        name="fullName"
+                        value="Job Otieno"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="profile-form-field">
+
+                    <label for="editEmail">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="editEmail"
+                        name="email"
+                        value="job@example.com"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="profile-form-field">
+
+                    <label for="editPhone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="editPhone"
+                        name="phone"
+                        placeholder="+254 7XX XXX XXX"
+                    >
+
+                </div>
+
+
+                <div class="profile-form-field">
+
+                    <label for="editGoal">
+                        Primary Goal
+                    </label>
+
+                    <select
+                        id="editGoal"
+                        name="goal"
+                    >
+                        <option value="strength">
+                            Build Strength
+                        </option>
+
+                        <option value="muscle">
+                            Build Muscle
+                        </option>
+
+                        <option value="fat-loss">
+                            Fat Loss
+                        </option>
+
+                        <option value="endurance">
+                            Improve Endurance
+                        </option>
+
+                        <option value="general">
+                            General Fitness
+                        </option>
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="profile-edit-actions">
+
+                <button
+                    type="button"
+                    class="dashboard-outline-button"
+                    id="profileEditCancel"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="dashboard-primary-button"
+                >
+                    Save Changes
+
+                    <i class="fa-solid fa-check"></i>
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================== -->
+<script src="js/theme.js"></script>
+<script src="js/navbar.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/counters.js"></script>
+<script src="js/main.js"></script>
+
+<script src="js/member-dashboard.js"></script>
+
+</body>
+
+</html>
