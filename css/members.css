@@ -1665,230 +1665,251 @@
     }
 
 }
-
 /* =========================================================
-   MOBILE — MEMBERSHIP HERO
-   Full-width mobile layout
+   MEMBERSHIP HERO — FULL WIDTH MOBILE TYPOGRAPHY FIX
+   Uses the available horizontal space properly
    ========================================================= */
 
 @media (max-width: 700px) {
 
+    /* ---------------------------------------------------------
+       HERO CONTAINER
+       --------------------------------------------------------- */
+
     .membership-hero {
         width: 100%;
         min-height: auto;
-        padding-block: 85px 70px;
+        padding: 75px 0 65px;
         overflow: hidden;
     }
 
-    /*
-     * Make sure the hero container itself
-     * uses the complete mobile width.
-     */
     .membership-hero .container {
         width: 100%;
-        max-width: 100%;
-        padding-inline: 20px;
-        margin-inline: 0;
+        max-width: none;
+        margin: 0;
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
-    /*
-     * Single-column mobile layout.
-     */
     .membership-hero-layout {
         width: 100%;
-        max-width: 100%;
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        gap: 0;
+        max-width: none;
+        display: block;
     }
 
-    /*
-     * IMPORTANT:
-     * Remove the desktop max-width limitation.
-     */
+    /* ---------------------------------------------------------
+       HERO CONTENT
+       --------------------------------------------------------- */
+
     .membership-hero-content {
         width: 100%;
         max-width: none;
         min-width: 0;
     }
 
-    /*
-     * Section label.
-     */
+    /* ---------------------------------------------------------
+       LABEL
+       --------------------------------------------------------- */
+
     .membership-hero-label {
-        margin-top: 42px;
-        gap: 10px;
-        font-size: 8px;
+        width: 100%;
+        margin-top: 35px;
+        margin-bottom: 0;
     }
 
-    .membership-hero-label span {
-        width: 30px;
-    }
+    /* ---------------------------------------------------------
+       MAIN HEADING
+       IMPORTANT:
+       Make the typography use the complete available width.
+       --------------------------------------------------------- */
 
-    /*
-     * Main heading.
-     *
-     * Using clamp() keeps the typography large
-     * without making it unnecessarily narrow.
-     */
     .membership-hero-content h1 {
         width: 100%;
-        max-width: 100%;
-        margin-top: 20px;
+        max-width: none;
 
-        font-size: clamp(
-            72px,
-            19vw,
-            118px
-        );
+        margin-top: 28px;
+        margin-bottom: 0;
+
+        /*
+         * Larger typography so the heading visually occupies
+         * the hero instead of sitting as a narrow column.
+         */
+        font-size: clamp(82px, 20vw, 118px);
 
         line-height: 0.76;
         letter-spacing: -0.045em;
+
+        /*
+         * Prevent the browser from treating the heading as
+         * a narrow intrinsic element.
+         */
+        display: block;
+        text-align: left;
+        white-space: normal;
+        overflow: visible;
     }
 
+    /*
+     * Every line gets the complete available width.
+     */
     .membership-hero-content h1 span,
     .membership-hero-content h1 strong {
         display: block;
         width: 100%;
+        max-width: none;
+        width: max-content;
     }
 
     /*
-     * Hero description.
+     * Spread the individual words horizontally.
+     * This is what visually removes the large empty area.
      */
+    .membership-hero-content h1 > span,
+    .membership-hero-content h1 > strong {
+        transform-origin: left center;
+    }
+
+    /*
+     * Scale the condensed display font horizontally.
+     * The font remains vertically the same size, but occupies
+     * considerably more of the available screen width.
+     */
+    .membership-hero-content h1 {
+        transform: scaleX(1.28);
+        transform-origin: left center;
+
+        /*
+         * Compensate for the visual scaling so the paragraph
+         * below remains aligned with the actual container.
+         */
+        width: 78%;
+    }
+
+    .membership-hero-content h1 span:nth-of-type(1) {
+        margin-left: 0;
+    }
+
+    .membership-hero-content h1 span:nth-of-type(2) {
+        margin-left: 5%;
+    }
+
+    .membership-hero-content h1 strong:nth-of-type(1) {
+        margin-left: 12%;
+    }
+
+    .membership-hero-content h1 strong:nth-of-type(2) {
+        margin-left: 20%;
+    }
+
+    /* ---------------------------------------------------------
+       DESCRIPTION
+       --------------------------------------------------------- */
+
     .membership-hero-content > p {
         width: 100%;
         max-width: 100%;
-        margin-top: 32px;
+
+        margin-top: 42px;
 
         font-size: 14px;
         line-height: 1.75;
     }
 
-    /*
-     * Hero buttons.
-     */
+    /* ---------------------------------------------------------
+       ACTIONS
+       --------------------------------------------------------- */
+
     .membership-hero-actions {
         width: 100%;
         display: flex;
-        align-items: stretch;
         flex-wrap: wrap;
         gap: 10px;
         margin-top: 30px;
     }
 
     .membership-hero-actions .btn {
-        flex: 1 1 auto;
-        min-width: 160px;
+        flex: 1 1 0;
+        min-width: 0;
     }
 
-    /*
-     * Hero visual.
-     */
+    /* ---------------------------------------------------------
+       VISUAL
+       --------------------------------------------------------- */
+
     .membership-hero-visual {
         width: 100%;
-        min-height: 400px;
+        min-height: 380px;
         margin-top: 45px;
-    }
-
-    /*
-     * Keep decorative floating cards inside
-     * the mobile viewport.
-     */
-    .hero-floating-card-one {
-        left: 0;
-        bottom: 20px;
-    }
-
-    .hero-floating-card-two {
-        right: 0;
-        top: 25px;
     }
 }
 
+
 /* =========================================================
-   SMALL MOBILE — MEMBERSHIP HERO
+   VERY SMALL PHONES
    ========================================================= */
 
 @media (max-width: 420px) {
 
     .membership-hero {
-        padding-block: 75px 60px;
+        padding-top: 70px;
+        padding-bottom: 55px;
     }
 
     .membership-hero .container {
-        padding-inline: 18px;
+        padding-left: 16px;
+        padding-right: 16px;
     }
 
     .membership-hero-label {
-        margin-top: 35px;
+        margin-top: 30px;
+        gap: 10px;
         font-size: 7px;
-        letter-spacing: 0.13em;
+    }
+
+    .membership-hero-label span {
+        width: 30px;
+        flex-shrink: 0;
     }
 
     .membership-hero-content h1 {
-        width: 100%;
-        max-width: 100%;
-        font-size: clamp(
-            64px,
-            19vw,
-            82px
-        );
+        /*
+         * Slightly smaller on very narrow phones,
+         * while still filling the horizontal space.
+         */
+        font-size: clamp(72px, 20vw, 88px);
+
         line-height: 0.77;
-        letter-spacing: -0.04em;
+        letter-spacing: -0.045em;
+
+        /*
+         * Strong enough to compensate for the condensed font.
+         */
+        transform: scaleX(1.22);
+        transform-origin: left center;
+        width: 82%;
     }
 
     .membership-hero-content > p {
-        width: 100%;
-        max-width: 100%;
-        margin-top: 28px;
+        margin-top: 38px;
         font-size: 13px;
         line-height: 1.75;
     }
 
     .membership-hero-actions {
-        width: 100%;
         flex-direction: column;
         align-items: stretch;
     }
 
     .membership-hero-actions .btn {
         width: 100%;
-        min-width: 0;
+        flex: none;
     }
 
     .membership-hero-visual {
-        width: 100%;
         min-height: 340px;
         margin-top: 35px;
     }
-
-    .hero-visual-main {
-        width: 100%;
-        padding: 20px;
-    }
-
-    .hero-visual-number {
-        font-size: 125px;
-    }
-
-    .hero-visual-title {
-        font-size: 52px;
-    }
-
-    .hero-floating-card {
-        max-width: calc(100% - 20px);
-        padding: 10px;
-    }
-
-    .hero-floating-card-one {
-        left: 0;
-    }
-
-    .hero-floating-card-two {
-        right: 0;
-    }
 }
-
 
 /* =========================================================
    REDUCED MOTION
