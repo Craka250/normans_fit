@@ -583,9 +583,9 @@
     }
 
 
-    /* =====================================================
-       SAFE REDIRECT
-    ===================================================== */
+    /* =========================================================
+    SAFE REDIRECT
+    ========================================================= */
 
     function getSafeRedirect() {
 
@@ -594,24 +594,214 @@
                 window.location.search
             ).get("redirect");
 
-
         if (!requested) {
-            return "../index.html";
+            return "../member-dashboard.html";
         }
 
-
+        // Block external redirects
         if (
             /^https?:/i.test(requested) ||
             /^\/\//.test(requested) ||
             /javascript:/i.test(requested)
         ) {
-            return "../index.html";
+            return "../member-dashboard.html";
         }
 
+        const cleaned =
+            requested.replace(/^\/+/, "");
 
-        return requested.startsWith("../")
-            ? requested
-            : `../${requested.replace(/^\/+/, "")}`;
+        return cleaned.startsWith("../")
+            ? cleaned
+            : `../${cleaned}`;
+    }
+
+    /* =========================================================
+    AUTHENTICATION STATE
+    ========================================================= */
+
+    function getSession() {
+
+        return readStorage(
+            STORAGE.SESSION,
+            null
+        );
+    }
+
+
+    function isSessionValid() {
+
+        const session = getSession();
+
+        if (!session) {
+            return false;
+        }
+
+        if (
+            session.expiresAt &&
+            Date.now() >= Number(session.expiresAt)
+        ) {
+
+            localStorage.removeItem(
+                STORAGE.SESSION
+            );
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    function hasRegisteredAccounts() {
+
+        const users =
+            readStorage(
+                STORAGE.USERS,
+                []
+            );
+
+        return (
+            Array.isArray(users) &&
+            users.length > 0
+        );
+    }
+
+
+    /* =========================================================
+    AUTH ROUTES
+    ========================================================= */
+
+    function getAuthPath(page) {
+
+        return `auth/${page}`;
+    }
+
+
+    function redirectToLogin(redirect = "") {
+
+        let url = "auth/login.html";
+
+        if (redirect) {
+            url += `?redirect=${encodeURIComponent(redirect)}`;
+        }
+
+        window.location.replace(url);
+    }
+
+
+    function redirectToSignup(redirect = "") {
+
+        let url = "auth/signup.html";
+
+        if (redirect) {
+            url += `?redirect=${encodeURIComponent(redirect)}`;
+        }
+
+        window.location.replace(url);
+    }
+
+
+    function redirectToDashboard() {
+
+        window.location.replace(
+            "member-dashboard.html"
+        );
+    }
+
+
+    /* =========================================================
+    AUTH PAGE ROUTING
+    ========================================================= */
+
+    function routeUserToAuthentication() {
+
+        if (isSessionValid()) {
+
+            redirectToDashboard();
+
+            return;
+        }
+
+        if (hasRegisteredAccounts()) {
+
+            redirectToLogin();
+
+            return;
+        }
+
+        redirectToSignup();
+    }
+
+
+    /* =========================================================
+    PROTECTED PAGE GUARD
+    ========================================================= */
+
+    function requireAuthentication() {
+
+        if (isSessionValid()) {
+            return true;
+        }
+
+        /*
+        Remove stale session if necessary.
+        */
+
+        localStorage.removeItem(
+            STORAGE.SESSION
+        );
+
+        /*
+        Remember the page the user attempted
+        to access.
+        */
+
+        const currentPage =
+            window.location.pathname
+                .split("/")
+                .pop();
+
+        if (
+            currentPage &&
+            currentPage !== "login.html" &&
+            currentPage !== "signup.html"
+        ) {
+
+            if (hasRegisteredAccounts()) {
+
+                redirectToLogin(
+                    currentPage
+                );
+
+            } else {
+
+                redirectToSignup(
+                    currentPage
+                );
+            }
+
+            return false;
+        }
+
+        redirectToLogin();
+
+        return false;
+    }
+
+
+    /* =========================================================
+    PUBLIC AUTH PAGE GUARD
+    ========================================================= */
+
+    function preventAuthenticatedAuthPage() {
+
+        if (!isSessionValid()) {
+            return false;
+        }
+
+        redirectToDashboard();
+
+        return true;
     }
 
 
