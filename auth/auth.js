@@ -1,23 +1,28 @@
 /* =========================================================
-   VYRON AUTHENTICATION
-   Frontend Authentication Adapter
+   VYRON FITNESS — MEMBER AUTHENTICATION
+   Stable frontend authentication for VYRON prototype
 
-   NOTE:
-   This implementation uses localStorage for development/
-   prototype purposes.
+   DIRECTORY STRUCTURE:
 
-   Production authentication should be moved to a backend
-   using secure HTTP-only session cookies or tokens.
-   ========================================================= */
+   /index.html
+   /member-dashboard.html
+   /auth/login.html
+   /auth/signup.html
+   /auth/forgot-password.html
+   /auth/reset-password.html
+
+   IMPORTANT:
+   This is frontend/localStorage authentication for the
+   current prototype. Production authentication should use
+   a backend with secure HTTP-only cookies/tokens.
+========================================================= */
 
 (() => {
-
     "use strict";
 
-
-    /* =====================================================
-       CONFIGURATION
-    ===================================================== */
+    /* =========================================================
+       STORAGE
+    ========================================================== */
 
     const STORAGE = {
         USERS: "vyron_users_v1",
@@ -26,70 +31,85 @@
     };
 
 
-    const PBKDF2_ITERATIONS = 120000;
-
-    const encoder = new TextEncoder();
-
     /* =========================================================
-    SESSION CONFIGURATION
-    ========================================================= */
+       SESSION CONFIGURATION
+
+       60 MINUTES OF INACTIVITY
+    ========================================================== */
 
     const SESSION_CONFIG = {
-        // Member is logged out after 5 minutes without activity.
-        INACTIVITY_TIMEOUT: 5 * 60 * 1000,
-
-        // Check inactivity every 10 seconds.
+        INACTIVITY_TIMEOUT: 60 * 60 * 1000,
         CHECK_INTERVAL: 10 * 1000,
-
-        // Do not write localStorage on every mouse movement.
         ACTIVITY_THROTTLE: 30 * 1000,
 
-        // Events that count as user activity.
         ACTIVITY_EVENTS: [
             "click",
-            "mousemove",
             "keydown",
             "scroll",
             "touchstart",
-            "touchmove"
+            "mousemove"
         ]
     };
 
 
-    /* =====================================================
+    /* =========================================================
+       CRYPTO CONFIGURATION
+    ========================================================== */
+
+    const PBKDF2_ITERATIONS = 120000;
+
+    const encoder = new TextEncoder();
+
+
+    /* =========================================================
+       INTERNAL STATE
+    ========================================================== */
+
+    let inactivityTimer = null;
+
+    let monitorStarted = false;
+
+    let lastActivityWrite = 0;
+
+    let bootCompleted = false;
+
+
+    /* =========================================================
        DOM HELPERS
-    ===================================================== */
+    ========================================================== */
 
-    const $ = (selector, root = document) =>
-        root.querySelector(selector);
-
-
-    const $$ = (selector, root = document) =>
-        [...root.querySelectorAll(selector)];
+    const $ = (selector, root = document) => {
+        return root.querySelector(selector);
+    };
 
 
-    /* =====================================================
+    const $$ = (selector, root = document) => {
+        return [...root.querySelectorAll(selector)];
+    };
+
+
+    /* =========================================================
        STORAGE HELPERS
-    ===================================================== */
+    ========================================================== */
 
     function readStorage(key, fallback = []) {
 
         try {
 
-            const value = localStorage.getItem(key);
+            const raw = localStorage.getItem(key);
 
-            if (!value) {
+            if (!raw) {
                 return fallback;
             }
 
-            const parsed = JSON.parse(value);
+            const value = JSON.parse(raw);
 
-            return parsed ?? fallback;
+            return value ?? fallback;
 
         } catch (error) {
 
-            console.warn(
-                `VYRON storage read failed for "${key}".`,
+            console.error(
+                `[VYRON AUTH] Failed to read storage "${key}":`,
                 error
             );
 
@@ -112,7 +132,7 @@
         } catch (error) {
 
             console.error(
-                `VYRON storage write failed for "${key}".`,
+                `[VYRON AUTH] Failed to write storage "${key}":`,
                 error
             );
 
@@ -121,9 +141,28 @@
     }
 
 
-    /* =====================================================
+    function getSession() {
+
+        const session =
+            readStorage(
+                STORAGE.SESSION,
+                null
+            );
+
+        if (
+            !session ||
+            typeof session !== "object"
+        ) {
+            return null;
+        }
+
+        return session;
+    }
+
+
+    /* =========================================================
        NORMALIZATION
-    ===================================================== */
+    ========================================================== */
 
     function normalizeEmail(value) {
 
@@ -133,33 +172,39 @@
     }
 
 
-    /* =====================================================
+    /* =========================================================
        VALIDATION
-    ===================================================== */
+    ========================================================== */
 
     function isValidEmail(value) {
 
         return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i
-            .test(normalizeEmail(value));
+            .test(
+                normalizeEmail(value)
+            );
     }
 
 
     function isValidName(value) {
 
         return /^[A-Za-zÀ-ÖØ-öø-ÿ' -]{2,50}$/
-            .test(String(value || "").trim());
+            .test(
+                String(value || "").trim()
+            );
     }
 
 
     function isValidPhone(value) {
 
-        const phone = String(value || "").trim();
+        const phone =
+            String(value || "").trim();
 
         if (!phone) {
             return true;
         }
 
-        return /^[+0-9][0-9 ()-]{7,18}$/.test(phone);
+        return /^[+0-9][0-9 ()-]{7,18}$/
+            .test(phone);
     }
 
 
@@ -177,9 +222,23 @@
     }
 
 
-    /* =====================================================
-       BASE64 / RANDOM DATA
-    ===================================================== */
+    /* =========================================================
+       CRYPTO HELPERS
+    ========================================================== */
+
+    function ensureCrypto() {
+
+        if (
+            !globalThis.crypto ||
+            !crypto.subtle ||
+            !crypto.getRandomValues
+        ) {
+            throw new Error(
+                "Web Crypto API is unavailable."
+            );
+        }
+    }
+
 
     function bytesToBase64(bytes) {
 
@@ -199,14 +258,18 @@
 
         return Uint8Array.from(
             binary,
-            character => character.charCodeAt(0)
+            character =>
+                character.charCodeAt(0)
         );
     }
 
 
     function randomBytes(size = 16) {
 
-        const bytes = new Uint8Array(size);
+        ensureCrypto();
+
+        const bytes =
+            new Uint8Array(size);
 
         crypto.getRandomValues(bytes);
 
@@ -215,12 +278,14 @@
 
 
     function createId() {
+
+        ensureCrypto();
+
         if (
-            globalThis.crypto &&
-            typeof globalThis.crypto.randomUUID ===
-                "function"
+            typeof crypto.randomUUID ===
+            "function"
         ) {
-            return globalThis.crypto.randomUUID();
+            return crypto.randomUUID();
         }
 
         return [
@@ -231,42 +296,40 @@
     }
 
 
-    /* =====================================================
-       PASSWORD HASHING
-    ===================================================== */
+    async function derivePasswordHash(
+        password,
+        salt
+    ) {
 
-    async function derivePasswordHash(password, salt) {
+        ensureCrypto();
 
-        const key = await crypto.subtle.importKey(
-            "raw",
-            encoder.encode(password),
-            "PBKDF2",
-            false,
-            ["deriveBits"]
-        );
+        const key =
+            await crypto.subtle.importKey(
+                "raw",
+                encoder.encode(password),
+                "PBKDF2",
+                false,
+                ["deriveBits"]
+            );
 
-
-        const bits = await crypto.subtle.deriveBits(
-            {
-                name: "PBKDF2",
-                salt,
-                iterations: PBKDF2_ITERATIONS,
-                hash: "SHA-256"
-            },
-            key,
-            256
-        );
-
+        const bits =
+            await crypto.subtle.deriveBits(
+                {
+                    name: "PBKDF2",
+                    salt,
+                    iterations:
+                        PBKDF2_ITERATIONS,
+                    hash: "SHA-256"
+                },
+                key,
+                256
+            );
 
         return bytesToBase64(
             new Uint8Array(bits)
         );
     }
 
-
-    /* =====================================================
-       CONSTANT-TIME COMPARISON
-    ===================================================== */
 
     function secureEqual(a, b) {
 
@@ -277,49 +340,70 @@
             return false;
         }
 
-
         if (a.length !== b.length) {
             return false;
         }
 
-
         let result = 0;
 
-
-        for (let index = 0; index < a.length; index++) {
+        for (
+            let index = 0;
+            index < a.length;
+            index++
+        ) {
 
             result |=
                 a.charCodeAt(index) ^
                 b.charCodeAt(index);
         }
 
-
         return result === 0;
     }
 
 
-    /* =====================================================
-       UI MESSAGES
-    ===================================================== */
+    /* =========================================================
+       AUTH MESSAGE
+    ========================================================== */
 
     function showMessage(
         message,
         type = "info"
     ) {
 
-        const element = $("#authMessage");
+        const element =
+            $("#authMessage");
 
         if (!element) {
             return;
         }
 
-
-        element.textContent = message;
+        element.textContent =
+            message;
 
         element.className =
             `auth-message show ${type}`;
     }
 
+
+    function clearMessage() {
+
+        const element =
+            $("#authMessage");
+
+        if (!element) {
+            return;
+        }
+
+        element.textContent = "";
+
+        element.className =
+            "auth-message";
+    }
+
+
+    /* =========================================================
+       FORM STATE
+    ========================================================== */
 
     function clearFormState(form) {
 
@@ -327,26 +411,26 @@
             return;
         }
 
-
         $$(".field-error", form)
             .forEach(element => {
                 element.textContent = "";
             });
 
+        $$(
+            "input, textarea, select",
+            form
+        ).forEach(input => {
 
-        $$("input", form)
-            .forEach(input => {
-                input.classList.remove("invalid");
-                input.removeAttribute("aria-invalid");
-            });
+            input.classList.remove(
+                "invalid"
+            );
 
+            input.removeAttribute(
+                "aria-invalid"
+            );
+        });
 
-        const message = $("#authMessage");
-
-        if (message) {
-            message.className = "auth-message";
-            message.textContent = "";
-        }
+        clearMessage();
     }
 
 
@@ -360,15 +444,16 @@
                 `[data-error-for="${fieldName}"]`
             );
 
-
         const input =
-            document.getElementById(fieldName);
-
+            document.getElementById(
+                fieldName
+            );
 
         if (errorElement) {
-            errorElement.textContent = message;
-        }
 
+            errorElement.textContent =
+                message;
+        }
 
         if (input) {
 
@@ -377,13 +462,15 @@
                 Boolean(message)
             );
 
-
             if (message) {
+
                 input.setAttribute(
                     "aria-invalid",
                     "true"
                 );
+
             } else {
+
                 input.removeAttribute(
                     "aria-invalid"
                 );
@@ -392,9 +479,9 @@
     }
 
 
-    /* =====================================================
-       BUTTON LOADING STATE
-    ===================================================== */
+    /* =========================================================
+       BUTTON STATE
+    ========================================================== */
 
     function setButtonLoading(
         button,
@@ -405,12 +492,17 @@
             return;
         }
 
+        if (
+            !button.dataset
+                .originalContent
+        ) {
+
+            button.dataset
+                .originalContent =
+                button.innerHTML;
+        }
 
         button.disabled = true;
-
-        button.dataset.originalContent =
-            button.innerHTML;
-
 
         button.innerHTML = `
             <span>${text}</span>
@@ -428,36 +520,39 @@
             return;
         }
 
-
         button.disabled = false;
 
-
-        if (button.dataset.originalContent) {
+        if (
+            button.dataset
+                .originalContent
+        ) {
 
             button.innerHTML =
-                button.dataset.originalContent;
+                button.dataset
+                    .originalContent;
 
-
-            delete button.dataset.originalContent;
+            delete button.dataset
+                .originalContent;
         }
     }
 
 
-    /* =====================================================
-       REGISTERED USER COUNT
-    ===================================================== */
+    /* =========================================================
+       USER COUNT
+    ========================================================== */
 
     function updateUserCount() {
 
         const users =
-            readStorage(STORAGE.USERS, []);
-
+            readStorage(
+                STORAGE.USERS,
+                []
+            );
 
         const count =
             Array.isArray(users)
                 ? users.length
                 : 0;
-
 
         $$("[data-user-count]")
             .forEach(element => {
@@ -468,113 +563,146 @@
     }
 
 
-    /* =====================================================
-       PASSWORD VISIBILITY
-    ===================================================== */
+    function hasRegisteredAccounts() {
 
-    function initializePasswordToggles() {
-        $$("[data-toggle-password]")
-            .forEach(button => {
+        const users =
+            readStorage(
+                STORAGE.USERS,
+                []
+            );
 
-                if (
-                    button.dataset.passwordToggleInitialized ===
-                    "true"
-                ) {
-                    return;
-                }
-
-                button.dataset.passwordToggleInitialized =
-                    "true";
-
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        const input =
-                            document.getElementById(
-                                button.dataset.togglePassword
-                            );
-
-                        if (!input) {
-                            return;
-                        }
-
-                        const showingPassword =
-                            input.type === "text";
-
-                        input.type =
-                            showingPassword
-                                ? "password"
-                                : "text";
-
-                        button.setAttribute(
-                            "aria-pressed",
-                            String(!showingPassword)
-                        );
-
-                        button.setAttribute(
-                            "aria-label",
-                            showingPassword
-                                ? "Show password"
-                                : "Hide password"
-                        );
-
-                        button.innerHTML =
-                            showingPassword
-                                ? `
-                                    <i
-                                        class="fa-regular fa-eye"
-                                        aria-hidden="true"
-                                    ></i>
-                                `
-                                : `
-                                    <i
-                                        class="fa-regular fa-eye-slash"
-                                        aria-hidden="true"
-                                    ></i>
-                                `;
-                    }
-                );
-            });
+        return (
+            Array.isArray(users) &&
+            users.length > 0
+        );
     }
 
 
-    /* =====================================================
+    /* =========================================================
+       PASSWORD VISIBILITY
+    ========================================================== */
+
+    function initializePasswordToggles() {
+
+        $$(
+            "[data-toggle-password]"
+        ).forEach(button => {
+
+            if (
+                button.dataset
+                    .authPasswordInitialized ===
+                "true"
+            ) {
+                return;
+            }
+
+            button.dataset
+                .authPasswordInitialized =
+                "true";
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const input =
+                        document.getElementById(
+                            button.dataset
+                                .togglePassword
+                        );
+
+                    if (!input) {
+                        return;
+                    }
+
+                    const showing =
+                        input.type === "text";
+
+                    input.type =
+                        showing
+                            ? "password"
+                            : "text";
+
+                    button.setAttribute(
+                        "aria-label",
+                        showing
+                            ? "Show password"
+                            : "Hide password"
+                    );
+
+                    button.setAttribute(
+                        "aria-pressed",
+                        String(!showing)
+                    );
+
+                    button.innerHTML =
+                        showing
+                            ? `
+                                <i
+                                    class="fa-regular fa-eye"
+                                    aria-hidden="true"
+                                ></i>
+                              `
+                            : `
+                                <i
+                                    class="fa-regular fa-eye-slash"
+                                    aria-hidden="true"
+                                ></i>
+                              `;
+                }
+            );
+        });
+    }
+
+
+    /* =========================================================
        PASSWORD STRENGTH
-    ===================================================== */
+    ========================================================== */
 
     function initializePasswordStrength() {
-        const input = $("#password");
+
+        const input =
+            $("#password");
+
         const meter =
             $(".password-strength span");
 
-        if (!input || !meter) {
+        if (
+            !input ||
+            !meter
+        ) {
             return;
         }
 
         if (
-            input.dataset.strengthInitialized ===
+            input.dataset
+                .authStrengthInitialized ===
             "true"
         ) {
             return;
         }
 
-        input.dataset.strengthInitialized =
+        input.dataset
+            .authStrengthInitialized =
             "true";
 
         input.addEventListener(
             "input",
             () => {
+
                 const password =
                     input.value;
 
                 let score = 0;
 
-                if (password.length >= 8) {
+                if (
+                    password.length >= 8
+                ) {
                     score++;
                 }
 
-                if (password.length >= 12) {
+                if (
+                    password.length >= 12
+                ) {
                     score++;
                 }
 
@@ -591,7 +719,9 @@
                 }
 
                 if (
-                    /[^A-Za-z0-9]/.test(password)
+                    /[^A-Za-z0-9]/.test(
+                        password
+                    )
                 ) {
                     score++;
                 }
@@ -610,8 +740,106 @@
 
 
     /* =========================================================
-    SAFE REDIRECT
-    ========================================================= */
+       ROUTING
+
+       IMPORTANT:
+       Login and signup pages are NOT automatically
+       redirected during boot.
+
+       This prevents an authentication redirect loop.
+
+       Redirects happen only when:
+       - login succeeds
+       - signup succeeds
+       - protected dashboard requires authentication
+       - logout happens
+    ========================================================== */
+
+    function isInsideAuthDirectory() {
+
+        return window.location.pathname
+            .replace(/\\/g, "/")
+            .includes("/auth/");
+    }
+
+
+    function dashboardUrl() {
+
+        return isInsideAuthDirectory()
+            ? "../member-dashboard.html"
+            : "member-dashboard.html";
+    }
+
+
+    function loginUrl() {
+
+        return isInsideAuthDirectory()
+            ? "login.html"
+            : "auth/login.html";
+    }
+
+
+    function signupUrl() {
+
+        return isInsideAuthDirectory()
+            ? "signup.html"
+            : "auth/signup.html";
+    }
+
+
+    function redirectToLogin(
+        redirect = ""
+    ) {
+
+        const url =
+            loginUrl();
+
+        let destination = url;
+
+        if (redirect) {
+
+            destination +=
+                `?redirect=${encodeURIComponent(
+                    redirect
+                )}`;
+        }
+
+        window.location.replace(
+            destination
+        );
+    }
+
+
+    function redirectToSignup(
+        redirect = ""
+    ) {
+
+        const url =
+            signupUrl();
+
+        let destination = url;
+
+        if (redirect) {
+
+            destination +=
+                `?redirect=${encodeURIComponent(
+                    redirect
+                )}`;
+        }
+
+        window.location.replace(
+            destination
+        );
+    }
+
+
+    function redirectToDashboard() {
+
+        window.location.replace(
+            dashboardUrl()
+        );
+    }
+
 
     function getSafeRedirect() {
 
@@ -620,62 +848,72 @@
                 window.location.search
             ).get("redirect");
 
+        const fallback =
+            dashboardUrl();
+
         if (!requested) {
-            return "../member-dashboard.html";
+            return fallback;
         }
 
-        // Block external redirects
         if (
             /^https?:/i.test(requested) ||
             /^\/\//.test(requested) ||
-            /javascript:/i.test(requested)
+            /^javascript:/i.test(requested)
         ) {
-            return "../member-dashboard.html";
+
+            console.warn(
+                "[VYRON AUTH] Unsafe redirect blocked."
+            );
+
+            return fallback;
         }
 
         const cleaned =
-            requested.replace(/^\/+/, "");
+            requested
+                .replace(/^\/+/, "");
 
-        return cleaned.startsWith("../")
-            ? cleaned
-            : `../${cleaned}`;
+        if (
+            cleaned ===
+                "member-dashboard.html" ||
+            cleaned ===
+                "../member-dashboard.html"
+        ) {
+            return fallback;
+        }
+
+        return fallback;
     }
+
 
     /* =========================================================
-    AUTHENTICATION STATE
-    ========================================================= */
-
-    function getSession() {
-
-        return readStorage(
-            STORAGE.SESSION,
-            null
-        );
-    }
+       SESSION VALIDATION
+    ========================================================== */
 
     function isSessionValid() {
-        const session = getSession();
 
-        if (!session || typeof session !== "object") {
+        const session =
+            getSession();
+
+        if (
+            !session ||
+            typeof session !== "object"
+        ) {
             return false;
         }
 
-        const now = Date.now();
-
-        const createdAtTimestamp =
-            Number(
-                session.createdAtTimestamp ||
-                new Date(session.createdAt).getTime()
-            );
-
-        const lastActivityAt =
+        const lastActivity =
             Number(
                 session.lastActivityAt ||
-                createdAtTimestamp ||
+                session.createdAtTimestamp ||
                 0
             );
 
-        if (!lastActivityAt) {
+        if (
+            !lastActivity ||
+            !session.userId ||
+            !session.email
+        ) {
+
             localStorage.removeItem(
                 STORAGE.SESSION
             );
@@ -683,31 +921,15 @@
             return false;
         }
 
-        /*
-        * Five-minute inactivity timeout.
-        */
+        const inactiveFor =
+            Date.now() -
+            lastActivity;
+
         if (
-            now - lastActivityAt >=
+            inactiveFor >=
             SESSION_CONFIG.INACTIVITY_TIMEOUT
         ) {
-            localStorage.removeItem(
-                STORAGE.SESSION
-            );
 
-            return false;
-        }
-
-        /*
-        * Keep expiresAt synchronized with
-        * the inactivity timestamp.
-        */
-        const expiresAt =
-            Number(session.expiresAt || 0);
-
-        if (
-            expiresAt &&
-            now >= expiresAt
-        ) {
             localStorage.removeItem(
                 STORAGE.SESSION
             );
@@ -718,29 +940,84 @@
         return true;
     }
 
+
     /* =========================================================
-    INACTIVITY SESSION MANAGEMENT
-    ========================================================= */
+       SESSION ACTIVITY
+    ========================================================== */
 
-    let inactivityCheckTimer = null;
-    let inactivityMonitorStarted = false;
+    function updateSessionActivity(
+        force = false
+    ) {
 
-    function getLastActivity() {
-        const session = getSession();
+        const session =
+            getSession();
 
         if (!session) {
-            return 0;
+            return;
         }
 
-        return Number(
-            session.lastActivityAt ||
-            session.createdAtTimestamp ||
-            0
-        );
+        const now =
+            Date.now();
+
+        if (
+            !force &&
+            now - lastActivityWrite <
+                SESSION_CONFIG.ACTIVITY_THROTTLE
+        ) {
+            return;
+        }
+
+        session.lastActivityAt =
+            now;
+
+        session.expiresAt =
+            now +
+            SESSION_CONFIG.INACTIVITY_TIMEOUT;
+
+        if (
+            writeStorage(
+                STORAGE.SESSION,
+                session
+            )
+        ) {
+
+            lastActivityWrite =
+                now;
+        }
+    }
+
+
+    function stopInactivityMonitor() {
+
+        SESSION_CONFIG
+            .ACTIVITY_EVENTS
+            .forEach(eventName => {
+
+                document.removeEventListener(
+                    eventName,
+                    updateSessionActivity
+                );
+            });
+
+        if (
+            inactivityTimer !== null
+        ) {
+
+            clearInterval(
+                inactivityTimer
+            );
+
+            inactivityTimer =
+                null;
+        }
+
+        monitorStarted =
+            false;
     }
 
 
     function expireSession() {
+
         localStorage.removeItem(
             STORAGE.SESSION
         );
@@ -753,32 +1030,26 @@
 
         if (
             pathname.includes(
-                "/member-dashboard.html"
+                "member-dashboard.html"
             )
         ) {
-            const currentPage =
-                pathname
-                    .split("/")
-                    .pop() ||
-                "member-dashboard.html";
-
-            const redirect =
-                `../${currentPage}`;
 
             window.location.replace(
-                `auth/login.html?timeout=1&redirect=${encodeURIComponent(
-                    redirect
-                )}`
+                "auth/login.html?timeout=1"
             );
         }
     }
 
 
     function checkSessionInactivity() {
-        const session = getSession();
+
+        const session =
+            getSession();
 
         if (!session) {
+
             stopInactivityMonitor();
+
             return;
         }
 
@@ -790,82 +1061,39 @@
             );
 
         if (!lastActivity) {
+
             expireSession();
+
             return;
         }
 
-        const inactiveFor =
-            Date.now() - lastActivity;
-
         if (
-            inactiveFor >=
+            Date.now() -
+                lastActivity >=
             SESSION_CONFIG.INACTIVITY_TIMEOUT
         ) {
-            console.log(
-                "[VYRON AUTH] Session expired due to inactivity."
-            );
 
             expireSession();
-        }
-    }
-
-    let lastActivityWrite = 0;
-
-    function updateSessionActivity() {
-        const session = getSession();
-
-        if (!session) {
-            return;
-        }
-
-        const now = Date.now();
-
-        /*
-        * Prevent excessive localStorage writes.
-        */
-        if (
-            now - lastActivityWrite <
-            SESSION_CONFIG.ACTIVITY_THROTTLE
-        ) {
-            return;
-        }
-
-        session.lastActivityAt = now;
-
-        /*
-        * Sliding inactivity expiration.
-        *
-        * The session expires 5 minutes AFTER
-        * the user's last recorded activity.
-        */
-        session.expiresAt =
-            now +
-            SESSION_CONFIG.INACTIVITY_TIMEOUT;
-
-        const saved = writeStorage(
-            STORAGE.SESSION,
-            session
-        );
-
-        if (saved) {
-            lastActivityWrite = now;
         }
     }
 
 
     function startInactivityMonitor() {
-        if (inactivityMonitorStarted) {
+
+        if (
+            monitorStarted ||
+            !isSessionValid()
+        ) {
             return;
         }
 
-        if (!isSessionValid()) {
-            return;
-        }
+        monitorStarted =
+            true;
 
-        inactivityMonitorStarted = true;
+        SESSION_CONFIG
+            .ACTIVITY_EVENTS
+            .forEach(eventName => {
 
-        SESSION_CONFIG.ACTIVITY_EVENTS.forEach(
-            eventName => {
                 document.addEventListener(
                     eventName,
                     updateSessionActivity,
@@ -873,286 +1101,96 @@
                         passive: true
                     }
                 );
-            }
-        );
+            });
 
-        inactivityCheckTimer =
+        inactivityTimer =
             window.setInterval(
                 checkSessionInactivity,
                 SESSION_CONFIG.CHECK_INTERVAL
             );
 
-        console.log(
-            "[VYRON AUTH] Inactivity monitor started."
-        );
-    }
-
-
-    function stopInactivityMonitor() {
-        SESSION_CONFIG.ACTIVITY_EVENTS.forEach(
-            eventName => {
-                document.removeEventListener(
-                    eventName,
-                    updateSessionActivity
-                );
-            }
-        );
-
-        if (inactivityCheckTimer !== null) {
-            window.clearInterval(
-                inactivityCheckTimer
-            );
-
-            inactivityCheckTimer = null;
-        }
-
-        inactivityMonitorStarted = false;
-
-        console.log(
-            "[VYRON AUTH] Inactivity monitor stopped."
-        );
-    }
-
-    function hasRegisteredAccounts() {
-
-        const users =
-            readStorage(
-                STORAGE.USERS,
-                []
-            );
-
-        return (
-            Array.isArray(users) &&
-            users.length > 0
-        );
+        updateSessionActivity(true);
     }
 
 
     /* =========================================================
-    AUTH ROUTES
-    ========================================================= */
-
-    /*
-    * VYRON directory structure:
-    *
-    * /index.html
-    * /member-dashboard.html
-    * /auth/login.html
-    * /auth/signup.html
-    * /auth/forgot-password.html
-    * /auth/reset-password.html
-    *
-    * Because auth pages live inside /auth/,
-    * dashboard is one level above them.
-    */
-
-    /* =========================================================
-    AUTH ROUTES
-    ========================================================= */
-
-    function isInsideAuthDirectory() {
-        return window.location.pathname
-            .replace(/\\/g, "/")
-            .includes("/auth/");
-    }
-
-
-    /* ---------------------------------------------------------
-    LOGIN
-    --------------------------------------------------------- */
-
-    function redirectToLogin(redirect = "") {
-
-        const url = isInsideAuthDirectory()
-            ? "login.html"
-            : "auth/login.html";
-
-        const finalUrl = redirect
-            ? `${url}?redirect=${encodeURIComponent(redirect)}`
-            : url;
-
-        window.location.replace(finalUrl);
-    }
-
-
-    /* ---------------------------------------------------------
-    SIGNUP
-    --------------------------------------------------------- */
-
-    function redirectToSignup(redirect = "") {
-
-        const url = isInsideAuthDirectory()
-            ? "signup.html"
-            : "auth/signup.html";
-
-        const finalUrl = redirect
-            ? `${url}?redirect=${encodeURIComponent(redirect)}`
-            : url;
-
-        window.location.replace(finalUrl);
-    }
-
-
-    /* ---------------------------------------------------------
-    DASHBOARD
-    --------------------------------------------------------- */
-
-    function redirectToDashboard() {
-
-        const dashboardUrl = isInsideAuthDirectory()
-            ? "../member-dashboard.html"
-            : "member-dashboard.html";
-
-        window.location.replace(dashboardUrl);
-    }
-
-
-    /* =========================================================
-    AUTH PAGE ROUTING
-    ========================================================= */
-
-    function routeUserToAuthentication() {
-
-        if (isSessionValid()) {
-
-            redirectToDashboard();
-
-            return;
-        }
-
-        if (hasRegisteredAccounts()) {
-
-            redirectToLogin();
-
-            return;
-        }
-
-        redirectToSignup();
-    }
-
-
-    /* =========================================================
-    PROTECTED PAGE GUARD
-    ========================================================= */
+       PROTECTED DASHBOARD AUTHENTICATION
+    ========================================================== */
 
     function requireAuthentication() {
-        if (isSessionValid()) {
-
-            updateSessionActivity();
-            startInactivityMonitor();
-
-            return true;
-        }
-
-        localStorage.removeItem(
-            STORAGE.SESSION
-        );
-
-        stopInactivityMonitor();
-
-        const currentPage =
-            window.location.pathname
-                .split("/")
-                .pop();
-
-        const requestedPage =
-            currentPage &&
-            currentPage !== "login.html" &&
-            currentPage !== "signup.html"
-                ? currentPage
-                : "";
-
-        if (hasRegisteredAccounts()) {
-            redirectToLogin(
-                requestedPage
-            );
-        } else {
-            redirectToSignup(
-                requestedPage
-            );
-        }
-
-        return false;
-    }
-
-
-    /* =========================================================
-    PUBLIC AUTH PAGE GUARD
-    ========================================================= */
-
-    function preventAuthenticatedAuthPage() {
 
         if (!isSessionValid()) {
+
+            stopInactivityMonitor();
+
+            redirectToLogin(
+                "member-dashboard.html"
+            );
+
             return false;
         }
 
-        redirectToDashboard();
+        updateSessionActivity(true);
+
+        startInactivityMonitor();
 
         return true;
     }
 
 
-    /* =====================================================
+    /* =========================================================
        SIGNUP
-    ===================================================== */
+    ========================================================== */
 
     async function handleSignup(form) {
 
         clearFormState(form);
 
-
         const data =
             new FormData(form);
-
 
         const firstName =
             String(
                 data.get("firstName") || ""
             ).trim();
 
-
         const lastName =
             String(
                 data.get("lastName") || ""
             ).trim();
-
 
         const email =
             normalizeEmail(
                 data.get("email")
             );
 
-
         const phone =
             String(
                 data.get("phone") || ""
             ).trim();
-
 
         const password =
             String(
                 data.get("password") || ""
             );
 
-
         const confirmPassword =
             String(
-                data.get("confirmPassword") || ""
+                data.get("confirmPassword") ||
+                ""
             );
-
 
         const termsAccepted =
             data.get("terms") === "on";
 
-
         let valid = true;
 
 
-        /* ---------------------------------------------
-           First Name
-        --------------------------------------------- */
+        /* FIRST NAME */
 
-        if (!isValidName(firstName)) {
+        if (
+            !isValidName(firstName)
+        ) {
 
             showFieldError(
                 "firstName",
@@ -1163,11 +1201,11 @@
         }
 
 
-        /* ---------------------------------------------
-           Last Name
-        --------------------------------------------- */
+        /* LAST NAME */
 
-        if (!isValidName(lastName)) {
+        if (
+            !isValidName(lastName)
+        ) {
 
             showFieldError(
                 "lastName",
@@ -1178,11 +1216,11 @@
         }
 
 
-        /* ---------------------------------------------
-           Email
-        --------------------------------------------- */
+        /* EMAIL */
 
-        if (!isValidEmail(email)) {
+        if (
+            !isValidEmail(email)
+        ) {
 
             showFieldError(
                 "email",
@@ -1193,11 +1231,11 @@
         }
 
 
-        /* ---------------------------------------------
-           Phone
-        --------------------------------------------- */
+        /* PHONE */
 
-        if (!isValidPhone(phone)) {
+        if (
+            !isValidPhone(phone)
+        ) {
 
             showFieldError(
                 "phone",
@@ -1208,11 +1246,11 @@
         }
 
 
-        /* ---------------------------------------------
-           Password
-        --------------------------------------------- */
+        /* PASSWORD */
 
-        if (!isStrongPassword(password)) {
+        if (
+            !isStrongPassword(password)
+        ) {
 
             showFieldError(
                 "password",
@@ -1223,11 +1261,12 @@
         }
 
 
-        /* ---------------------------------------------
-           Confirm Password
-        --------------------------------------------- */
+        /* CONFIRM PASSWORD */
 
-        if (password !== confirmPassword) {
+        if (
+            password !==
+            confirmPassword
+        ) {
 
             showFieldError(
                 "confirmPassword",
@@ -1238,9 +1277,7 @@
         }
 
 
-        /* ---------------------------------------------
-           Terms
-        --------------------------------------------- */
+        /* TERMS */
 
         if (!termsAccepted) {
 
@@ -1253,9 +1290,7 @@
         }
 
 
-        /* ---------------------------------------------
-           Stop if invalid
-        --------------------------------------------- */
+        /* STOP INVALID FORM */
 
         if (!valid) {
 
@@ -1268,9 +1303,7 @@
         }
 
 
-        /* ---------------------------------------------
-           Read existing users
-        --------------------------------------------- */
+        /* READ USERS */
 
         const users =
             readStorage(
@@ -1278,23 +1311,35 @@
                 []
             );
 
+        if (
+            !Array.isArray(users)
+        ) {
 
-        const existingUser =
-            Array.isArray(users)
-                ? users.some(
-                    user =>
-                        user.email === email
-                )
-                : false;
+            showMessage(
+                "Account storage is unavailable. Please try again.",
+                "error"
+            );
+
+            return;
+        }
 
 
-        if (existingUser) {
+        /* DUPLICATE EMAIL */
+
+        const exists =
+            users.some(
+                user =>
+                    normalizeEmail(
+                        user.email
+                    ) === email
+            );
+
+        if (exists) {
 
             showFieldError(
                 "email",
                 "An account with this email already exists."
             );
-
 
             showMessage(
                 "An account already exists. Please sign in instead.",
@@ -1305,29 +1350,19 @@
         }
 
 
-        const submitButton =
+        const button =
             $("#signupSubmit");
 
-
         setButtonLoading(
-            submitButton,
+            button,
             "CREATING ACCOUNT..."
         );
 
 
         try {
 
-            /* -----------------------------------------
-               Generate salt
-            ----------------------------------------- */
-
             const salt =
                 randomBytes();
-
-
-            /* -----------------------------------------
-               Derive password hash
-            ----------------------------------------- */
 
             const passwordHash =
                 await derivePasswordHash(
@@ -1335,10 +1370,6 @@
                     salt
                 );
 
-
-            /* -----------------------------------------
-               Create user
-            ----------------------------------------- */
 
             const user = {
 
@@ -1355,21 +1386,21 @@
                 passwordHash,
 
                 salt:
-                    bytesToBase64(salt),
+                    bytesToBase64(
+                        salt
+                    ),
 
                 createdAt:
-                    new Date().toISOString(),
+                    new Date()
+                        .toISOString(),
 
-                status: "active"
+                status:
+                    "active"
             };
 
 
             users.push(user);
 
-
-            /* -----------------------------------------
-               Save
-            ----------------------------------------- */
 
             const saved =
                 writeStorage(
@@ -1379,15 +1410,12 @@
 
 
             if (!saved) {
+
                 throw new Error(
                     "Unable to save account."
                 );
             }
 
-
-            /* -----------------------------------------
-               Update UI
-            ----------------------------------------- */
 
             updateUserCount();
 
@@ -1398,77 +1426,87 @@
             );
 
 
-            /* -----------------------------------------
-               Redirect
-            ----------------------------------------- */
+            const requested =
+                new URLSearchParams(
+                    window.location.search
+                ).get("redirect");
+
+
+            let destination =
+                `login.html?registered=1&email=${encodeURIComponent(
+                    email
+                )}`;
+
+
+            if (requested) {
+
+                destination +=
+                    `&redirect=${encodeURIComponent(
+                        requested
+                    )}`;
+            }
+
 
             window.setTimeout(
                 () => {
-
-                    const requested =
-                        new URLSearchParams(
-                            window.location.search
-                        ).get("redirect");
-
-                    let destination =
-                        "login.html?registered=1&email=" +
-                        encodeURIComponent(email);
-
-                    if (requested) {
-
-                        destination +=
-                            "&redirect=" +
-                            encodeURIComponent(requested);
-                    }
 
                     window.location.replace(
                         destination
                     );
 
                 },
-                850
+                700
             );
-
 
         } catch (error) {
 
             console.error(
-                "VYRON signup error:",
+                "[VYRON AUTH] Signup error:",
                 error
             );
 
 
-            showMessage(
-                "We could not create the account. Please try again.",
-                "error"
-            );
+            if (
+                error.message &&
+                error.message.includes(
+                    "Web Crypto"
+                )
+            ) {
+
+                showMessage(
+                    "Secure account creation requires HTTPS or localhost.",
+                    "error"
+                );
+
+            } else {
+
+                showMessage(
+                    "We could not create the account. Please try again.",
+                    "error"
+                );
+            }
 
 
-            restoreButton(
-                submitButton
-            );
+            restoreButton(button);
         }
     }
 
 
-    /* =====================================================
+    /* =========================================================
        LOGIN
-    ===================================================== */
+    ========================================================== */
 
     async function handleLogin(form) {
 
         clearFormState(form);
 
-
         const data =
             new FormData(form);
-
 
         const email =
             normalizeEmail(
                 data.get("email")
             );
-
 
         const password =
             String(
@@ -1479,7 +1517,11 @@
         let valid = true;
 
 
-        if (!isValidEmail(email)) {
+        /* EMAIL */
+
+        if (
+            !isValidEmail(email)
+        ) {
 
             showFieldError(
                 "email",
@@ -1489,6 +1531,8 @@
             valid = false;
         }
 
+
+        /* PASSWORD */
 
         if (!password) {
 
@@ -1504,7 +1548,7 @@
         if (!valid) {
 
             showMessage(
-                "Enter your email and password to continue.",
+                "Please correct the highlighted fields before signing in.",
                 "error"
             );
 
@@ -1514,7 +1558,6 @@
 
         const button =
             $("#loginSubmit");
-
 
         setButtonLoading(
             button,
@@ -1531,18 +1574,35 @@
                 );
 
 
+            if (
+                !Array.isArray(users)
+            ) {
+
+                throw new Error(
+                    "Account storage is unavailable."
+                );
+            }
+
+
             const user =
-                Array.isArray(users)
-                    ? users.find(
-                        item =>
-                            item.email === email
-                    )
-                    : null;
+                users.find(
+                    item =>
+                        normalizeEmail(
+                            item.email
+                        ) === email
+                );
 
 
-            if (!user) {
+            /* ACCOUNT NOT FOUND */
 
-                await delay(350);
+            if (
+                !user
+            ) {
+
+                showFieldError(
+                    "email",
+                    "No VYRON account was found with this email."
+                );
 
                 showMessage(
                     "The email or password is incorrect.",
@@ -1555,21 +1615,55 @@
             }
 
 
-            const hash =
-                await derivePasswordHash(
-                    password,
-                    base64ToBytes(user.salt)
+            /* CORRUPTED USER RECORD */
+
+            if (
+                !user.salt ||
+                !user.passwordHash
+            ) {
+
+                showMessage(
+                    "This account record is incomplete. Please create a new account.",
+                    "error"
                 );
+
+                restoreButton(button);
+
+                return;
+            }
+
+
+            /* PASSWORD CHECK */
+
+            let passwordHash;
+
+            try {
+
+                passwordHash =
+                    await derivePasswordHash(
+                        password,
+                        base64ToBytes(
+                            user.salt
+                        )
+                    );
+
+            } catch (error) {
+
+                throw error;
+            }
 
 
             if (
                 !secureEqual(
-                    hash,
+                    passwordHash,
                     user.passwordHash
                 )
             ) {
 
-                await delay(350);
+                showFieldError(
+                    "password",
+                    "The password does not match this account."
+                );
 
                 showMessage(
                     "The email or password is incorrect.",
@@ -1582,21 +1676,27 @@
             }
 
 
-            /* -----------------------------------------
-               Create session
-            ----------------------------------------- */
+            /* SUCCESSFUL LOGIN */
 
-            const now = Date.now();
+            const now =
+                Date.now();
+
 
             const session = {
-                userId: user.id,
-                email: user.email,
+
+                userId:
+                    user.id,
+
+                email:
+                    user.email,
 
                 name:
-                    `${user.firstName} ${user.lastName}`,
+                    `${user.firstName} ${user.lastName}`.trim(),
 
                 createdAt:
-                    new Date(now).toISOString(),
+                    new Date(
+                        now
+                    ).toISOString(),
 
                 createdAtTimestamp:
                     now,
@@ -1606,8 +1706,12 @@
 
                 expiresAt:
                     now +
-                    SESSION_CONFIG.INACTIVITY_TIMEOUT
+                    SESSION_CONFIG.INACTIVITY_TIMEOUT,
+
+                rememberMe:
+                    data.get("remember") === "on"
             };
+
 
             const sessionSaved =
                 writeStorage(
@@ -1615,19 +1719,45 @@
                     session
                 );
 
+
             if (!sessionSaved) {
+
                 throw new Error(
                     "Unable to create login session."
                 );
             }
 
-            startInactivityMonitor();
+
+            /* Immediately verify session */
+
+            if (!isSessionValid()) {
+
+                throw new Error(
+                    "Login session could not be verified."
+                );
+            }
+
+
+            updateSessionActivity(true);
 
 
             showMessage(
-                "Login successful. Opening VYRON...",
+                "Login successful. Opening your VYRON dashboard...",
                 "success"
             );
+
+
+            /*
+                IMPORTANT:
+
+                There is only ONE redirect here.
+
+                Login
+                   ↓
+                member-dashboard.html
+
+                No intermediate authentication route.
+            */
 
             window.setTimeout(
                 () => {
@@ -1637,22 +1767,36 @@
                     );
 
                 },
-                600
+                500
             );
-
 
         } catch (error) {
 
             console.error(
-                "VYRON login error:",
+                "[VYRON AUTH] Login error:",
                 error
             );
 
 
-            showMessage(
-                "We could not complete the login. Please try again.",
-                "error"
-            );
+            if (
+                error.message &&
+                error.message.includes(
+                    "Web Crypto"
+                )
+            ) {
+
+                showMessage(
+                    "Secure login requires HTTPS or localhost.",
+                    "error"
+                );
+
+            } else {
+
+                showMessage(
+                    "We could not complete the login. Please try again.",
+                    "error"
+                );
+            }
 
 
             restoreButton(button);
@@ -1660,11 +1804,25 @@
     }
 
 
-    /* =====================================================
+    /* =========================================================
        FORGOT PASSWORD
-    ===================================================== */
+    ========================================================== */
 
-    function generateResetToken(email) {
+    function getResetToken() {
+
+        return (
+            new URLSearchParams(
+                window.location.search
+            ).get("token") ||
+            $("#resetToken")?.value ||
+            ""
+        );
+    }
+
+
+    function generateResetToken(
+        email
+    ) {
 
         const tokens =
             readStorage(
@@ -1677,7 +1835,8 @@
             Array.isArray(tokens)
                 ? tokens.filter(
                     token =>
-                        token.expiresAt > Date.now() &&
+                        token.expiresAt >
+                            Date.now() &&
                         !token.used
                 )
                 : [];
@@ -1687,8 +1846,14 @@
             bytesToBase64(
                 randomBytes(32)
             )
-            .replace(/[+/=]/g, "")
-            .slice(0, 48);
+                .replace(
+                    /[+/=]/g,
+                    ""
+                )
+                .slice(
+                    0,
+                    48
+                );
 
 
         activeTokens.push({
@@ -1701,9 +1866,11 @@
                 Date.now(),
 
             expiresAt:
-                Date.now() + 900000,
+                Date.now() +
+                15 * 60 * 1000,
 
-            used: false
+            used:
+                false
         });
 
 
@@ -1717,7 +1884,9 @@
     }
 
 
-    async function handleForgotPassword(form) {
+    async function handleForgotPassword(
+        form
+    ) {
 
         clearFormState(form);
 
@@ -1729,13 +1898,14 @@
             );
 
 
-        if (!isValidEmail(email)) {
+        if (
+            !isValidEmail(email)
+        ) {
 
             showFieldError(
                 "email",
                 "Enter a valid email address."
             );
-
 
             showMessage(
                 "Enter a valid email address.",
@@ -1771,24 +1941,28 @@
                 Array.isArray(users) &&
                 users.some(
                     user =>
-                        user.email === email
+                        normalizeEmail(
+                            user.email
+                        ) === email
                 );
 
 
             if (exists) {
 
                 const token =
-                    generateResetToken(email);
+                    generateResetToken(
+                        email
+                    );
 
 
-                window.location.href =
-                    `reset-password.html?token=${encodeURIComponent(token)}`;
+                window.location.replace(
+                    `reset-password.html?token=${encodeURIComponent(
+                        token
+                    )}`
+                );
 
                 return;
             }
-
-
-            await delay(500);
 
 
             showMessage(
@@ -1799,11 +1973,10 @@
 
             restoreButton(button);
 
-
         } catch (error) {
 
             console.error(
-                "VYRON recovery error:",
+                "[VYRON AUTH] Recovery error:",
                 error
             );
 
@@ -1819,23 +1992,13 @@
     }
 
 
-    /* =====================================================
+    /* =========================================================
        RESET PASSWORD
-    ===================================================== */
+    ========================================================== */
 
-    function getResetToken() {
-
-        return (
-            new URLSearchParams(
-                window.location.search
-            ).get("token") ||
-            $("#resetToken")?.value ||
-            ""
-        );
-    }
-
-
-    async function handleResetPassword(form) {
+    async function handleResetPassword(
+        form
+    ) {
 
         clearFormState(form);
 
@@ -1856,7 +2019,8 @@
 
         const confirmPassword =
             String(
-                data.get("confirmPassword") || ""
+                data.get("confirmPassword") ||
+                ""
             );
 
 
@@ -1874,7 +2038,11 @@
         let valid = true;
 
 
-        if (!isStrongPassword(password)) {
+        if (
+            !isStrongPassword(
+                password
+            )
+        ) {
 
             showFieldError(
                 "password",
@@ -1885,7 +2053,10 @@
         }
 
 
-        if (password !== confirmPassword) {
+        if (
+            password !==
+            confirmPassword
+        ) {
 
             showFieldError(
                 "confirmPassword",
@@ -1928,18 +2099,19 @@
                 );
 
 
-            const resetRequest =
+            const request =
                 Array.isArray(tokens)
                     ? tokens.find(
                         item =>
                             item.token === token &&
                             !item.used &&
-                            item.expiresAt > Date.now()
+                            item.expiresAt >
+                                Date.now()
                     )
                     : null;
 
 
-            if (!resetRequest) {
+            if (!request) {
 
                 showMessage(
                     "This reset link has expired or has already been used.",
@@ -1963,13 +2135,19 @@
                 Array.isArray(users)
                     ? users.findIndex(
                         user =>
-                            user.email ===
-                            resetRequest.email
+                            normalizeEmail(
+                                user.email
+                            ) ===
+                            normalizeEmail(
+                                request.email
+                            )
                     )
                     : -1;
 
 
-            if (userIndex < 0) {
+            if (
+                userIndex < 0
+            ) {
 
                 showMessage(
                     "This reset request is no longer valid.",
@@ -1993,38 +2171,49 @@
                 );
 
 
-            users[userIndex].passwordHash =
+            users[userIndex]
+                .passwordHash =
                 passwordHash;
 
 
-            users[userIndex].salt =
-                bytesToBase64(salt);
-
-
-            users[userIndex].passwordChangedAt =
-                new Date().toISOString();
-
-
-            writeStorage(
-                STORAGE.USERS,
-                users
-            );
-
-
-            resetRequest.used = true;
-
-
-            const activeTokens =
-                tokens.filter(
-                    item =>
-                        !item.used &&
-                        item.expiresAt > Date.now()
+            users[userIndex]
+                .salt =
+                bytesToBase64(
+                    salt
                 );
+
+
+            users[userIndex]
+                .passwordChangedAt =
+                new Date()
+                    .toISOString();
+
+
+            if (
+                !writeStorage(
+                    STORAGE.USERS,
+                    users
+                )
+            ) {
+
+                throw new Error(
+                    "Unable to save password."
+                );
+            }
+
+
+            request.used =
+                true;
 
 
             writeStorage(
                 STORAGE.RESET,
-                activeTokens
+                tokens.filter(
+                    item =>
+                        !item.used &&
+                        item.expiresAt >
+                            Date.now()
+                )
             );
 
 
@@ -2041,17 +2230,19 @@
 
             window.setTimeout(
                 () => {
-                    window.location.href =
-                        "login.html?reset=1";
-                },
-                900
-            );
 
+                    window.location.replace(
+                        "login.html?reset=1"
+                    );
+
+                },
+                700
+            );
 
         } catch (error) {
 
             console.error(
-                "VYRON password reset error:",
+                "[VYRON AUTH] Reset error:",
                 error
             );
 
@@ -2067,405 +2258,468 @@
     }
 
 
-    /* =====================================================
-       UTILITIES
-    ===================================================== */
-
-    function delay(milliseconds) {
-
-        return new Promise(
-            resolve =>
-                setTimeout(
-                    resolve,
-                    milliseconds
-                )
-        );
-    }
-
-
-    /* =====================================================
+    /* =========================================================
        LOGIN PAGE INITIALIZATION
-    ===================================================== */
+
+       IMPORTANT:
+       NO automatic redirect here.
+
+       This is deliberate to prevent the page-refresh loop.
+    ========================================================== */
+
     function initializeLoginPage() {
-        console.log(
-            "[VYRON AUTH] Checking login page..."
-        );
 
-        if (isSessionValid()) {
-            console.log(
-                "[VYRON AUTH] Existing session detected. Redirecting to dashboard."
-            );
+        const form =
+            $("#loginForm");
 
-            redirectToDashboard();
-            return;
-        }
-
-        const form = $("#loginForm");
 
         if (!form) {
-            console.log(
-                "[VYRON AUTH] #loginForm not present. Skipping login initialization."
-            );
+            return;
+        }
+
+
+        if (
+            form.dataset
+                .authInitialized ===
+            "true"
+        ) {
 
             return;
         }
 
-        if (form.dataset.authInitialized === "true") {
-            console.log(
-                "[VYRON AUTH] Login form already initialized."
-            );
 
-            return;
-        }
+        form.dataset
+            .authInitialized =
+            "true";
 
-        form.dataset.authInitialized = "true";
-
-        console.log(
-            "[VYRON AUTH] Attaching login submit event."
-        );
 
         form.addEventListener(
             "submit",
-            async event => {
+            event => {
+
                 event.preventDefault();
+
                 event.stopPropagation();
 
-                console.log(
-                    "[VYRON AUTH] Login form submitted."
-                );
 
-                try {
-                    await handleLogin(form);
-                } catch (error) {
-                    console.error(
-                        "[VYRON AUTH] Login submission error:",
-                        error
-                    );
+                handleLogin(form)
+                    .catch(error => {
 
-                    showMessage(
-                        "We could not complete the login. Please try again.",
-                        "error"
-                    );
+                        console.error(
+                            "[VYRON AUTH] Login submission error:",
+                            error
+                        );
 
-                    const button =
-                        $("#loginSubmit");
 
-                    restoreButton(button);
-                }
+                        showMessage(
+                            "We could not complete the login. Please try again.",
+                            "error"
+                        );
+
+
+                        restoreButton(
+                            $("#loginSubmit")
+                        );
+                    });
             }
         );
+
+
+        /* URL FEEDBACK */
 
         const params =
             new URLSearchParams(
                 window.location.search
             );
 
+
         const email =
             params.get("email");
 
+
         const emailInput =
             $("#email");
+
 
         if (
             email &&
             emailInput
         ) {
-            emailInput.value = email;
+
+            emailInput.value =
+                email;
         }
 
-        if (params.has("registered")) {
+
+        if (
+            params.has(
+                "registered"
+            )
+        ) {
+
             showMessage(
                 "Your account is ready. Sign in to continue.",
                 "success"
             );
         }
 
-        if (params.has("reset")) {
+
+        if (
+            params.has("reset")
+        ) {
+
             showMessage(
                 "Your password has been reset. Sign in with your new password.",
                 "success"
             );
         }
 
+
         if (
             params.has("logout") ||
             params.has("loggedout")
         ) {
+
             showMessage(
-                "You have been securely logged out. Please sign in again to continue.",
+                "You have been securely logged out. Please sign in again.",
                 "success"
             );
         }
 
-        if (params.has("timeout")) {
+
+        if (
+            params.has("timeout")
+        ) {
+
             showMessage(
-                "Your session expired after 5 minutes of inactivity. Please sign in again.",
+                "Your session expired after 60 minutes of inactivity. Please sign in again.",
                 "error"
             );
         }
-
-        console.log(
-            "[VYRON AUTH] Login initialization complete."
-        );
     }
 
-    /* =====================================================
+
+    /* =========================================================
        SIGNUP PAGE INITIALIZATION
-    ===================================================== */
+
+       IMPORTANT:
+       NO automatic redirect here either.
+    ========================================================== */
 
     function initializeSignupPage() {
-        console.log(
-            "[VYRON AUTH] Checking signup page..."
-        );
 
-        if (isSessionValid()) {
-            console.log(
-                "[VYRON AUTH] Existing session detected. Redirecting to dashboard."
-            );
+        const form =
+            $("#signupForm");
 
-            redirectToDashboard();
-            return;
-        }
-
-        const form = $("#signupForm");
-
-        if (!form) {
-            console.log(
-                "[VYRON AUTH] #signupForm not present. Skipping signup initialization."
-            );
-
-            return;
-        }
-
-        if (form.dataset.authInitialized === "true") {
-            console.log(
-                "[VYRON AUTH] Signup form already initialized."
-            );
-
-            return;
-        }
-
-        form.dataset.authInitialized = "true";
-
-        console.log(
-            "[VYRON AUTH] Attaching signup submit event."
-        );
-
-        form.addEventListener(
-            "submit",
-            async event => {
-                event.preventDefault();
-                event.stopPropagation();
-
-                console.log(
-                    "[VYRON AUTH] Signup form submitted."
-                );
-
-                try {
-                    await handleSignup(form);
-                } catch (error) {
-                    console.error(
-                        "[VYRON AUTH] Signup submission error:",
-                        error
-                    );
-
-                    showMessage(
-                        "We could not create your account. Please try again.",
-                        "error"
-                    );
-
-                    restoreButton(
-                        $("#signupSubmit")
-                    );
-                }
-            }
-        );
-
-        console.log(
-            "[VYRON AUTH] Signup initialization complete."
-        );
-    }
-
-
-    /* =====================================================
-       FORGOT PASSWORD INITIALIZATION
-    ===================================================== */
-
-    function initializeForgotPasswordPage() {
-        const form = $("#forgotForm");
 
         if (!form) {
             return;
         }
+
 
         if (
-            form.dataset.authInitialized ===
+            form.dataset
+                .authInitialized ===
             "true"
         ) {
+
             return;
         }
 
-        form.dataset.authInitialized =
+
+        form.dataset
+            .authInitialized =
             "true";
 
-        console.log(
-            "[VYRON AUTH] Attaching forgot-password submit event."
-        );
 
         form.addEventListener(
             "submit",
             event => {
+
                 event.preventDefault();
+
                 event.stopPropagation();
 
-                handleForgotPassword(form);
+
+                handleSignup(form)
+                    .catch(error => {
+
+                        console.error(
+                            "[VYRON AUTH] Signup submission error:",
+                            error
+                        );
+
+
+                        showMessage(
+                            "We could not create your account. Please try again.",
+                            "error"
+                        );
+
+
+                        restoreButton(
+                            $("#signupSubmit")
+                        );
+                    });
             }
         );
     }
 
 
-    /* =====================================================
-       RESET PASSWORD INITIALIZATION
-    ===================================================== */
+    /* =========================================================
+       FORGOT PASSWORD INITIALIZATION
+    ========================================================== */
 
-    function initializeResetPasswordPage() {
-        const form = $("#resetForm");
+    function initializeForgotPasswordPage() {
+
+        const form =
+            $("#forgotForm");
+
 
         if (!form) {
             return;
         }
 
+
         if (
-            form.dataset.authInitialized ===
+            form.dataset
+                .authInitialized ===
             "true"
         ) {
+
             return;
         }
 
-        form.dataset.authInitialized =
+
+        form.dataset
+            .authInitialized =
             "true";
+
+
+        form.addEventListener(
+            "submit",
+            event => {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+
+                handleForgotPassword(
+                    form
+                ).catch(error => {
+
+                    console.error(
+                        "[VYRON AUTH] Forgot-password error:",
+                        error
+                    );
+
+
+                    showMessage(
+                        "We could not process the recovery request.",
+                        "error"
+                    );
+                });
+            }
+        );
+    }
+
+
+    /* =========================================================
+       RESET PASSWORD INITIALIZATION
+    ========================================================== */
+
+    function initializeResetPasswordPage() {
+
+        const form =
+            $("#resetForm");
+
+
+        if (!form) {
+            return;
+        }
+
+
+        if (
+            form.dataset
+                .authInitialized ===
+            "true"
+        ) {
+
+            return;
+        }
+
+
+        form.dataset
+            .authInitialized =
+            "true";
+
 
         const token =
             getResetToken();
 
+
         const hiddenToken =
             $("#resetToken");
 
+
         if (hiddenToken) {
-            hiddenToken.value = token;
+
+            hiddenToken.value =
+                token;
         }
 
-        console.log(
-            "[VYRON AUTH] Attaching reset-password submit event."
-        );
 
         form.addEventListener(
             "submit",
             event => {
+
                 event.preventDefault();
+
                 event.stopPropagation();
 
-                handleResetPassword(form);
+
+                handleResetPassword(
+                    form
+                ).catch(error => {
+
+                    console.error(
+                        "[VYRON AUTH] Reset-password error:",
+                        error
+                    );
+
+
+                    showMessage(
+                        "We could not update the password. Please try again.",
+                        "error"
+                    );
+                });
             }
         );
     }
 
-    /* =========================================================
-    BOOT
-    ========================================================= */
 
-    let bootCompleted = false;
+    /* =========================================================
+       BOOT
+
+       AUTH.JS NEVER REDIRECTS DURING BOOT.
+
+       This is the critical loop-prevention change.
+    ========================================================== */
 
     function boot() {
-        if (bootCompleted) {
-            console.log(
-                "[VYRON AUTH] Boot already completed. Skipping."
-            );
 
+        if (bootCompleted) {
             return;
         }
 
-        bootCompleted = true;
+
+        bootCompleted =
+            true;
+
 
         try {
-            console.log(
-                "[VYRON AUTH] Boot starting..."
-            );
 
-            /*
-            * Common initialization.
-            */
             updateUserCount();
+
             initializePasswordToggles();
+
             initializePasswordStrength();
 
-            /*
-            * Session monitoring.
-            *
-            * This only actually starts if a valid
-            * session exists.
-            */
-            startInactivityMonitor();
 
             /*
-            * Page-specific initialization.
-            *
-            * Functions safely return if their form
-            * does not exist on the current page.
+                Only start the inactivity monitor
+                when a valid session already exists.
+
+                This does NOT redirect.
             */
+
+            if (
+                isSessionValid()
+            ) {
+
+                startInactivityMonitor();
+            }
+
+
             initializeLoginPage();
+
             initializeSignupPage();
+
             initializeForgotPasswordPage();
+
             initializeResetPasswordPage();
 
+
             console.log(
-                "[VYRON AUTH] Boot completed successfully."
+                "[VYRON AUTH] Authentication initialized successfully."
             );
 
         } catch (error) {
+
             console.error(
-                "[VYRON AUTH] Fatal boot error:",
+                "[VYRON AUTH] Fatal initialization error:",
                 error
             );
 
-            /*
-            * Allow a future manual retry if boot
-            * fails before initialization completes.
-            */
-            bootCompleted = false;
+
+            bootCompleted =
+                false;
+
+
+            const form =
+                $(
+                    "#loginForm, #signupForm, #forgotForm, #resetForm"
+                );
+
+
+            if (form) {
+
+                showMessage(
+                    "Authentication could not initialize. Please check the browser console.",
+                    "error"
+                );
+            }
         }
     }
 
+
     /* =========================================================
-    PUBLIC API
-    ========================================================= */
+       PUBLIC API
+    ========================================================== */
 
     window.VyronAuth = {
 
         isLoggedIn() {
+
             return isSessionValid();
         },
 
-        getCurrentSession() {
-            if (!isSessionValid()) {
-                return null;
-            }
 
-            return getSession();
+        getCurrentSession() {
+
+            return isSessionValid()
+                ? getSession()
+                : null;
         },
 
+
         getUsers() {
+
             return readStorage(
                 STORAGE.USERS,
                 []
             );
         },
 
+
         hasRegisteredAccounts() {
+
             return hasRegisteredAccounts();
         },
 
+
         getRegisteredUserCount() {
+
             const users =
                 readStorage(
                     STORAGE.USERS,
@@ -2477,51 +2731,71 @@
                 : 0;
         },
 
+
         requireAuth() {
+
             return requireAuthentication();
         },
 
-        goToAuth() {
-            routeUserToAuthentication();
+
+        goToLogin(
+            redirect = ""
+        ) {
+
+            redirectToLogin(
+                redirect
+            );
         },
 
-        goToLogin(redirect = "") {
-            redirectToLogin(redirect);
+
+        goToSignup(
+            redirect = ""
+        ) {
+
+            redirectToSignup(
+                redirect
+            );
         },
 
-        goToSignup(redirect = "") {
-            redirectToSignup(redirect);
-        },
 
         goToDashboard() {
+
             redirectToDashboard();
         },
 
+
         logout() {
+
             stopInactivityMonitor();
 
             localStorage.removeItem(
                 STORAGE.SESSION
             );
 
-            if (isInsideAuthDirectory()) {
-                window.location.replace(
-                    "login.html?loggedout=1"
-                );
-            } else {
-                window.location.replace(
-                    "auth/login.html?loggedout=1"
-                );
-            }
+
+            /*
+                Direct logout destination.
+
+                Since this function can be called from the
+                root dashboard, always use the auth path
+                explicitly.
+            */
+
+            window.location.replace(
+                "auth/login.html?logout=1"
+            );
         }
     };
 
 
     /* =========================================================
-    START VYRON AUTHENTICATION
-    ========================================================= */
+       START AUTHENTICATION
+    ========================================================== */
 
-    if (document.readyState === "loading") {
+    if (
+        document.readyState ===
+        "loading"
+    ) {
 
         document.addEventListener(
             "DOMContentLoaded",
@@ -2534,7 +2808,6 @@
     } else {
 
         boot();
-
     }
 
 })();

@@ -120,6 +120,47 @@
     --foreground-secondary: var(--text-secondary);
 }
 
+/* =========================================================
+   VYRON FITNESS — IMAGE / VISUAL TOKENS
+========================================================= */
+
+:root {
+    --image-glow:
+        0 0 80px
+        color-mix(
+            in srgb,
+            var(--accent) 18%,
+            transparent
+        );
+
+    --image-section-bg:
+        var(--bg-primary);
+
+    --image-grid:
+        rgba(255, 255, 255, 0.035);
+
+    --image-frame:
+        rgba(255, 255, 255, 0.025);
+}
+
+[data-theme="light"] {
+    --image-glow:
+        0 0 80px
+        color-mix(
+            in srgb,
+            var(--accent) 14%,
+            transparent
+        );
+
+    --image-section-bg:
+        var(--bg-primary);
+
+    --image-grid:
+        rgba(0, 0, 0, 0.045);
+
+    --image-frame:
+        rgba(0, 0, 0, 0.025);
+}
 
 /* =========================================================
    LIGHT THEME
