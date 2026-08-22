@@ -5,10 +5,20 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    // =====================================================
+    // AUTHENTICATION GUARD
+    // =====================================================
 
-    /* =====================================================
-       ELEMENTS
-    ====================================================== */
+    if (
+        !window.VyronAuth ||
+        !window.VyronAuth.requireAuth()
+    ) {
+        return;
+    }
+
+    // =====================================================
+    // ELEMENTS
+    // =====================================================
 
     const pageLoader =
         document.getElementById("pageLoader");

@@ -30,6 +30,31 @@
 
     const encoder = new TextEncoder();
 
+    /* =========================================================
+    SESSION CONFIGURATION
+    ========================================================= */
+
+    const SESSION_CONFIG = {
+        // Member is logged out after 5 minutes without activity.
+        INACTIVITY_TIMEOUT: 5 * 60 * 1000,
+
+        // Check inactivity every 10 seconds.
+        CHECK_INTERVAL: 10 * 1000,
+
+        // Do not write localStorage on every mouse movement.
+        ACTIVITY_THROTTLE: 30 * 1000,
+
+        // Events that count as user activity.
+        ACTIVITY_EVENTS: [
+            "click",
+            "mousemove",
+            "keydown",
+            "scroll",
+            "touchstart",
+            "touchmove"
+        ]
+    };
+
 
     /* =====================================================
        DOM HELPERS
@@ -190,12 +215,12 @@
 
 
     function createId() {
-
         if (
-            crypto &&
-            typeof crypto.randomUUID === "function"
+            globalThis.crypto &&
+            typeof globalThis.crypto.randomUUID ===
+                "function"
         ) {
-            return crypto.randomUUID();
+            return globalThis.crypto.randomUUID();
         }
 
         return [
@@ -448,9 +473,18 @@
     ===================================================== */
 
     function initializePasswordToggles() {
-
         $$("[data-toggle-password]")
             .forEach(button => {
+
+                if (
+                    button.dataset.passwordToggleInitialized ===
+                    "true"
+                ) {
+                    return;
+                }
+
+                button.dataset.passwordToggleInitialized =
+                    "true";
 
                 button.addEventListener(
                     "click",
@@ -461,27 +495,22 @@
                                 button.dataset.togglePassword
                             );
 
-
                         if (!input) {
                             return;
                         }
 
-
                         const showingPassword =
                             input.type === "text";
-
 
                         input.type =
                             showingPassword
                                 ? "password"
                                 : "text";
 
-
                         button.setAttribute(
                             "aria-pressed",
                             String(!showingPassword)
                         );
-
 
                         button.setAttribute(
                             "aria-label",
@@ -490,23 +519,22 @@
                                 : "Hide password"
                         );
 
-
-                        button.innerHTML = showingPassword
-                            ? `
-                                <i
-                                    class="fa-regular fa-eye"
-                                    aria-hidden="true"
-                                ></i>
-                              `
-                            : `
-                                <i
-                                    class="fa-regular fa-eye-slash"
-                                    aria-hidden="true"
-                                ></i>
-                              `;
+                        button.innerHTML =
+                            showingPassword
+                                ? `
+                                    <i
+                                        class="fa-regular fa-eye"
+                                        aria-hidden="true"
+                                    ></i>
+                                `
+                                : `
+                                    <i
+                                        class="fa-regular fa-eye-slash"
+                                        aria-hidden="true"
+                                    ></i>
+                                `;
                     }
                 );
-
             });
     }
 
@@ -516,65 +544,63 @@
     ===================================================== */
 
     function initializePasswordStrength() {
-
         const input = $("#password");
-
         const meter =
             $(".password-strength span");
-
 
         if (!input || !meter) {
             return;
         }
 
+        if (
+            input.dataset.strengthInitialized ===
+            "true"
+        ) {
+            return;
+        }
+
+        input.dataset.strengthInitialized =
+            "true";
 
         input.addEventListener(
             "input",
             () => {
-
                 const password =
                     input.value;
 
-
                 let score = 0;
-
 
                 if (password.length >= 8) {
                     score++;
                 }
 
-
                 if (password.length >= 12) {
                     score++;
                 }
-
 
                 if (/[A-Z]/.test(password)) {
                     score++;
                 }
 
-
                 if (/[a-z]/.test(password)) {
                     score++;
                 }
-
 
                 if (/\d/.test(password)) {
                     score++;
                 }
 
-
-                if (/[^A-Za-z0-9]/.test(password)) {
+                if (
+                    /[^A-Za-z0-9]/.test(password)
+                ) {
                     score++;
                 }
 
-
                 const percentage =
                     Math.min(
-                        score / 6 * 100,
+                        (score / 6) * 100,
                         100
                     );
-
 
                 meter.style.width =
                     `${percentage}%`;
@@ -627,20 +653,61 @@
         );
     }
 
-
     function isSessionValid() {
-
         const session = getSession();
 
-        if (!session) {
+        if (!session || typeof session !== "object") {
             return false;
         }
 
-        if (
-            session.expiresAt &&
-            Date.now() >= Number(session.expiresAt)
-        ) {
+        const now = Date.now();
 
+        const createdAtTimestamp =
+            Number(
+                session.createdAtTimestamp ||
+                new Date(session.createdAt).getTime()
+            );
+
+        const lastActivityAt =
+            Number(
+                session.lastActivityAt ||
+                createdAtTimestamp ||
+                0
+            );
+
+        if (!lastActivityAt) {
+            localStorage.removeItem(
+                STORAGE.SESSION
+            );
+
+            return false;
+        }
+
+        /*
+        * Five-minute inactivity timeout.
+        */
+        if (
+            now - lastActivityAt >=
+            SESSION_CONFIG.INACTIVITY_TIMEOUT
+        ) {
+            localStorage.removeItem(
+                STORAGE.SESSION
+            );
+
+            return false;
+        }
+
+        /*
+        * Keep expiresAt synchronized with
+        * the inactivity timestamp.
+        */
+        const expiresAt =
+            Number(session.expiresAt || 0);
+
+        if (
+            expiresAt &&
+            now >= expiresAt
+        ) {
             localStorage.removeItem(
                 STORAGE.SESSION
             );
@@ -651,6 +718,200 @@
         return true;
     }
 
+    /* =========================================================
+    INACTIVITY SESSION MANAGEMENT
+    ========================================================= */
+
+    let inactivityCheckTimer = null;
+    let inactivityMonitorStarted = false;
+
+    function getLastActivity() {
+        const session = getSession();
+
+        if (!session) {
+            return 0;
+        }
+
+        return Number(
+            session.lastActivityAt ||
+            session.createdAtTimestamp ||
+            0
+        );
+    }
+
+
+    function expireSession() {
+        localStorage.removeItem(
+            STORAGE.SESSION
+        );
+
+        stopInactivityMonitor();
+
+        const pathname =
+            window.location.pathname
+                .replace(/\\/g, "/");
+
+        if (
+            pathname.includes(
+                "/member-dashboard.html"
+            )
+        ) {
+            const currentPage =
+                pathname
+                    .split("/")
+                    .pop() ||
+                "member-dashboard.html";
+
+            const redirect =
+                `../${currentPage}`;
+
+            window.location.replace(
+                `auth/login.html?timeout=1&redirect=${encodeURIComponent(
+                    redirect
+                )}`
+            );
+        }
+    }
+
+
+    function checkSessionInactivity() {
+        const session = getSession();
+
+        if (!session) {
+            stopInactivityMonitor();
+            return;
+        }
+
+        const lastActivity =
+            Number(
+                session.lastActivityAt ||
+                session.createdAtTimestamp ||
+                0
+            );
+
+        if (!lastActivity) {
+            expireSession();
+            return;
+        }
+
+        const inactiveFor =
+            Date.now() - lastActivity;
+
+        if (
+            inactiveFor >=
+            SESSION_CONFIG.INACTIVITY_TIMEOUT
+        ) {
+            console.log(
+                "[VYRON AUTH] Session expired due to inactivity."
+            );
+
+            expireSession();
+        }
+    }
+
+    let lastActivityWrite = 0;
+
+    function updateSessionActivity() {
+        const session = getSession();
+
+        if (!session) {
+            return;
+        }
+
+        const now = Date.now();
+
+        /*
+        * Prevent excessive localStorage writes.
+        */
+        if (
+            now - lastActivityWrite <
+            SESSION_CONFIG.ACTIVITY_THROTTLE
+        ) {
+            return;
+        }
+
+        session.lastActivityAt = now;
+
+        /*
+        * Sliding inactivity expiration.
+        *
+        * The session expires 5 minutes AFTER
+        * the user's last recorded activity.
+        */
+        session.expiresAt =
+            now +
+            SESSION_CONFIG.INACTIVITY_TIMEOUT;
+
+        const saved = writeStorage(
+            STORAGE.SESSION,
+            session
+        );
+
+        if (saved) {
+            lastActivityWrite = now;
+        }
+    }
+
+
+    function startInactivityMonitor() {
+        if (inactivityMonitorStarted) {
+            return;
+        }
+
+        if (!isSessionValid()) {
+            return;
+        }
+
+        inactivityMonitorStarted = true;
+
+        SESSION_CONFIG.ACTIVITY_EVENTS.forEach(
+            eventName => {
+                document.addEventListener(
+                    eventName,
+                    updateSessionActivity,
+                    {
+                        passive: true
+                    }
+                );
+            }
+        );
+
+        inactivityCheckTimer =
+            window.setInterval(
+                checkSessionInactivity,
+                SESSION_CONFIG.CHECK_INTERVAL
+            );
+
+        console.log(
+            "[VYRON AUTH] Inactivity monitor started."
+        );
+    }
+
+
+    function stopInactivityMonitor() {
+        SESSION_CONFIG.ACTIVITY_EVENTS.forEach(
+            eventName => {
+                document.removeEventListener(
+                    eventName,
+                    updateSessionActivity
+                );
+            }
+        );
+
+        if (inactivityCheckTimer !== null) {
+            window.clearInterval(
+                inactivityCheckTimer
+            );
+
+            inactivityCheckTimer = null;
+        }
+
+        inactivityMonitorStarted = false;
+
+        console.log(
+            "[VYRON AUTH] Inactivity monitor stopped."
+        );
+    }
 
     function hasRegisteredAccounts() {
 
@@ -685,30 +946,64 @@
     * dashboard is one level above them.
     */
 
-    function redirectToLogin(redirect = "") {
-        let url = "login.html";
+    /* =========================================================
+    AUTH ROUTES
+    ========================================================= */
 
-        if (redirect) {
-            url += `?redirect=${encodeURIComponent(redirect)}`;
-        }
-
-        window.location.replace(url);
+    function isInsideAuthDirectory() {
+        return window.location.pathname
+            .replace(/\\/g, "/")
+            .includes("/auth/");
     }
+
+
+    /* ---------------------------------------------------------
+    LOGIN
+    --------------------------------------------------------- */
+
+    function redirectToLogin(redirect = "") {
+
+        const url = isInsideAuthDirectory()
+            ? "login.html"
+            : "auth/login.html";
+
+        const finalUrl = redirect
+            ? `${url}?redirect=${encodeURIComponent(redirect)}`
+            : url;
+
+        window.location.replace(finalUrl);
+    }
+
+
+    /* ---------------------------------------------------------
+    SIGNUP
+    --------------------------------------------------------- */
 
     function redirectToSignup(redirect = "") {
-        let url = "signup.html";
 
-        if (redirect) {
-            url += `?redirect=${encodeURIComponent(redirect)}`;
-        }
+        const url = isInsideAuthDirectory()
+            ? "signup.html"
+            : "auth/signup.html";
 
-        window.location.replace(url);
+        const finalUrl = redirect
+            ? `${url}?redirect=${encodeURIComponent(redirect)}`
+            : url;
+
+        window.location.replace(finalUrl);
     }
 
+
+    /* ---------------------------------------------------------
+    DASHBOARD
+    --------------------------------------------------------- */
+
     function redirectToDashboard() {
-        window.location.replace(
-            "../member-dashboard.html"
-        );
+
+        const dashboardUrl = isInsideAuthDirectory()
+            ? "../member-dashboard.html"
+            : "member-dashboard.html";
+
+        window.location.replace(dashboardUrl);
     }
 
 
@@ -741,51 +1036,41 @@
     ========================================================= */
 
     function requireAuthentication() {
-
         if (isSessionValid()) {
+
+            updateSessionActivity();
+            startInactivityMonitor();
+
             return true;
         }
-
-        /*
-        Remove stale session if necessary.
-        */
 
         localStorage.removeItem(
             STORAGE.SESSION
         );
 
-        /*
-        Remember the page the user attempted
-        to access.
-        */
+        stopInactivityMonitor();
 
         const currentPage =
             window.location.pathname
                 .split("/")
                 .pop();
 
-        if (
+        const requestedPage =
             currentPage &&
             currentPage !== "login.html" &&
             currentPage !== "signup.html"
-        ) {
-            const requestedPage =
-                `../${currentPage}`;
+                ? currentPage
+                : "";
 
-            if (hasRegisteredAccounts()) {
-                redirectToLogin(
-                    requestedPage
-                );
-            } else {
-                redirectToSignup(
-                    requestedPage
-                );
-            }
-
-            return false;
+        if (hasRegisteredAccounts()) {
+            redirectToLogin(
+                requestedPage
+            );
+        } else {
+            redirectToSignup(
+                requestedPage
+            );
         }
-
-        redirectToLogin();
 
         return false;
     }
@@ -1191,10 +1476,6 @@
             );
 
 
-        const remember =
-            data.get("remember") === "on";
-
-
         let valid = true;
 
 
@@ -1305,41 +1586,48 @@
                Create session
             ----------------------------------------- */
 
+            const now = Date.now();
+
             const session = {
-
-                userId:
-                    user.id,
-
-                email:
-                    user.email,
+                userId: user.id,
+                email: user.email,
 
                 name:
                     `${user.firstName} ${user.lastName}`,
 
                 createdAt:
-                    new Date().toISOString(),
+                    new Date(now).toISOString(),
+
+                createdAtTimestamp:
+                    now,
+
+                lastActivityAt:
+                    now,
 
                 expiresAt:
-                    Date.now() +
-                    (
-                        remember
-                            ? 2592000000
-                            : 14400000
-                    )
+                    now +
+                    SESSION_CONFIG.INACTIVITY_TIMEOUT
             };
 
+            const sessionSaved =
+                writeStorage(
+                    STORAGE.SESSION,
+                    session
+                );
 
-            writeStorage(
-                STORAGE.SESSION,
-                session
-            );
+            if (!sessionSaved) {
+                throw new Error(
+                    "Unable to create login session."
+                );
+            }
+
+            startInactivityMonitor();
 
 
             showMessage(
                 "Login successful. Opening VYRON...",
                 "success"
             );
-
 
             window.setTimeout(
                 () => {
@@ -1798,36 +2086,72 @@
     /* =====================================================
        LOGIN PAGE INITIALIZATION
     ===================================================== */
-
     function initializeLoginPage() {
-
-        /*
-        Logged-in members should not
-        see the login page.
-        */
+        console.log(
+            "[VYRON AUTH] Checking login page..."
+        );
 
         if (isSessionValid()) {
+            console.log(
+                "[VYRON AUTH] Existing session detected. Redirecting to dashboard."
+            );
 
             redirectToDashboard();
-
             return;
         }
 
-        const form =
-            $("#loginForm");
+        const form = $("#loginForm");
 
         if (!form) {
+            console.log(
+                "[VYRON AUTH] #loginForm not present. Skipping login initialization."
+            );
+
             return;
         }
+
+        if (form.dataset.authInitialized === "true") {
+            console.log(
+                "[VYRON AUTH] Login form already initialized."
+            );
+
+            return;
+        }
+
+        form.dataset.authInitialized = "true";
+
+        console.log(
+            "[VYRON AUTH] Attaching login submit event."
+        );
 
         form.addEventListener(
             "submit",
-            event => {
-
+            async event => {
                 event.preventDefault();
+                event.stopPropagation();
 
-                handleLogin(form);
+                console.log(
+                    "[VYRON AUTH] Login form submitted."
+                );
 
+                try {
+                    await handleLogin(form);
+                } catch (error) {
+                    console.error(
+                        "[VYRON AUTH] Login submission error:",
+                        error
+                    );
+
+                    showMessage(
+                        "We could not complete the login. Please try again.",
+                        "error"
+                    );
+
+                    const button =
+                        $("#loginSubmit");
+
+                    restoreButton(button);
+                }
             }
         );
 
@@ -1839,71 +2163,126 @@
         const email =
             params.get("email");
 
+        const emailInput =
+            $("#email");
+
         if (
             email &&
-            $("#email")
+            emailInput
         ) {
-
-            $("#email").value =
-                email;
+            emailInput.value = email;
         }
 
-        if (
-            params.get("registered")
-        ) {
-
+        if (params.has("registered")) {
             showMessage(
                 "Your account is ready. Sign in to continue.",
                 "success"
             );
         }
 
-        if (
-            params.get("reset")
-        ) {
-
+        if (params.has("reset")) {
             showMessage(
                 "Your password has been reset. Sign in with your new password.",
                 "success"
             );
         }
-    }
 
+        if (
+            params.has("logout") ||
+            params.has("loggedout")
+        ) {
+            showMessage(
+                "You have been securely logged out. Please sign in again to continue.",
+                "success"
+            );
+        }
+
+        if (params.has("timeout")) {
+            showMessage(
+                "Your session expired after 5 minutes of inactivity. Please sign in again.",
+                "error"
+            );
+        }
+
+        console.log(
+            "[VYRON AUTH] Login initialization complete."
+        );
+    }
 
     /* =====================================================
        SIGNUP PAGE INITIALIZATION
     ===================================================== */
 
     function initializeSignupPage() {
-
-        /*
-        Logged-in members should never
-        see the signup page.
-        */
+        console.log(
+            "[VYRON AUTH] Checking signup page..."
+        );
 
         if (isSessionValid()) {
+            console.log(
+                "[VYRON AUTH] Existing session detected. Redirecting to dashboard."
+            );
 
             redirectToDashboard();
-
             return;
         }
 
-        const form =
-            $("#signupForm");
+        const form = $("#signupForm");
 
         if (!form) {
+            console.log(
+                "[VYRON AUTH] #signupForm not present. Skipping signup initialization."
+            );
+
             return;
         }
+
+        if (form.dataset.authInitialized === "true") {
+            console.log(
+                "[VYRON AUTH] Signup form already initialized."
+            );
+
+            return;
+        }
+
+        form.dataset.authInitialized = "true";
+
+        console.log(
+            "[VYRON AUTH] Attaching signup submit event."
+        );
 
         form.addEventListener(
             "submit",
-            event => {
-
+            async event => {
                 event.preventDefault();
+                event.stopPropagation();
 
-                handleSignup(form);
+                console.log(
+                    "[VYRON AUTH] Signup form submitted."
+                );
 
+                try {
+                    await handleSignup(form);
+                } catch (error) {
+                    console.error(
+                        "[VYRON AUTH] Signup submission error:",
+                        error
+                    );
+
+                    showMessage(
+                        "We could not create your account. Please try again.",
+                        "error"
+                    );
+
+                    restoreButton(
+                        $("#signupSubmit")
+                    );
+                }
             }
+        );
+
+        console.log(
+            "[VYRON AUTH] Signup initialization complete."
         );
     }
 
@@ -1913,21 +2292,31 @@
     ===================================================== */
 
     function initializeForgotPasswordPage() {
-
-        const form =
-            $("#forgotForm");
-
+        const form = $("#forgotForm");
 
         if (!form) {
             return;
         }
 
+        if (
+            form.dataset.authInitialized ===
+            "true"
+        ) {
+            return;
+        }
+
+        form.dataset.authInitialized =
+            "true";
+
+        console.log(
+            "[VYRON AUTH] Attaching forgot-password submit event."
+        );
 
         form.addEventListener(
             "submit",
             event => {
-
                 event.preventDefault();
+                event.stopPropagation();
 
                 handleForgotPassword(form);
             }
@@ -1940,83 +2329,124 @@
     ===================================================== */
 
     function initializeResetPasswordPage() {
-
-        const form =
-            $("#resetForm");
-
+        const form = $("#resetForm");
 
         if (!form) {
             return;
         }
 
+        if (
+            form.dataset.authInitialized ===
+            "true"
+        ) {
+            return;
+        }
+
+        form.dataset.authInitialized =
+            "true";
 
         const token =
             getResetToken();
 
-
         const hiddenToken =
             $("#resetToken");
 
-
         if (hiddenToken) {
-
-            hiddenToken.value =
-                token;
+            hiddenToken.value = token;
         }
 
+        console.log(
+            "[VYRON AUTH] Attaching reset-password submit event."
+        );
 
         form.addEventListener(
             "submit",
             event => {
-
                 event.preventDefault();
+                event.stopPropagation();
 
                 handleResetPassword(form);
             }
         );
     }
 
+    /* =========================================================
+    BOOT
+    ========================================================= */
 
-    /* =====================================================
-       BOOT
-    ===================================================== */
+    let bootCompleted = false;
 
     function boot() {
+        if (bootCompleted) {
+            console.log(
+                "[VYRON AUTH] Boot already completed. Skipping."
+            );
 
-        updateUserCount();
+            return;
+        }
 
-        initializePasswordToggles();
+        bootCompleted = true;
 
-        initializePasswordStrength();
+        try {
+            console.log(
+                "[VYRON AUTH] Boot starting..."
+            );
 
-        initializeSignupPage();
+            /*
+            * Common initialization.
+            */
+            updateUserCount();
+            initializePasswordToggles();
+            initializePasswordStrength();
 
-        initializeLoginPage();
+            /*
+            * Session monitoring.
+            *
+            * This only actually starts if a valid
+            * session exists.
+            */
+            startInactivityMonitor();
 
-        initializeForgotPasswordPage();
+            /*
+            * Page-specific initialization.
+            *
+            * Functions safely return if their form
+            * does not exist on the current page.
+            */
+            initializeLoginPage();
+            initializeSignupPage();
+            initializeForgotPasswordPage();
+            initializeResetPasswordPage();
 
-        initializeResetPasswordPage();
+            console.log(
+                "[VYRON AUTH] Boot completed successfully."
+            );
+
+        } catch (error) {
+            console.error(
+                "[VYRON AUTH] Fatal boot error:",
+                error
+            );
+
+            /*
+            * Allow a future manual retry if boot
+            * fails before initialization completes.
+            */
+            bootCompleted = false;
+        }
     }
 
-
-    /* =====================================================
-       PUBLIC API
-    ===================================================== */
+    /* =========================================================
+    PUBLIC API
+    ========================================================= */
 
     window.VyronAuth = {
 
-        /* -----------------------------------------
-        SESSION
-        ----------------------------------------- */
-
         isLoggedIn() {
-
             return isSessionValid();
         },
 
-
         getCurrentSession() {
-
             if (!isSessionValid()) {
                 return null;
             }
@@ -2024,28 +2454,18 @@
             return getSession();
         },
 
-
-        /* -----------------------------------------
-        USERS
-        ----------------------------------------- */
-
         getUsers() {
-
             return readStorage(
                 STORAGE.USERS,
                 []
             );
         },
 
-
         hasRegisteredAccounts() {
-
             return hasRegisteredAccounts();
         },
 
-
         getRegisteredUserCount() {
-
             const users =
                 readStorage(
                     STORAGE.USERS,
@@ -2057,65 +2477,64 @@
                 : 0;
         },
 
-
-        /* -----------------------------------------
-        ROUTING
-        ----------------------------------------- */
-
         requireAuth() {
-
             return requireAuthentication();
         },
 
-
         goToAuth() {
-
             routeUserToAuthentication();
         },
 
-
         goToLogin(redirect = "") {
-
             redirectToLogin(redirect);
         },
 
-
         goToSignup(redirect = "") {
-
             redirectToSignup(redirect);
         },
 
-
         goToDashboard() {
-
             redirectToDashboard();
         },
 
-
-        /* -----------------------------------------
-        LOGOUT
-        ----------------------------------------- */
-
         logout() {
+            stopInactivityMonitor();
 
             localStorage.removeItem(
                 STORAGE.SESSION
             );
 
-            window.location.replace(
-                "auth/login.html"
-            );
+            if (isInsideAuthDirectory()) {
+                window.location.replace(
+                    "login.html?loggedout=1"
+                );
+            } else {
+                window.location.replace(
+                    "auth/login.html?loggedout=1"
+                );
+            }
         }
     };
 
 
-    /* =====================================================
-       START
-    ===================================================== */
+    /* =========================================================
+    START VYRON AUTHENTICATION
+    ========================================================= */
 
-    document.addEventListener(
-        "DOMContentLoaded",
-        boot
-    );
+    if (document.readyState === "loading") {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            boot,
+            {
+                once: true
+            }
+        );
+
+    } else {
+
+        boot();
+
+    }
 
 })();
