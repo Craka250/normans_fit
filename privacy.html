@@ -68,11 +68,54 @@
         referrerpolicy="no-referrer"
     >
 
-    <!-- SHARED VYRON CSS -->
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/navbar.css">
+    <!-- =========================================================
+         SHARED VYRON STYLES
+    ========================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="css/reset.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/variables.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/navbar.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/hero.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/sections.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/cards.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/animations.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/responsive.css"
+    >
 
     <!-- LEGAL PAGE -->
     <link rel="stylesheet" href="css/legal.css">
@@ -129,6 +172,27 @@
                 class="nav-link"
             >
                 Trainers
+            </a>
+
+            <a
+                href="members.html"
+                class="nav-link"
+            >
+                Mmembership
+            </a>
+
+            <a
+                href="nutrition.html"
+                class="nav-link"
+            >
+                Nutrition
+            </a>
+
+            <a
+                href="gallery.html"
+                class="nav-link"
+            >
+                Gallery
             </a>
 
             <a
@@ -843,107 +907,243 @@
 
 </main>
 
-
 <!-- =========================================================
-     FOOTER
-========================================================= -->
-
-<footer class="site-footer">
+     VYRON FITNESS — FOOTER
+========================================================== -->
+<footer class="site-footer" id="site-footer">
 
     <div class="container">
 
+        <!-- =================================================
+             FOOTER MAIN GRID
+        ================================================== -->
         <div class="footer-main">
 
+            <!-- =================================================
+                 BRAND / INTRO
+            ================================================== -->
             <div class="footer-brand">
 
-                <a
-                    href="index.html"
-                    class="brand"
-                >
+                <!-- =========================================================
+                    VYRON FITNESS LOGO
+                ========================================================== -->
+                <a href="index.html"
+                class="brand"
+                aria-label="VYRON Fitness home">
 
-                    <span class="brand-mark">
-                        V
-                    </span>
-
-                    <span class="brand-name">
-                        VYRON
-                        <small>FITNESS</small>
-                    </span>
+                    <img
+                        src="assets/images/vyron-logo.png"
+                        alt="VYRON Fitness"
+                        class="brand-logo"
+                    >
 
                 </a>
 
-                <p>
-                    Built different.
+                <p class="footer-brand-tagline">
+                    Built different.<br>
                     Built strong.
                 </p>
 
+                <p class="footer-brand-description">
+                    A performance-driven fitness environment built
+                    for people who are serious about strength,
+                    discipline and results.
+                </p>
+
+                <!-- SOCIAL MEDIA -->
+                <div class="footer-socials"
+                    aria-label="VYRON Fitness social media">
+
+                    <!-- Instagram -->
+                    <a
+                        href="https://www.instagram.com/vyronfitness_/"
+                        class="footer-social"
+                        aria-label="Follow VYRON Fitness on Instagram"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+
+                    <!-- Facebook -->
+                    <a
+                        href="https://www.facebook.com/profile.php?id=61593690567606"
+                        class="footer-social"
+                        aria-label="Follow VYRON Fitness on Facebook"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+
+                    <!-- WhatsApp -->
+                    <a
+                        href="https://wa.me/254759924243"
+                        class="footer-social"
+                        aria-label="Chat with VYRON Fitness on WhatsApp"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+
+                    <!-- TikTok -->
+                    <a
+                        href="https://www.tiktok.com/@vyron.fitness"
+                        class="footer-social"
+                        aria-label="Follow VYRON Fitness on TikTok"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+
+                    <!-- Email -->
+                    <a
+                        href="mailto:vyronfitnesske@gmail.com"
+                        class="footer-social"
+                        aria-label="Email VYRON Fitness"
+                    >
+                        <i class="fa-solid fa-envelope"></i>
+                    </a>
+
+                </div>
             </div>
 
 
+            <!-- =================================================
+                 EXPLORE
+            ================================================== -->
             <div class="footer-column">
 
-                <span>EXPLORE</span>
+                <span class="footer-column-title">
+                    EXPLORE
+                </span>
 
-                <a href="index.html#programs">
-                    Programs
+                <a href="programs.html">
+                    <span>Programs</span>
+                    <i class="fa-solid fa-arrow-right"></i>
                 </a>
 
-                <a href="index.html#trainers">
-                    Trainers
+                <a href="trainers.html">
+                    <span>Trainers</span>
+                    <i class="fa-solid fa-arrow-right"></i>
                 </a>
 
-                <a href="index.html#membership">
-                    Membership
+                <a href="members.html">
+                    <span>Membership</span>
+                    <i class="fa-solid fa-arrow-right"></i>
                 </a>
 
-                <a href="index.html#nutrition">
-                    Nutrition
+                <a href="nutrition.html">
+                    <span>Nutrition</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <a href="gallery.html">
+                    <span>Gallery</span>
+                    <i class="fa-solid fa-arrow-right"></i>
                 </a>
 
             </div>
 
 
+            <!-- =================================================
+                 COMPANY
+            ================================================== -->
             <div class="footer-column">
 
-                <span>COMPANY</span>
+                <span class="footer-column-title">
+                    COMPANY
+                </span>
 
                 <a href="about.html">
-                    About
-                </a>
-
-                <a href="index.html#gallery">
-                    Gallery
+                    <span>About VYRON</span>
+                    <i class="fa-solid fa-arrow-right"></i>
                 </a>
 
                 <a href="contact.html">
-                    Contact
+                    <span>Contact</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <!-- FAQ LINK — CONTACT PAGE -->
+                <a href="contact.html#faq">
+                    <span>FAQs</span>
+                    <i class="fa-solid fa-arrow-right"></i>
                 </a>
 
                 <a href="#">
-                    Careers
+                    <span>Careers</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <a href="#">
+                    <span>Privacy</span>
+                    <i class="fa-solid fa-arrow-right"></i>
                 </a>
 
             </div>
 
 
-            <div class="footer-column">
+            <!-- =================================================
+                CONTACT
+            ================================================== -->
+            <div class="footer-column footer-contact">
 
-                <span>CONNECT</span>
+                <span class="footer-column-title">
+                    GET IN TOUCH
+                </span>
 
-                <a href="#">
-                    Instagram
+                <!-- PHONE / WHATSAPP -->
+                <a
+                    href="tel:+254759924243"
+                    class="footer-contact-item"
+                    aria-label="Call VYRON Fitness"
+                >
+                    <span class="footer-contact-icon">
+                        <i class="fa-solid fa-phone"></i>
+                    </span>
+
+                    <span>
+                        <small>CALL US</small>
+                        +254 759 924 243
+                    </span>
                 </a>
 
-                <a href="#">
-                    Facebook
+                <!-- EMAIL -->
+                <a
+                    href="mailto:vyronfitnesske@gmail.com"
+                    class="footer-contact-item"
+                    aria-label="Email VYRON Fitness"
+                >
+                    <span class="footer-contact-icon">
+                        <i class="fa-solid fa-envelope"></i>
+                    </span>
+
+                    <span>
+                        <small>EMAIL</small>
+                        vyronfitnesske@gmail.com
+                    </span>
                 </a>
 
-                <a href="#">
-                    TikTok
-                </a>
+                <!-- LOCATION -->
+                <a
+                    href="https://www.google.com/maps/search/?api=1&query=Ugunja%2C+Siaya%2C+Kenya"
+                    class="footer-contact-item"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Find VYRON Fitness in Ugunja, Siaya"
+                >
+                    <span class="footer-contact-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </span>
 
-                <a href="#">
-                    YouTube
+                    <span>
+                        <small>LOCATION</small>
+                        Ugunja,<br>
+                        Siaya County, Kenya
+                    </span>
                 </a>
 
             </div>
@@ -951,6 +1151,35 @@
         </div>
 
 
+        <!-- =====================================================
+             FOOTER CTA STRIP
+        ====================================================== -->
+        <div class="footer-cta-strip">
+
+            <div>
+                <span>
+                    READY TO TRAIN DIFFERENT?
+                </span>
+
+                <strong>
+                    START YOUR VYRON JOURNEY.
+                </strong>
+            </div>
+
+            <a
+                href="members.html"
+                class="footer-cta-button"
+            >
+                GET STARTED
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+
+        </div>
+
+
+        <!-- =====================================================
+             FOOTER BOTTOM
+        ====================================================== -->
         <div class="footer-bottom">
 
             <span>
@@ -958,12 +1187,9 @@
                 SOME RIGHTS RESERVED.
             </span>
 
-            <div>
+            <div class="footer-bottom-links">
 
-                <a
-                    href="privacy.html"
-                    class="active"
-                >
+                <a href="privacy.html">
                     Privacy
                 </a>
 
@@ -971,12 +1197,20 @@
                     Terms
                 </a>
 
+                <!-- FAQ → CONTACT PAGE -->
+                <a href="contact.html#faq">
+                    FAQs
+                </a>
+
             </div>
+
+            <span class="footer-built">
+                BUILT FOR PERFORMANCE.
+            </span>
 
         </div>
 
     </div>
-
 </footer>
 
 
@@ -984,10 +1218,11 @@
      JAVASCRIPT
 ========================================================= -->
 
-<script src="js/main.js"></script>
-<script src="js/theme.js"></script>
-<script src="js/navbar.js"></script>
-<script src="js/animations.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/counters.js"></script>
+    <script src="js/main.js"></script>
 
 </body>
 
