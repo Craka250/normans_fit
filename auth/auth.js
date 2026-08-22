@@ -1118,8 +1118,25 @@
             window.setTimeout(
                 () => {
 
-                    window.location.href =
-                        `login.html?registered=1&email=${encodeURIComponent(email)}`;
+                    const requested =
+                        new URLSearchParams(
+                            window.location.search
+                        ).get("redirect");
+
+                    let destination =
+                        "login.html?registered=1&email=" +
+                        encodeURIComponent(email);
+
+                    if (requested) {
+
+                        destination +=
+                            "&redirect=" +
+                            encodeURIComponent(requested);
+                    }
+
+                    window.location.replace(
+                        destination
+                    );
 
                 },
                 850
