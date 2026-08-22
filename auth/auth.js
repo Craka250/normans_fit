@@ -1799,14 +1799,24 @@
 
     function initializeLoginPage() {
 
+        /*
+        Logged-in members should not
+        see the login page.
+        */
+
+        if (isSessionValid()) {
+
+            redirectToDashboard();
+
+            return;
+        }
+
         const form =
             $("#loginForm");
-
 
         if (!form) {
             return;
         }
-
 
         form.addEventListener(
             "submit",
@@ -1815,28 +1825,30 @@
                 event.preventDefault();
 
                 handleLogin(form);
+
             }
         );
-
 
         const params =
             new URLSearchParams(
                 window.location.search
             );
 
-
         const email =
             params.get("email");
 
-
-        if (email && $("#email")) {
+        if (
+            email &&
+            $("#email")
+        ) {
 
             $("#email").value =
                 email;
         }
 
-
-        if (params.get("registered")) {
+        if (
+            params.get("registered")
+        ) {
 
             showMessage(
                 "Your account is ready. Sign in to continue.",
@@ -1844,8 +1856,9 @@
             );
         }
 
-
-        if (params.get("reset")) {
+        if (
+            params.get("reset")
+        ) {
 
             showMessage(
                 "Your password has been reset. Sign in with your new password.",
@@ -1861,14 +1874,24 @@
 
     function initializeSignupPage() {
 
+        /*
+        Logged-in members should never
+        see the signup page.
+        */
+
+        if (isSessionValid()) {
+
+            redirectToDashboard();
+
+            return;
+        }
+
         const form =
             $("#signupForm");
-
 
         if (!form) {
             return;
         }
-
 
         form.addEventListener(
             "submit",
@@ -1877,6 +1900,7 @@
                 event.preventDefault();
 
                 handleSignup(form);
+
             }
         );
     }
@@ -1979,18 +2003,29 @@
 
     window.VyronAuth = {
 
+        /* -----------------------------------------
+        SESSION
+        ----------------------------------------- */
+
         isLoggedIn() {
 
-            const session =
-                readStorage(
-                    STORAGE.SESSION,
-                    null
-                );
-
-
-            return Boolean(session);
+            return isSessionValid();
         },
 
+
+        getCurrentSession() {
+
+            if (!isSessionValid()) {
+                return null;
+            }
+
+            return getSession();
+        },
+
+
+        /* -----------------------------------------
+        USERS
+        ----------------------------------------- */
 
         getUsers() {
 
@@ -2001,12 +2036,9 @@
         },
 
 
-        getCurrentSession() {
+        hasRegisteredAccounts() {
 
-            return readStorage(
-                STORAGE.SESSION,
-                null
-            );
+            return hasRegisteredAccounts();
         },
 
 
@@ -2018,12 +2050,49 @@
                     []
                 );
 
-
             return Array.isArray(users)
                 ? users.length
                 : 0;
         },
 
+
+        /* -----------------------------------------
+        ROUTING
+        ----------------------------------------- */
+
+        requireAuth() {
+
+            return requireAuthentication();
+        },
+
+
+        goToAuth() {
+
+            routeUserToAuthentication();
+        },
+
+
+        goToLogin(redirect = "") {
+
+            redirectToLogin(redirect);
+        },
+
+
+        goToSignup(redirect = "") {
+
+            redirectToSignup(redirect);
+        },
+
+
+        goToDashboard() {
+
+            redirectToDashboard();
+        },
+
+
+        /* -----------------------------------------
+        LOGOUT
+        ----------------------------------------- */
 
         logout() {
 
@@ -2031,9 +2100,9 @@
                 STORAGE.SESSION
             );
 
-
-            window.location.href =
-                "auth/login.html";
+            window.location.replace(
+                "auth/login.html"
+            );
         }
     };
 
