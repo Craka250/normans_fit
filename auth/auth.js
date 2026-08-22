@@ -1341,8 +1341,11 @@
 
             window.setTimeout(
                 () => {
-                    window.location.href =
-                        getSafeRedirect();
+
+                    window.location.replace(
+                        getSafeRedirect()
+                    );
+
                 },
                 600
             );
